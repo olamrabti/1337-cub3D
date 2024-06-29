@@ -1,20 +1,16 @@
 
 NAME = cub3D
-CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 AR = ar -r
 RM = rm -f
 HEAD = cub3D.h
-MK = make
 LIBFT = ./libft/libft.a
 HEADLIBFT = ./libft/libft.h
 BUILD = MLX42/build
 GNL = ./gnl/get_next_line.a
 MLX = MLX42/build/libmlx42.a  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
 
-
 SRC = main.c
-
 
 LIBFTSRC = ./libft/ft_atoi.c\
 		./libft/ft_bzero.c\
@@ -54,11 +50,8 @@ LIBFTSRC = ./libft/ft_atoi.c\
 		./libft/ft_putnbr_fd.c\
 		./libft/libft.h
 
-
 GNLSRC = ./gnl/get_next_line.c\
 		./gnl/get_next_line.h
-		
-
 
 OBJ = $(SRC:.c=.o)
 
@@ -70,24 +63,22 @@ $(BUILD):
 	fi
 
 $(LIBFT): $(LIBFTSRC)
-	$(MK) -C ./libft
-
+	make -C ./libft
 
 $(GNL): $(GNLSRC)
-	$(MK) -C ./gnl
+	make -C ./gnl
 
 $(NAME): $(BUILD) $(LIBFT) $(GNL) $(OBJ)
-	$(MK) -C MLX42/build
-	$(CC) $(OBJ) $(LIBFT) $(GNL)  $(MLX) -o $(NAME)
-
+	make -C MLX42/build
+	cc $(OBJ) $(LIBFT) $(GNL)  $(MLX) -o $(NAME)
 
 %.o : %.c $(HEAD)
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	cc -Wall -Wextra -Werror -Imlx -c $< -o $@
 clean:
 	$(RM) $(OBJ)
 	$(RM) main.o
-	$(MK) clean -C ./libft
-	$(MK) clean -C ./gnl
+	make clean -C ./libft
+	make clean -C ./gnl
 
 fclean: clean
 	$(RM) $(NAME)
