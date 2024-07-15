@@ -14,12 +14,13 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
 
 clean :
-	@rm -f $(OBJS) $(OBJS_bonus)
+	@rm -f $(OBJS)
+
 
 fclean : clean
-	@rm -f $(NAME) $(BONUS)
+	@rm -f $(NAME)
 
 re : fclean all
 
-%.o: %.c $(Headers)
+%.o: %.c cub3d.h
 	$(CC) $(CFLAGS) -c $< -o $@
