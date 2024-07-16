@@ -1,8 +1,8 @@
 NAME = mlx
 
-CC = gcc -fsanitize=address
+CC = gcc -fsanitize=address -g
 
-SRC =main.c
+SRC =main.c drawing_utils.c
 
 OBJS = $(SRC:.c=.o)
 

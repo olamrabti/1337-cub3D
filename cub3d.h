@@ -7,8 +7,15 @@
 #include </home/oussama/Desktop/1337-cub3D/MLX42/include/MLX42/MLX42.h>
 #include <math.h>
 
-#define WIDTH 576
-#define HEIGHT 576
+#define WIDTH 500
+#define HEIGHT 500
+#define SIZE 20
+
+# define BLACK 0x000000
+# define WHITE 0xFFFFFF
+# define RED 0xFF0000
+# define BLUE 0x0000FF
+# define YELLOW 0xFFFF00
 
 typedef struct player
 {
@@ -20,5 +27,8 @@ typedef struct player
 	double move_speed;
 	double rot_speed;
 } t_player;
+
+
+void draw_rect(mlx_image_t *img, int x , int y, int color);
 
 #endif
