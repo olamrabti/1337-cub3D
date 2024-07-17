@@ -17,19 +17,19 @@ void	hook(void* arg)
 	x = 0;
 	y = 0;
 
-	while (x <= WIDTH / SIZE)
+	while (i < 12)
 	{
 		j = 0;
 		y = 0;
 		// draw line of rects
-		while (y <= HEIGHT / SIZE )
+		while (map[i][j])
 		{
 			draw_rect(img,x, y, (int)map[i][j] - 48);
 			j++;
-			y += SIZE ;
+			y += HEIGHT / 12 ;
 		}
 		i++;
-		x += SIZE;
+		x += WIDTH / 12;
 		// then move to the other colomn of rects
 	}
 
@@ -42,21 +42,9 @@ int	main(void)
 	mlx_t*    mlx;
 	// t_player player;
 
-	char* map[12] = {
-		"111111111111",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"100000000001",
-		"111111111111"
-	};
-	
+	char **map;
+
+	map = parse_map();
 	// player.x = WIDTH/2;
 	// player.y = HEIGHT/2;
 	// player.turn_direction = 0;

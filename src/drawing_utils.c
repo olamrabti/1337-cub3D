@@ -8,13 +8,13 @@ void draw_rect(mlx_image_t *img, int x , int y, int color)
     tmp_x = x ;
     tmp_y = y ;
     
-    while (tmp_x < WIDTH) 
+    // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
+    while (tmp_x < x + (WIDTH / 12)) 
     {
         tmp_y = y;
-        while (tmp_y <= HEIGHT) 
+        while (tmp_y < y + (HEIGHT / 12)) 
         {
-            // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
-            if (color == 1 && tmp_x % SIZE && tmp_y % SIZE)
+            if (color == 1 && tmp_x % (HEIGHT / 12) && tmp_y % (HEIGHT / 12))
                 mlx_put_pixel(img , tmp_x , tmp_y , WHITE);
             else
                 mlx_put_pixel(img, tmp_x , tmp_y , BLACK);

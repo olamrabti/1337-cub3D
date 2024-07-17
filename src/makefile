@@ -1,12 +1,12 @@
-NAME = mlx
+NAME = cub3D
 
 CC = gcc -fsanitize=address -g
 
-SRC =main.c drawing_utils.c
+SRC =main.c drawing_utils.c parsing.c
 
 OBJS = $(SRC:.c=.o)
 
-MLX = libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+MLX = libmlx42.a -Iinclude -ldl -lglfw -pthread -lm #libmlx.a should not be included in files it should be made during make.
 
 all : $(NAME)
 
