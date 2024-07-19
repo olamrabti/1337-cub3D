@@ -3,11 +3,11 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "../Libft/libft.h"
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
-#endif
+# define BUFFER_SIZE 20
 
 char	*get_next_line(int fd);
+void	ft_strcpy(char *dst, const char *src);
 
 #endif

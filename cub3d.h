@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include </home/oussama/Desktop/1337-cub3D/MLX42/include/MLX42/MLX42.h>
+#include </home/oussama/Desktop/1337-cub3D/Libft/libft.h>
+#include </home/oussama/Desktop/1337-cub3D/gnl/get_next_line.h>
 #include <math.h>
 
 #define WIDTH 500
@@ -17,6 +19,8 @@
 # define BLUE 0x0000FF
 # define YELLOW 0xFFFF00
 
+#include <fcntl.h>
+
 typedef struct player
 {
 	int x;
@@ -28,7 +32,18 @@ typedef struct player
 	double rot_speed;
 } t_player;
 
+typedef struct s_addr
+{
+	void				*address;
+	struct s_addr		*nxt;
+}	t_addr;
 
+
+int		add_addr(t_addr **list, t_addr *new);
+void	ft_lstclear(t_addr **lst, void (*del)(void *));
+void	*ft_calloc_ac(t_addr **addr, size_t count, size_t size);
+t_addr	*new_addr(char *value);
+char **parse_map(t_addr *addr, char *filename);
 void draw_rect(mlx_image_t *img, int x , int y, int color);
 
 #endif

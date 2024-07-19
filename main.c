@@ -40,11 +40,14 @@ int	main(void)
 {
 	mlx_image_t	*img;
 	mlx_t*    mlx;
+	t_addr *addr;
 	// t_player player;
+
+	addr = NULL;
 
 	char **map;
 
-	map = parse_map();
+	map = parse_map(addr, "./maps/example.map");
 	// player.x = WIDTH/2;
 	// player.y = HEIGHT/2;
 	// player.turn_direction = 0;
@@ -59,9 +62,10 @@ int	main(void)
 		exit(EXIT_FAILURE);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx, img, 0, 0);
-	draw_map(map, img);
+	// draw_map(map, img);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+	ft_lstclear(&addr, free);
 	return (EXIT_SUCCESS);
 }

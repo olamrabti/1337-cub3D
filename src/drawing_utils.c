@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void draw_rect(mlx_image_t *img, int x , int y, int color)
 {
