@@ -1,8 +1,14 @@
 NAME = cub3D
 
-CC = cc -fsanitize=address -g
+CC = cc  -g -fsanitize=address
 
-SRC = main.c src/drawing_utils.c src/parsing.c gnl/get_next_line.c src/address_collector.c src/address_collector_utils.c
+SRC = main.c\
+		src/drawing_utils.c\
+		src/parsing.c\
+		src/address_collector.c\
+		src/address_collector_utils.c\
+		get_next_line/get_next_line.c\
+
 
 OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
 
@@ -33,5 +39,5 @@ fclean : clean
 
 re : fclean all
 
-%.o: %.c cub3d.h gnl/get_next_line.h Libft/libft.h
+%.o: %.c cub3d.h get_next_line/get_next_line.h Libft/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
