@@ -17,24 +17,22 @@ void	hook(void* arg)
 	x = 0;
 	y = 0;
 
-	while (i < 12)
+	while (i < 7)
 	{
 		j = 0;
 		y = 0;
-		// draw line of rects
 		while (map[i][j])
 		{
-			draw_rect(img,x, y, (int)map[i][j] - 48);
+			draw_rect(img,y, x, (int)map[i][j] - 48);
 			j++;
-			y += HEIGHT / 12 ;
+			y += HEIGHT / 9;
 		}
 		i++;
-		x += WIDTH / 12;
-		// then move to the other colomn of rects
+		x += WIDTH / 9;
 	}
 
  }
-// update player position
+
 
 int	main(void)
 {
@@ -48,6 +46,7 @@ int	main(void)
 	char **map;
 
 	map = parse_map(addr, "./maps/example.map");
+
 	// player.x = WIDTH/2;
 	// player.y = HEIGHT/2;
 	// player.turn_direction = 0;
@@ -62,10 +61,10 @@ int	main(void)
 		exit(EXIT_FAILURE);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx, img, 0, 0);
-	// draw_map(map, img);
+	draw_map(map, img);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	ft_lstclear(&addr, free);
+	// ft_lstclear(&addr, free);
 	return (EXIT_SUCCESS);
 }

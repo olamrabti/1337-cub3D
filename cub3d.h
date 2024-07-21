@@ -9,8 +9,8 @@
 #include </home/oussama/Desktop/1337-cub3D/gnl/get_next_line.h>
 #include <math.h>
 
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 600
+#define HEIGHT 600
 #define SIZE 20
 
 # define BLACK 0x000000

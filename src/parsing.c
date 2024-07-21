@@ -12,10 +12,15 @@ void get_lines_infos(int *infos, char *filename)
         line = get_next_line(fd);
         if (!line)
             break;
-        printf("len : %ld\n", ft_strlen(line));
-        printf("line : %s\n", line);
-        if (ft_strlen(line) > infos[1])
-            infos[1] = ft_strlen(line);
+        if (ft_strlen(line) >= infos[1])
+        {
+            if (ft_strchr(line, '\n'))
+                infos[1] = ft_strlen(line) - 1;
+            else
+                infos[1] = ft_strlen(line);
+        }
+        // printf("len : %d\n", infos[1]);
+        // printf("line : %s\n", line);
         n++;
         free(line);
     }
@@ -27,31 +32,23 @@ int fill_map(t_addr *addr, char **tmp, int *infos, char *filename)
 { 
     int fd;
     int i;
-    int j;
     char *line;
 
     fd = open(filename, O_RDONLY);
     i = 0;
-    j = 0;
     while(i < infos[0])
     {
         tmp[i] = ft_calloc_ac(&addr, infos[1], sizeof(char));
-        if (!tmp[i])
-            return 1;
         line = get_next_line(fd);
         if (!line)
             return 1;
-        j = ft_strlen(line);
-        // if (j == 1) // fiha nl skip it
-        // you can neglect the rest of the len !!
-        ft_strcpy(tmp[i], line);
-        while (j < infos[1])
-        {
-            tmp[i][j] = '0';
-            j++;
-        }
-        i++;
+        tmp[i] = ft_strtrim(line, "\n");
+	    printf("tmp [%d] : %s\n",i, tmp[i]);
+        free(line);
+        if (tmp[i][0])
+            i++;
     }
+    close(fd);
     return 0;
 }
 
@@ -65,7 +62,6 @@ char **parse_map(t_addr *addr, char *filename)
         tmp = ft_calloc_ac(&addr, infos[0], sizeof(char *));
     if (!tmp)
         return NULL;
-    // if (fill_map(addr, tmp, infos, filename))
-    //     return NULL;
+    fill_map(addr, tmp, infos, filename);
     return tmp;
 }

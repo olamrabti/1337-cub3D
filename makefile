@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = cc -fsanitize=address -g
+CC = cc -g #-fsanitize=address -g
 
 SRC = main.c src/drawing_utils.c src/parsing.c gnl/get_next_line.c src/address_collector.c src/address_collector_utils.c
 
