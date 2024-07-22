@@ -43,7 +43,7 @@ int fill_map(t_addr *addr, char **tmp, int *infos, char *filename)
         if (!line)
             return 1;
         tmp[i] = ft_strtrim(line, "\n");
-	    printf("tmp [%d] : %s\n",i, tmp[i]);
+	    printf("%s\n", tmp[i]);
         free(line);
         if (tmp[i][0])
             i++;

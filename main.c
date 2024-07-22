@@ -1,12 +1,17 @@
 #include "cub3d.h"
 
+int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
 void	hook(void* arg)
 {
 	if (mlx_is_key_down((mlx_t*)arg, MLX_KEY_ESCAPE))
 		mlx_close_window((mlx_t*)arg);
 }
 
- void draw_map (char **map, mlx_image_t *img)
+ void draw_map (t_data data)
  {
 	int i;
 	int j;
@@ -21,50 +26,43 @@ void	hook(void* arg)
 	{
 		j = 0;
 		y = 0;
-		while (map[i][j])
+		while (data.map[i][j])
 		{
-			draw_rect(img,y, x, (int)map[i][j] - 48);
+			draw_rect(data.img,y, x, (int)data.map[i][j] - 48);
 			j++;
-			y += HEIGHT / 9;
+			y += SIZE;
 		}
 		i++;
-		x += WIDTH / 9;
+		x += SIZE;
 	}
 
  }
 
-
 int	main(void)
 {
-	mlx_image_t	*img;
-	mlx_t*    mlx;
-	t_addr *addr;
-	// t_player player;
+	t_data data;
 
-	addr = NULL;
-
-	char **map;
-
-	map = parse_map(addr, "./maps/example.map");
-
-	// player.x = WIDTH/2;
-	// player.y = HEIGHT/2;
-	// player.turn_direction = 0;
-	// player.walk_direction = 0;
-	// player.rotation_angle = M_PI / 2;
-	// player.move_speed = 3.0;
-	// player.rot_speed = 2 * M_PI / 180;
+	data.addr = NULL;
+	data.map = parse_map(data.addr, "./maps/example.map");
+	data.player.x = WIDTH / 8;
+	data.player.y = HEIGHT / 6;
+	data.player.turn_direction = 0;
+	data.player.walk_direction = 0;
+	data.player.rotation_angle = M_PI / 2;
+	data.player.move_speed = 3.0;
+	data.player.rot_speed = 2 * M_PI / 180;
 
 	// TODO protect MLX utils if each one fails
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	if (!mlx)
+	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!data.mlx)
 		exit(EXIT_FAILURE);
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(mlx, img, 0, 0);
-	draw_map(map, img);
-	mlx_loop_hook(mlx, &hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	// ft_lstclear(&addr, free);
+	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(data.mlx, data.img, 0, 0);
+	draw_map(data);
+	draw_player(data);
+	mlx_loop_hook(data.mlx, &key_event_handler, &data);
+	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
+	ft_addrclear(&data.addr, free);
 	return (EXIT_SUCCESS);
 }

@@ -1,9 +1,10 @@
 NAME = cub3D
 
-CC = cc  -g -fsanitize=address
+CC = cc  -g #-fsanitize=address
 
 SRC = main.c\
 		src/drawing_utils.c\
+		src/player.c\
 		src/parsing.c\
 		src/address_collector.c\
 		src/address_collector_utils.c\
