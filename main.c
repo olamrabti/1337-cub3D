@@ -11,39 +11,40 @@ void	hook(void* arg)
 		mlx_close_window((mlx_t*)arg);
 }
 
- void draw_map (t_data data)
- {
+void draw_map (t_data *data)
+{
 	int i;
 	int j;
-	int x;
-	int y;
+	int x; // 
+	int y; // 
 
 	i = 0;
 	x = 0;
 	y = 0;
-
-	while (i < 7)
+	while (i < data->lines) // 
 	{
 		j = 0;
 		y = 0;
-		while (data.map[i][j])
+		while (j < ft_strlen(data->map[i])) // 
 		{
-			draw_rect(data.img,y, x, (int)data.map[i][j] - 48);
+			if (data->map[i][j])
+				draw_rect(data->img,y, x, (int)data->map[i][j] - 48);
+			else 
+				draw_rect(data->img,y, x, 0);
 			j++;
 			y += SIZE;
 		}
 		i++;
 		x += SIZE;
 	}
-
- }
+}
 
 int	main(void)
 {
 	t_data data;
 
 	data.addr = NULL;
-	data.map = parse_map(data.addr, "./maps/example.map");
+	parse_map(&data, "./maps/example.map");
 	data.player.x = WIDTH / 8;
 	data.player.y = HEIGHT / 6;
 	data.player.turn_direction = 0;
@@ -58,7 +59,7 @@ int	main(void)
 		exit(EXIT_FAILURE);
 	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
-	draw_map(data);
+	draw_map(&data);
 	draw_player(data);
 	mlx_loop_hook(data.mlx, &key_event_handler, &data);
 	mlx_loop(data.mlx);

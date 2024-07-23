@@ -9,10 +9,10 @@ void draw_rect(mlx_image_t *img, int x , int y, int color)
     tmp_y = y ;
     
     // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
-    while (tmp_x < x + SIZE) 
+    while (tmp_x <= x + SIZE) 
     {
         tmp_y = y;
-        while (tmp_y < y + SIZE) 
+        while (tmp_y <= y + SIZE) 
         {
             if (color == 1 && (tmp_y % SIZE) && (tmp_x % SIZE))
                 mlx_put_pixel(img , tmp_x , tmp_y , get_rgba(255,255,255,255));

@@ -11,22 +11,26 @@
 void update_player(t_data *data)
 {
 	int step;
+	int projected_x;
+	int projected_y;
 
 	data->player.rotation_angle += data->player.turn_direction * data->player.rot_speed;
 	step = data->player.walk_direction * data->player.move_speed;
-	data->player.x += cos(data->player.rotation_angle) * step;
-	data->player.y += sin(data->player.rotation_angle) * step;
+	projected_x = data->player.x + cos(data->player.rotation_angle) * step;
+	projected_y = data->player.y + sin(data->player.rotation_angle) * step;
     // printf("%d\n", data->player.turn_direction);
     // printf("%d\n", data->player.walk_direction);
-    printf("rot : %d\n", data->player.rotation_angle);
-    printf("step : %d\n", step);
+    // printf("rot : %d\n", data->player.rotation_angle);
+    // printf("step : %d\n", step);
 
-    printf("x : %d , y : ", data->player.x);
-    printf("%d\n", data->player.y);
-	
-	if (data->player.x < WIDTH && data->player.x > 0 && data->player.y < HEIGHT && data->player.y > 0)
+    // printf("x : %d , y : ", data->player.x);
+    // printf("%d\n", data->player.y);
+
+	if (projected_x < SIZE * 8 && projected_x > SIZE && projected_y < SIZE * 6 && projected_y > SIZE)
 	{
-		draw_map(*data);
+		data->player.x += cos(data->player.rotation_angle) * step;
+		data->player.y += sin(data->player.rotation_angle) * step;
+		draw_map(data);
 		draw_player(*data);
 	}
 }
@@ -40,18 +44,18 @@ void key_event_handler(void *arg)
     data = arg;
     if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
-    if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		data->player.walk_direction = 1;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		data->player.turn_direction = 1;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		data->player.walk_direction = -1;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		data->player.turn_direction = -1;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		data->player.walk_direction = -1;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		data->player.walk_direction = 1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		data->player.walk_direction = -1;
+    // else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		// data->player.walk_direction = 1;
+	// else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		// data->player.walk_direction = -1;
     else 
     {
 		data->player.walk_direction = 0;

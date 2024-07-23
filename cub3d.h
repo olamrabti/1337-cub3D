@@ -13,7 +13,7 @@
 
 #define WIDTH 600
 #define HEIGHT 600
-#define SIZE 20
+#define SIZE 40
 
 
 typedef struct player
@@ -40,6 +40,8 @@ typedef struct s_data
 	t_addr *addr;
 	t_player player;
 	char **map;
+	int lines;
+	// int tile_size;
 
 }	t_data;
 
@@ -47,11 +49,12 @@ int		add_addr(t_addr **list, t_addr *new);
 void	*ft_calloc_ac(t_addr **addr, size_t count, size_t size);
 t_addr	*new_addr(char *value);
 void	ft_addrclear(t_addr **lst, void (*del)(void *));
-char **parse_map(t_addr *addr, char *filename);
+// char **parse_map(t_addr *addr, char *filename);
+void parse_map(t_data *data, char *filename);
 void draw_rect(mlx_image_t *img, int x , int y, int color);
 void draw_player(t_data data);
 int get_rgba(int r, int g, int b, int a);
 void draw_circle(mlx_image_t *img, int x0, int y0);
 void key_event_handler(void *arg);
- void draw_map (t_data data);
+void draw_map (t_data *data);
 #endif

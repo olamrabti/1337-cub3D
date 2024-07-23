@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = cc  -g #-fsanitize=address
+CC = cc  -g -fsanitize=address
 
 SRC = main.c\
 		src/drawing_utils.c\
