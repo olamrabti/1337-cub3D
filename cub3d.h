@@ -53,4 +53,5 @@ void draw_player(t_data data);
 int get_rgba(int r, int g, int b, int a);
 void draw_circle(mlx_image_t *img, int x0, int y0);
 void key_event_handler(void *arg);
+ void draw_map (t_data data);
 #endif

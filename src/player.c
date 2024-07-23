@@ -3,15 +3,32 @@
  void draw_player(t_data data)
  {
 	// printf ("player x : %d , player y : %d\n", player->x, player->x);
-	draw_circle(data.img, data.player.y, data.player.x);
+	draw_circle(data.img, data.player.x, data.player.y);
  }
 
 
 // update player based on walk direction and turn direction
-void update_player(t_data data)
+void update_player(t_data *data)
 {
-    printf("%d\n", data.player.turn_direction);
-    printf("%d\n", data.player.walk_direction);
+	int step;
+
+	data->player.rotation_angle += data->player.turn_direction * data->player.rot_speed;
+	step = data->player.walk_direction * data->player.move_speed;
+	data->player.x += cos(data->player.rotation_angle) * step;
+	data->player.y += sin(data->player.rotation_angle) * step;
+    // printf("%d\n", data->player.turn_direction);
+    // printf("%d\n", data->player.walk_direction);
+    printf("rot : %d\n", data->player.rotation_angle);
+    printf("step : %d\n", step);
+
+    printf("x : %d , y : ", data->player.x);
+    printf("%d\n", data->player.y);
+	
+	if (data->player.x < WIDTH && data->player.x > 0 && data->player.y < HEIGHT && data->player.y > 0)
+	{
+		draw_map(*data);
+		draw_player(*data);
+	}
 }
 
 
@@ -41,5 +58,5 @@ void key_event_handler(void *arg)
 		data->player.turn_direction = 0;
     }
     if (data->player.walk_direction || data->player.turn_direction)
-        update_player(*data);
+        update_player(data);
 }
