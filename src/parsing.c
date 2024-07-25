@@ -52,9 +52,9 @@ void parse_map(t_data *data, char *filename)
     get_map_lines(data, filename);
     if (data->lines)
         data->map = ft_calloc_ac(&data->addr, data->lines + 1, sizeof(char *));
-    // printf("rows : %d, lines : %d\n", data->rows, data->lines);
+    // printf("lines : %d\n", data->lines);
     if (!data->map)
-        return ;
+        exit(1);
     data->map[data->lines] = NULL;
     fill_map(data, filename);
 }
