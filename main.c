@@ -46,12 +46,12 @@ int	main(void)
 
 	data.addr = NULL;
 	parse_map(&data, "./maps/example.map");
-	data.player.x = WIDTH / 8;
-	data.player.y = HEIGHT / 6;
-	data.player.turn_direction = 0;
+	data.player.x = WIDTH / 16;
+	data.player.y = HEIGHT / 16;
+	data.player.turn_direction = 1;
 	data.player.walk_direction = 0;
 	data.player.rotation_angle = M_PI / 2;
-	data.player.move_speed = 3.0;
+	data.player.move_speed = 2.0;
 	data.player.rot_speed = 2 * M_PI / 180;
 
 	// TODO protect MLX utils if each one fails

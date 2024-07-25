@@ -34,6 +34,7 @@ void update_player(t_data *data)
 
 		data->player.x += cos(data->player.rotation_angle) * step;
 		data->player.y += sin(data->player.rotation_angle) * step;
+   		clear_screen(data->img, get_rgba(0, 0, 0, 255));
 		draw_map(data);
 		draw_player(*data);
 	}
