@@ -98,7 +98,7 @@ int is_wall(t_data data, int x, int y)
 
     // printf("map : %c", data.map[y / SIZE][x / SIZE]);
     // printf("x /size : %d, y / size : %d\n", x /SIZE, y/SIZE );
-    if (y < 0 || x < 0 || (y / SIZE) >= data.lines || (x / SIZE) >= ft_strlen(data.map[y / SIZE]))
+    if (y < 0 || x < 0 || y > (data.lines * SIZE) - SIZE || x  > (ft_strlen(data.map[y / SIZE]) * SIZE - SIZE))
         return 0;
     if (data.map[y / SIZE][x / SIZE] == '1')
         return 1;
@@ -115,15 +115,41 @@ void clear_screen(mlx_image_t *img, int color)
     }
 }
 
+void render_wall(t_data data, int distance , int x)
+{
+    int wall_height;
+    int wall_top;
+    int wall_bottom;
+    double scale;
+
+    scale = 2;
+    if (!distance)
+        distance = 1;
+    wall_height = ((int)(HEIGHT / distance) * scale);
+    wall_top = (HEIGHT - wall_height) / 2;
+    wall_bottom = (HEIGHT + wall_height) / 2;
+
+    // printf("wall_top : %d\n", wall_top);
+    while (wall_top < wall_bottom)
+    {
+        wall_top++;
+        protected_ppx(data.img, x , wall_top, get_rgba(255, 200, 0, 255));
+    }
+}
 
 void draw_rays(t_data data)
 {
     double angle;
+    int distance;
+    int x;
 
     angle = data.player.rotation_angle - (M_PI / 6);
     while (angle <= data.player.rotation_angle + (M_PI / 6))
     {
-        draw_line(data, data.player.x, data.player.y, data.player.x + cos(angle) * WIDTH, data.player.y + sin(angle) * HEIGHT);
-        angle += 0.01;
+        distance = draw_line(data, data.player.x, data.player.y, data.player.x + cos(angle) * WIDTH, data.player.y + sin(angle) * HEIGHT);
+        x = (angle - (data.player.rotation_angle - (M_PI / 6))) / (M_PI / 3) * WIDTH;
+        // printf("x : %d\n", x);
+        render_wall(data, distance, x);
+        angle += (M_PI / 6) / (WIDTH);
     }
 }
