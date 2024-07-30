@@ -14,6 +14,7 @@
 #define WIDTH 600
 #define HEIGHT 600
 #define SIZE 20
+#define FOV_ANGL (M_PI / 3)
 
 
 typedef struct player

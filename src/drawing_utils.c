@@ -52,7 +52,7 @@ void draw_circle(mlx_image_t *img, int x_center, int y_center)
 double get_distance(t_data data, int x_wall, int y_wall, int num_pixels)
 {
     // if (num_pixels < 1)
-        // return 0.0;
+    // return 0.0;
     double total_distance = 0.0;
     int dx = x_wall - data.player.x;
     int dy = y_wall - data.player.y;
@@ -144,7 +144,7 @@ void clear_screen(mlx_image_t *img, int color)
 //     int distance;
 //     int x;
 //     double ray_angle;
-    
+
 //     angle = data.player.rotation_angle - (M_PI / 6);
 //     while (angle <= data.player.rotation_angle + (M_PI / 6))
 //     {
@@ -156,66 +156,81 @@ void clear_screen(mlx_image_t *img, int color)
 //         angle += (M_PI / 3) / WIDTH;
 //     }
 // }
-#include <math.h>  // For M_PI and fmod
 
-double normalize_angle(double angle) 
+double normalize_angle(double angle)
 {
     double normalized = fmod(angle, 2 * M_PI);
-    if (normalized < 0) {
+    if (normalized < 0)
         normalized += 2 * M_PI;
-    }
     return normalized;
 }
 
-// int draw_line();
 int floor_division(int a, int b)
 {
+    if (b == 0)
+        return 0;
     double result = (double)a / b;
     return (int)floor(result);
 }
 
-int is_up(double angle) 
+int is_up(double angle)
 {
     return (angle >= M_PI / 2 && angle < M_PI);
 }
 
-int is_right(double angle) 
+int is_right(double angle)
 {
-    return (angle >= 0 && angle < M_PI / 2); 
+    return (angle >= 0 && angle < M_PI / 2);
 }
+
+void ft_dda(t_data data, double ray_angle, double start_x, double start_y)
+{
+    double step_1; // delta_x 
+    double step_2; // delta_y
+
+    double x; // gonna be the end point where the ray hits the wall
+    double y; // gonna be the end point where the ray hits the wall
+
+    // function must get first intersections x an y.
+    x = start_x;
+    y = start_y;
+
+    // TODO : Check direction and adjust params accordingly
+    // the direction counts and can change sign or first intersection coordinates
+        // in diffrent cases 
+        
+    // TODO calculate step_1 and step_2
+    // option 1 : from first intersection with the first horizontal line .
+        // step 1 starts from it until next horizontal intersection 
+        // => from (x, y) we move to (x + step_1 , y + tile_size)
+
+    // option 2 : from first intersection with the first vertical line .
+        // step 2 starts from it until next vertical intersection
+        // => from (x, y) we move to (x + tile_size , y + step_2)
+
+    // distance is the first to hit the wall from both options.
+    // x and y will automatically be calculated by the first value to hit the wall.
+
+    // finally : draw ray.
+    draw_line(data, data.player.x, data.player.y, (int)x, (int)y);
+}
+
+double get_first_x(t_data data); // TODO
+double get_first_y(t_data data); // TODO
+
 void draw_rays(t_data data)
 {
     double angle;
-    int distance;
-    double half_fov;
     double ray_angle;
-    int i;
-    int delta_x;
-    int delta_y;
-    int first_x;
-    int first_y;
+    double first_x;
+    double first_y;
 
-    half_fov = (M_PI / 6);
-    ray_angle = 2 * half_fov / WIDTH;
-    angle = normalize_angle(data.player.rotation_angle - half_fov);
-    i = 0;
-    while (i++ < 1)
+    ray_angle = FOV_ANGL / WIDTH;
+    angle = normalize_angle(data.player.rotation_angle - (FOV_ANGL / 2));
+    
+    while (angle <= FOV_ANGL)
     {
-        delta_y = SIZE;
-        delta_x = SIZE / tan (angle);
-        first_y = floor_division(data.player.y , SIZE) * SIZE;
-        first_x = data.player.x + ((first_y - data.player.y)/ tan(angle));
-        if (!is_up(angle))
-            first_y += SIZE;
-        else
-            delta_y *= -1;
-        if (!is_right(angle) && delta_x > 0)
-            delta_x *= -1;
-        if (is_right(angle) && delta_x < 0)
-            delta_x *= -1;
-        printf("first_x : %d, first_y : %d \n", first_x, first_y);
-        printf(" x : %d, y : %d \n", data.player.x, data.player.y);
-        // distance = draw_line(data, data.player.x, data.player.y, data.player.x + first_x, data.player.y + first_y);
+        ft_dda(data, angle, get_first_x(data), get_first_y(data));
         angle = normalize_angle(angle + ray_angle);
     }
 }
