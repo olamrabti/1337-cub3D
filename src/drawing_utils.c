@@ -165,14 +165,6 @@ double normalize_angle(double angle)
     return normalized;
 }
 
-int floor_division(int a, int b)
-{
-    if (b == 0)
-        return 0;
-    double result = (double)a / b;
-    return (int)floor(result);
-}
-
 int is_up(double angle)
 {
     return (angle >= M_PI / 2 && angle < M_PI);
@@ -183,10 +175,10 @@ int is_right(double angle)
     return (angle >= 0 && angle < M_PI / 2);
 }
 
-void ft_dda(t_data data, double ray_angle, double start_x, double start_y)
+void ft_dda(t_data data, double tmp_angle, double start_x, double start_y)
 {
-    double step_1; // delta_x 
-    double step_2; // delta_y
+    double delta_x; 
+    double delta_y; 
 
     double x; // gonna be the end point where the ray hits the wall
     double y; // gonna be the end point where the ray hits the wall
@@ -195,42 +187,65 @@ void ft_dda(t_data data, double ray_angle, double start_x, double start_y)
     x = start_x;
     y = start_y;
 
+// TODO ====================================================
+            // still have to calculate vertical intersection
+            // then decide which one reachs the wall first 
+//      ====================================================
+
+    printf("px : %d, py: %d\n", data.player.x, data.player.y);
+    printf("fx : %.2f, fy: %.2f\n", start_x, start_y);
+
     // TODO : Check direction and adjust params accordingly
     // the direction counts and can change sign or first intersection coordinates
         // in diffrent cases 
         
-    // TODO calculate step_1 and step_2
+    // TODO calculate delta_x and delta_y
     // option 1 : from first intersection with the first horizontal line .
         // step 1 starts from it until next horizontal intersection 
-        // => from (x, y) we move to (x + step_1 , y + tile_size)
+        // => from (x, y) we move to (x + delta_x , y + tile_size)
 
     // option 2 : from first intersection with the first vertical line .
         // step 2 starts from it until next vertical intersection
-        // => from (x, y) we move to (x + tile_size , y + step_2)
+        // => from (x, y) we move to (x + tile_size , y + delta_y)
+    delta_y = SIZE;
+    delta_x = delta_y / tan(tmp_angle);
 
-    // distance is the first to hit the wall from both options.
     // x and y will automatically be calculated by the first value to hit the wall.
 
+    while(!is_wall(data, x , y))
+    {
+        x += delta_x;
+        y += delta_y;
+    }
     // finally : draw ray.
-    draw_line(data, data.player.x, data.player.y, (int)x, (int)y);
+    // if (is_up(tmp_angle) && is_right(tmp_angle))
+    //     draw_line(data, data.player.x, data.player.y, (int)x, (int)y);
 }
 
-double get_first_x(t_data data); // TODO
-double get_first_y(t_data data); // TODO
+// double get_first_x(t_data data); // TODO
+// double get_first_y(t_data data); // TODO
 
 void draw_rays(t_data data)
 {
-    double angle;
+    double tmp_angle;
     double ray_angle;
+    double angle_incr;
     double first_x;
     double first_y;
+    int i;
 
-    ray_angle = FOV_ANGL / WIDTH;
-    angle = normalize_angle(data.player.rotation_angle - (FOV_ANGL / 2));
-    
-    while (angle <= FOV_ANGL)
+
+    i = 0;
+    angle_incr = FOV_ANGL / WIDTH;
+    ray_angle = normalize_angle(data.player.rotation_angle - (FOV_ANGL / 2));
+    while (i < 2)
     {
-        ft_dda(data, angle, get_first_x(data), get_first_y(data));
-        angle = normalize_angle(angle + ray_angle);
+        tmp_angle = normalize_angle((M_PI / 4) - ray_angle);
+        first_x = floor(data.player.y / SIZE) * SIZE;
+        first_y = data.player.x + (data.player.y - first_y) / tan(tmp_angle);
+        ft_dda(data, tmp_angle, first_x, first_y);
+        // draw_line(data, data.player.x, data.player.y, first_x, first_y);
+        ray_angle = normalize_angle(ray_angle + angle_incr);
+        i++;
     }
 }
