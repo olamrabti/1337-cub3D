@@ -28,6 +28,22 @@ typedef struct player
 	double rot_speed;
 } t_player;
 
+typedef struct point
+{
+	double x;
+	double y;
+} t_point;
+
+typedef struct dda_step
+{
+	double d_x;
+	double d_y;
+	t_point start;
+	t_point end;
+	int distance;
+} t_dda;
+
+
 typedef struct s_addr
 {
 	void				*address;
