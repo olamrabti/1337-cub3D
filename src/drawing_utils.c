@@ -13,7 +13,7 @@ void draw_rect(mlx_image_t *img, int x, int y, int color)
     tmp_x = x;
     tmp_y = y;
 
-    // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
+    printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
     while (tmp_x <= x + SIZE)
     {
         tmp_y = y;
@@ -165,12 +165,12 @@ double normalize_angle(double angle)
 
 int is_up(double angle)
 {
-    return (angle >= M_PI / 2 && angle < M_PI);
+    return (angle >= M_PI);
 }
 
 int is_right(double angle)
 {
-    return (angle >= 0 && angle < M_PI / 2);
+    return (angle >= (3 * M_PI / 2) || angle <= M_PI / 2);
 }
 
 t_dda get_hor_inters(t_data data, double angle)
@@ -268,10 +268,22 @@ double ft_dda(t_data data, double tmp_angle)
     // return draw_line(data, data.player.x, data.player.y, (int)step_y.end.x, (int)step_y.end.y);
 }
 
+double get_alpha(double ray_angle)
+{
+    if (is_right(ray_angle) && is_up(ray_angle))
+        return (2 * M_PI) - ray_angle;
+    if (!is_right(ray_angle) && is_up(ray_angle))
+        return ray_angle - M_PI;
+    if (is_right(ray_angle) && !is_up(ray_angle))
+        return ray_angle;
+    if (!is_right(ray_angle) && !is_up(ray_angle))
+        return M_PI - ray_angle;
+    return 0;
+}
 
 void draw_rays(t_data data)
 {
-    double tmp_angle;
+    double alpha;
     double ray_angle;
     double angle_incr;
     int i;
@@ -279,11 +291,14 @@ void draw_rays(t_data data)
     i = 0;
     angle_incr = FOV_ANGL / WIDTH;
     ray_angle = normalize_angle(data.player.rotation_angle - (FOV_ANGL / 2));
-    while (i < 1)
+    while (i < WIDTH)
     {
-        tmp_angle = normalize_angle((M_PI / 4) - ray_angle);
-        ft_dda(data, tmp_angle);
-        // draw_line(data, data.player.x, data.player.y, first_x, first_y);
+        alpha = normalize_angle(get_alpha(ray_angle));
+        // printf("players angle :%.3f \n", normalize_angle(data.player.rotation_angle));
+        // printf("ray angle :%.3f \n", normalize_angle(ray_angle));
+        // printf("alpha :%.3f \n", alpha);
+        // ft_dda(data, alpha);
+        draw_line(data, data.player.x, data.player.y, (data.player.x + cos(normalize_angle(data.player.rotation_angle + alpha)) * 20), (data.player.y + sin(normalize_angle(data.player.rotation_angle + alpha)) * 20));
         ray_angle = normalize_angle(ray_angle + angle_incr);
         i++;
     }

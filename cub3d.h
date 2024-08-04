@@ -15,7 +15,8 @@
 #define HEIGHT 600
 #define SIZE 20
 #define FOV_ANGL (M_PI / 3)
-
+#define MOVE_SPEED 2.0
+#define ROT_SPEED (2 * M_PI / 180)
 
 typedef struct player
 {
@@ -24,8 +25,6 @@ typedef struct player
 	int turn_direction;
 	int walk_direction;
 	double rotation_angle;
-	double move_speed;
-	double rot_speed;
 } t_player;
 
 typedef struct point

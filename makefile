@@ -13,7 +13,7 @@ SRC = main.c\
 
 OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
 
-MLX = libmlx42.a -Iinclude -ldl -lglfw -pthread -lm #libmlx.a should not be included in files it should be made during make.
+MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/olamrabt/.brew/opt/glfw/lib" #libmlx.a should not be included in files it should be made during make.
 
 LIBFT_SRC = Libft/ft_atoi.c Libft/ft_putendl_fd.c Libft/ft_strncmp.c\
 Libft/ft_bzero.c Libft/ft_putnbr_fd.c Libft/ft_strnstr.c\

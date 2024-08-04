@@ -6,12 +6,32 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 13:30:06 by olamrabt          #+#    #+#             */
-/*   Updated: 2023/12/21 15:02:51 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:44:53 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+int ft_strchrnl(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str && str[i])
+	{
+		if (str[i++] == '\n')
+			return (1);
+	}
+	return (0);
+}
+
+ void ft_free(char *str)
+{
+	free(str);
+	str = NULL;
+}
 char	*ft_fill_stock(int fd, char *stock)
 {
 	char	*buffer;

@@ -51,9 +51,7 @@ int	main(void)
 	data.player.turn_direction = 1;
 	data.player.walk_direction = 0;
 	data.player.rotation_angle = M_PI / 2;
-	data.player.move_speed = 2.0;
-	data.player.rot_speed = 2 * M_PI / 180;
-
+	
 	// TODO protect MLX utils if each one fails
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data.mlx)

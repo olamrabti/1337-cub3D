@@ -15,8 +15,8 @@ void update_player(t_data *data)
 	int projected_x;
 	int projected_y;
 
-	data->player.rotation_angle += data->player.turn_direction * data->player.rot_speed;
-	step = data->player.walk_direction * data->player.move_speed;
+	data->player.rotation_angle += data->player.turn_direction * ROT_SPEED;
+	step = data->player.walk_direction * MOVE_SPEED;
 	projected_x = data->player.x + cos(data->player.rotation_angle) * step;
 	projected_y = data->player.y + sin(data->player.rotation_angle) * step;
     // printf("%d\n", data->player.turn_direction);
