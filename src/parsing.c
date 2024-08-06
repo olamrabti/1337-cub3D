@@ -6,7 +6,9 @@ void get_map_lines(t_data *data, char *filename)
     char *line;
 
     fd = open(filename, O_RDONLY);
-    while(1)
+    if (!fd)
+        return ;
+    while (1)
     {
         line = get_next_line(fd);
         if (!line)

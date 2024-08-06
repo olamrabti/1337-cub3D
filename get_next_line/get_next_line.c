@@ -1,125 +1,100 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 13:30:06 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/08/02 11:44:53 by olamrabt         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-int ft_strchrnl(char *str)
+int flag(char *str)
 {
 	int i;
 
 	i = 0;
-	if (!str)
+	if (!str || !str[i])
 		return (0);
-	while (str && str[i])
+	while (str[i])
 	{
-		if (str[i++] == '\n')
+		if (str[i] == '\n')
 			return (1);
+		i++;
 	}
 	return (0);
 }
 
- void ft_free(char *str)
+char *ft_read_buffer(int fd, char *buff, char *temp)
 {
-	free(str);
-	str = NULL;
-}
-char	*ft_fill_stock(int fd, char *stock)
-{
-	char	*buffer;
-	int		i;
-	int		j;
+	char *del;
+	int i;
 
-	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || read(fd, NULL, 0) < 0)
-		return (ft_free(stock), NULL);
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
-		return (ft_free(stock), NULL);
-	while (1)
+	i = 1;
+	while (flag(temp) == 0 && i > 0)
 	{
-		i = read(fd, buffer, BUFFER_SIZE);
-		if (i == -1)
-			return (ft_free(buffer), ft_free(stock), NULL);
+		i = read(fd, buff, BUFFER_SIZE);
+		if (i < 0)
+			return (free(buff), buff = NULL, free(temp), temp = NULL, NULL);
 		if (i == 0)
-			break ;
-		buffer[i] = '\0';
-		stock = ft_strjoin(stock, buffer);
-		j = 0;
-		if (ft_strchrnl(buffer))
-			return (ft_free(buffer), (stock));
+			break;
+		buff[i] = '\0';
+		if (!temp)
+			temp = ft_strdup("");
+		del = temp;
+		temp = ft_strjoin(del, buff);
+		free(del);
+		del = NULL;
 	}
-	return (ft_free(buffer), (stock));
+	free(buff);
+	buff = NULL;
+	if (temp && temp[0] == '\0')
+		return (free(temp), temp = NULL, NULL);
+	return (temp);
 }
 
-char	*ft_getline(char *stock)
+char *ft_new_line(char *temp)
 {
-	char	*line;
-	size_t	i;
-	size_t	j;
+	char *result;
+	int i;
+
+	if (!temp)
+		return (NULL);
+	i = 0;
+	while (temp[i] != '\n' && temp[i])
+		i++;
+	if (temp[i] == '\n')
+		i++;
+	result = ft_substr(temp, 0, i);
+	if (!result)
+		return (free(temp), temp = NULL, NULL);
+	return (result);
+}
+
+char *ft_the_next_line(char *temp)
+{
+	char *new_buff;
+	int i;
 
 	i = 0;
-	j = 0;
-	while (stock[i] && stock[i] != '\n')
+	while (temp[i] != '\n' && temp[i])
 		i++;
-	if (!stock[i])
-		line = malloc(sizeof(char) * (i + 1));
-	else
-		line = malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	while (j < i)
-	{
-		line[j] = stock[j];
-		j++;
-	}
-	if (stock[i] == '\n')
-		line[i++] = '\n';
-	line[i] = '\0';
-	return (line);
+	if (temp[i] == '\n')
+		i++;
+	new_buff = ft_strdup(temp + i);
+	if (!new_buff)
+		return (free(temp), temp = NULL, NULL);
+	free(temp);
+	temp = NULL;
+	return (new_buff);
 }
 
-char	*ft_updatestock(char *str, size_t i)
+char *get_next_line(int fd)
 {
-	char	*copy;
-	int		j;
-	int		len;
+	static char *temp;
+	char *buff;
+	char *line;
 
-	if (!str)
-		return (NULL);
-	len = ft_strlen(str + i);
-	if (len == 0)
-		return (ft_free(str), NULL);
-	copy = malloc(sizeof(char) * (len + 1));
-	if (!copy)
-		return (ft_free(str), NULL);
-	j = 0;
-	while (str[i])
-		copy[j++] = str[i++];
-	copy[j] = '\0';
-	ft_free(str);
-	return (copy);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*stock;
-	char		*line;
-
-	line = NULL;
-	stock = ft_fill_stock(fd, stock);
-	if (!stock)
-		return (NULL);
-	line = ft_getline(stock);
+	if (BUFFER_SIZE > INT_MAX || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
+		return (free(temp), temp = NULL, NULL);
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (free(temp), temp = NULL, NULL);
+	temp = ft_read_buffer(fd, buff, temp);
+	line = ft_new_line(temp);
 	if (!line)
-		return (ft_free(stock), NULL);
-	stock = ft_updatestock(stock, ft_strlen(line));
+		return (temp = NULL, NULL);
+	temp = ft_the_next_line(temp);
 	return (line);
 }

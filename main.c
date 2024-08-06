@@ -45,18 +45,18 @@ int	main(void)
 	t_data data;
 
 	data.addr = NULL;
-	parse_map(&data, "./maps/example.map");
 	data.player.x = WIDTH / 16;
 	data.player.y = HEIGHT / 16;
 	data.player.turn_direction = 1;
 	data.player.walk_direction = 0;
-	data.player.rotation_angle = M_PI / 2;
-	
+	data.player.rotation_angle = 0;
+
 	// TODO protect MLX utils if each one fails
-	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!data.mlx)
 		exit(EXIT_FAILURE);
 	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	parse_map(&data, "./maps/example.map");
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	draw_map(&data);
 	draw_player(data);

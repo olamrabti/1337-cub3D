@@ -13,7 +13,7 @@ void draw_rect(mlx_image_t *img, int x, int y, int color)
     tmp_x = x;
     tmp_y = y;
 
-    printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
+    // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
     while (tmp_x <= x + SIZE)
     {
         tmp_y = y;
@@ -68,7 +68,7 @@ double draw_line(t_data data, int x1, int y1, int x2, int y2)
     int e2;
     int i;
     i = 0;
-    while (1)
+    while (!is_wall(data, x2, y2))
     {
         if (is_wall(data, x1, y1))
             return get_distance(data, x1, y1);
@@ -165,7 +165,7 @@ double normalize_angle(double angle)
 
 int is_up(double angle)
 {
-    return (angle >= M_PI);
+    return (angle > M_PI);
 }
 
 int is_right(double angle)
@@ -177,32 +177,22 @@ t_dda get_hor_inters(t_data data, double angle)
 {
     t_dda step;
 
-    step.d_y = floor(data.player.y / SIZE) * SIZE;
-    step.d_x = data.player.x + (data.player.y - step.d_y) / tan(angle);
-
-    if (!is_right(angle))
-        step.d_x *= -1;
+    step.start.y = floor(data.player.y / SIZE) * SIZE; // first horizontal intersection
+    if (!is_up(angle))
+        step.start.y += SIZE;
+    step.start.x = data.player.x + (data.player.y - step.start.y) / tan(angle); // first horizontal intersection
+    protected_ppx(data.img, step.start.x, step.start.y, get_rgba(255, 255, 255, 255));
+    // delta after start
+    step.d_y = SIZE;
     if (is_up(angle))
         step.d_y *= -1;
-
-    step.start.x = data.player.x + step.d_x;
-    step.start.y = data.player.y + step.d_y;
-
-    // ***** they are not the same ****
-    // after getting intersection (start)coordinates we have to modify d_x and d_y
-    // to increment in dda func
-
-    // TODO modify according to direction
-    step.d_y = floor(step.start.y / SIZE) * SIZE;
-    step.d_x = step.start.x + (step.start.y - step.d_y) / tan(angle);
-
+    step.d_x = (step.start.y - step.d_y) / tan(angle);
     if (!is_right(angle))
         step.d_x *= -1;
-    if (is_up(angle))
-        step.d_y *= -1;
 
     step.end.x = step.start.x + step.d_x;
     step.end.y = step.start.y + step.d_y;
+    protected_ppx(data.img, step.end.x, step.end.y, get_rgba(255, 255, 255, 255));
     step.distance = 0;
     return step;
 }
@@ -211,29 +201,22 @@ t_dda get_vert_inters(t_data data, double angle)
 {
     t_dda step;
 
-    step.d_x = floor(data.player.x / SIZE) * SIZE + SIZE; // added SIZE
-    step.d_y = step.d_x * tan(angle);
+    step.start.x = (floor(data.player.x / SIZE) * SIZE) + SIZE; // 
+    step.start.y = data.player.y + (step.start.x - data.player.x) * tan(angle); //
 
     if (!is_right(angle))
-        step.d_x *= -1;
-    if (is_up(angle))
-        step.d_y *= -1;
-
-    step.start.x = data.player.x + step.d_x;
-    step.start.y = data.player.y + step.d_y;
-
-    // ***** they are not the same ****
-
-    // after getting intersection (start)coordinates we have to modify d_x and d_y
-    // to increment in dda func
-
-    // TODO modify sign according to direction
+        step.start.x -= SIZE;
+    protected_ppx(data.img, (int)step.start.y, (int)step.start.x, get_rgba(255, 255, 255, 255));
     step.d_x = SIZE;
+    step.d_y = step.d_x * tan(angle);
+
     if (!is_right(angle))
         step.d_x *= -1;
-    step.d_y = step.d_x * tan(angle);
     if (is_up(angle))
         step.d_y *= -1;
+    printf("vi_dx: %.2f", step.d_x);
+    printf(" , vi_dy: %.2f\n", step.d_y);
+    // printf(" , vi_dy: %.2f\n", step.d_y);
     step.end.x = step.start.x + step.d_x;
     step.end.y = step.start.y + step.d_y;
     step.distance = 0;
@@ -247,20 +230,35 @@ double ft_dda(t_data data, double tmp_angle)
     t_dda step_y;
 
     step_x = get_hor_inters(data, tmp_angle);
-    step_y = get_vert_inters(data, tmp_angle);
 
-    while (!is_wall(data, step_x.end.x, step_x.end.y) && !is_wall(data, step_y.end.x, step_y.end.y))
-    {
-        step_x.end.x += step_x.d_x;
-        step_x.end.y += step_x.d_y;
-        step_y.end.x += step_y.d_x;
-        step_y.end.y += step_y.d_y;
-        step_x.distance = get_distance(data, step_x.end.x, step_x.end.y);
-        step_y.distance = get_distance(data, step_y.end.x, step_y.end.y);
-    }
-    printf("distance 1 : %d, distance 2: %d  ", step_x.distance, step_y.distance);
-    printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f", tmp_angle, step_x.d_x, step_x.d_y);
-    printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
+    // step_y = get_vert_inters(data, tmp_angle);
+    step_x.distance = get_distance(data, step_x.start.x, step_x.start.y);
+    // step_y.distance = get_distance(data, step_y.start.x, step_y.start.y);
+
+    
+
+    // printf("distance 1 : %d, distance 2: %d \n", step_x.distance, step_y.distance);
+
+    // draw_line(data, data.player.x, data.player.y, (data.player.x + cos(normalize_angle(data.player.rotation_angle + tmp_angle)) *step_y.distance), (data.player.y + sin(normalize_angle(data.player.rotation_angle + tmp_angle)) * step_y.distance));
+    // draw_line(data, data.player.x, data.player.y, (data.player.x + cos(normalize_angle(data.player.rotation_angle + tmp_angle)) *step_y.distance), (data.player.y + sin(normalize_angle(data.player.rotation_angle + tmp_angle)) * step_y.distance));
+
+    // while (!is_wall(data, step_x.end.x, step_x.end.y) && !is_wall(data, step_y.end.x, step_y.end.y))
+    // {
+    //     // protected_ppx(data.img, (int)step_x.end.y, (int)step_x.end.x, get_rgba(0, 255, 40, 0));
+    //     // protected_ppx(data.img, (int)step_y.end.y, (int)step_y.end.x, get_rgba(0, 80, 0, 0));
+    //     step_x.end.x += step_x.d_x;
+    //     step_x.end.y += step_x.d_y;
+    //     step_y.end.x += step_y.d_x;
+    //     step_y.end.y += step_y.d_y;
+    //     step_x.distance = get_distance(data, step_x.end.x, step_x.end.y);
+    //     step_y.distance = get_distance(data, step_y.end.x, step_y.end.y);
+    // }
+    // if (step_x.distance < WIDTH)
+    //     draw_line(data, data.player.x, data.player.y, step_x.end.x, step_x.end.y);
+    // if (step_y.distance < HEIGHT)
+    //     draw_line(data, data.player.x, data.player.y, step_y.end.x, step_y.end.y);
+    // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f", tmp_angle, step_x.d_x, step_x.d_y);
+    // printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
     return 0;
 
     // if (step_x.distance <= step_y.distance)
@@ -290,16 +288,31 @@ void draw_rays(t_data data)
 
     i = 0;
     angle_incr = FOV_ANGL / WIDTH;
-    ray_angle = normalize_angle(data.player.rotation_angle - (FOV_ANGL / 2));
-    while (i < WIDTH)
+    // ray_angle = normalize_angle(data.player.rotation_angle - (FOV_ANGL / 2)); // orig
+    ray_angle = normalize_angle(data.player.rotation_angle);
+
+    printf("rot_angle :%.3f \n", data.player.rotation_angle);
+
+    while (i < 1)
     {
-        alpha = normalize_angle(get_alpha(ray_angle));
+        alpha = get_alpha(ray_angle); // FIXME angle is not well calculated
+        draw_line(data, data.player.x, data.player.y, data.player.x + cos(data.player.rotation_angle) * 1000,
+              data.player.y + sin(data.player.rotation_angle) * 1000);
+
+        if (is_up(alpha))
+            printf("angle is up , ");
+        else
+            printf("angle is down, ");
+        if (is_right(alpha))
+            printf("and right\n");
+        else
+            printf("and left\n");
         // printf("players angle :%.3f \n", normalize_angle(data.player.rotation_angle));
         // printf("ray angle :%.3f \n", normalize_angle(ray_angle));
         // printf("alpha :%.3f \n", alpha);
-        // ft_dda(data, alpha);
-        draw_line(data, data.player.x, data.player.y, (data.player.x + cos(normalize_angle(data.player.rotation_angle + alpha)) * 20), (data.player.y + sin(normalize_angle(data.player.rotation_angle + alpha)) * 20));
-        ray_angle = normalize_angle(ray_angle + angle_incr);
+        ft_dda(data, alpha);
+        // draw_line(data, data.player.x, data.player.y, (data.player.x + cos(normalize_angle(data.player.rotation_angle + alpha)) * 20), (data.player.y + sin(normalize_angle(data.player.rotation_angle + alpha)) * 20));
+        // alpha = normalize_angle(alpha + angle_incr);
         i++;
     }
 }
