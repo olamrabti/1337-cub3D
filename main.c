@@ -44,6 +44,7 @@ int	main(void)
 {
 	t_data data;
 
+
 	data.addr = NULL;
 	data.player.x = WIDTH / 16;
 	data.player.y = HEIGHT / 16;
@@ -59,7 +60,7 @@ int	main(void)
 	parse_map(&data, "./maps/example.map");
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	draw_map(&data);
-	draw_player(data);
+	draw_player(&data);
 	mlx_loop_hook(data.mlx, &key_event_handler, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);

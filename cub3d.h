@@ -20,10 +20,10 @@
 
 typedef struct player
 {
-	int x;
-	int y;
-	int turn_direction;
-	int walk_direction;
+	double x;
+	double y;
+	double turn_direction;
+	double walk_direction;
 	double rotation_angle;
 } t_player;
 
@@ -68,13 +68,13 @@ void	ft_addrclear(t_addr **lst, void (*del)(void *));
 // char **parse_map(t_addr *addr, char *filename);
 void parse_map(t_data *data, char *filename);
 void draw_rect(mlx_image_t *img, int x , int y, int color);
-void draw_player(t_data data);
+void draw_player(t_data *data);
 int get_rgba(int r, int g, int b, int a);
 void draw_circle(mlx_image_t *img, int x0, int y0);
 void key_event_handler(void *arg);
 void draw_map (t_data *data);
-double draw_line(t_data data, int x1, int y1, int x2, int y2);
-void draw_rays(t_data data);
-int is_wall(t_data data, int x, int y);
+double draw_line(t_data *data, int x1, int y1, int x2, int y2);
+void draw_rays(t_data *data);
+int is_wall(t_data *data, int x, int y);
 void clear_screen(mlx_image_t *img, int color);
 #endif
