@@ -1,0 +1,23 @@
+
+
+// check angle : 
+      // if (is_up(ray_angle))
+        //     printf("angle is up , ");
+        // else
+        //     printf("angle is down, ");
+        // if (is_right(ray_angle))
+        //     printf("and right\n");
+        // else
+        //     printf("and left\n");
+
+        // printf("players angle :%.3f \n", normalize_angle(data->player.rotation_angle));
+        // printf("ray angle :%.3f \n", normalize_angle(ray_angle));
+        // printf("alpha :%.3f \n", alpha);
+
+// check distance   
+    // printf("distance 1 : %d, distance 2: %d \n", step_x.distance, step_y.distance);
+      // printf("step_dx : %.f\n", step_x.d_x);
+    // printf("step_dy : %.f\n", step_x.d_y);
+
+
+    //     protected_ppx(data->img, (int)step.start.x, (int)step.start.y, get_rgba(255, 255, 255, 255));

@@ -74,7 +74,12 @@ void draw_circle(mlx_image_t *img, int x0, int y0);
 void key_event_handler(void *arg);
 void draw_map (t_data *data);
 double draw_line(t_data *data, int x1, int y1, int x2, int y2);
-void draw_rays(t_data *data);
-int is_wall(t_data *data, int x, int y);
 void clear_screen(mlx_image_t *img, int color);
+void protected_ppx(mlx_image_t *img, int x, int y, int color);
+double normalize_angle(double angle);
+// dda
+int is_wall(t_data *data, double x, double y);
+double get_distance(t_data *data, double x, double y);
+void draw_rays(t_data *data); // change name later
+
 #endif
