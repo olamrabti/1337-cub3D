@@ -115,7 +115,6 @@ int ft_parsing(char *map_path, t_data *data)
         return ERROR;
     if (ft_has_tabs(data) == ERROR)
         return ERROR;
-    // printf("klawi\n");
     if (ft_check_players(data) == ERROR)
         return ERROR;
     if (ft_save_player_pos(data) == ERROR)

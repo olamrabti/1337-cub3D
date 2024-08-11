@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = cc  -g #-fsanitize=address
+CC = cc  -g -fsanitize=address
 
 SRC = main.c\
 		get_next_line/get_next_line.c\
@@ -22,7 +22,7 @@ SRC = main.c\
 
 OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
 
-MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/olamrabt/.brew/opt/glfw/lib" #libmlx.a should not be included in files it should be made during make.
+MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib" #libmlx.a should not be included in files it should be made during make.
 
 LIBFT_SRC = Libft/ft_atoi.c Libft/ft_putendl_fd.c Libft/ft_strncmp.c\
 Libft/ft_bzero.c Libft/ft_putnbr_fd.c Libft/ft_strnstr.c\

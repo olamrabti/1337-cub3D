@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:27:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/11 14:53:59 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:37:57 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int ft_save_player_pos(t_data *data)
             if (ft_is_player_direction(temp[i][j]))
             {
                 data->map->player_direction = temp[i][j];
-                data->map->player_x = j; // changed this - 1
-                data->map->player_y = i; // changed this
+                data->map->player_x = j;
+                data->map->player_y = i; 
                 temp[i][j] = '0';
                 printf("player{%c}\n", temp[i][j]);
             }

@@ -49,21 +49,21 @@ int	main(int ac, char **av)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
 		return (free(data), ft_addrclear(&data->addr, free), ERROR);
-	// data->player.x = data->map->player_x;
-	// data->player.y = data->map->player_y;
-	// data->player.turn_direction = 1;
-	// data->player.walk_direction = 0;
-	// data->player.rotation_angle = 0;
+	data->player.x = data->map->player_x * SIZE;
+	data->player.y = data->map->player_y * SIZE;
+	printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
+	data->player.turn_direction = 1;
+	data->player.walk_direction = 0;
+	data->player.rotation_angle = 0;
 
 	// TODO protect MLX utils if each one fails
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (!data->mlx)
 		exit(EXIT_FAILURE);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	// parse_map(&data, "./maps/example.map");
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	// draw_map(data);
-	// draw_player(data);
+	draw_map(data);
+	draw_player(data);
 	mlx_loop_hook(data->mlx, &key_event_handler, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

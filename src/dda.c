@@ -15,11 +15,9 @@ int is_wall(t_data *data, int x, int y)
 {
     int map_x;
     int map_y;
-    int line_cols;
 
-    map_y = (data->map->map_width);
-    map_y = ft_strlen(data->map->map_tiles[map_y]); // FIXME
-    line_cols = 0;
+    map_y = y / (data->map->map_width);
+    map_x = x / ft_strlen(data->map->map_tiles[map_y]); // FIXME
 
     printf("map_x : %d, map_y: %d\n", map_x, map_y);
     printf("x : %d, y: %d\n", x, y);
