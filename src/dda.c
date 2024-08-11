@@ -11,16 +11,25 @@ double get_distance(t_data *data, double x, double y)
     return sqrt(delta_x * delta_x + delta_y * delta_y);
 }
 
-int is_wall(t_data *data, double x, double y)
+int is_wall(t_data *data, int x, int y)
 {
-    int map_x = (int)(x / SIZE);
-    int map_y = (int)(y / SIZE);
+    int map_x;
+    int map_y;
+    int line_cols;
 
-    if (map_x < 0 || map_x >= WIDTH || map_y < 0 || map_y >= HEIGHT) // FIXME
-        return 1;
-    if (data->map[map_x][map_y] == 1) // FIXME
-        return 1;
+    map_y = (data->map->map_width);
+    map_y = ft_strlen(data->map->map_tiles[map_y]); // FIXME
+    line_cols = 0;
 
+    printf("map_x : %d, map_y: %d\n", map_x, map_y);
+    printf("x : %d, y: %d\n", x, y);
+
+    if (map_x >= 0 && map_x < data->map->map_height && map_y >= 0 && map_y < ft_strlen(data->map->map_tiles[y / data->map->map_height]))
+    {
+        if (data->map->map_tiles[map_x][map_y] == 1) // FIXME
+            return 1;
+    }
+    // printf("map addr : %p\n", data->map);
     return 0;
 }
 
@@ -157,7 +166,6 @@ double ft_dda(t_data *data, double tmp_angle)
             break;
         step_x.distance = get_distance(data, step_x.end.x, step_x.end.y);
         step_y.distance = get_distance(data, step_y.end.x, step_y.end.y);
-
 
         step_x.end.x += step_x.d_x;
         step_x.end.y += step_x.d_y;

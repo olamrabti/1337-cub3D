@@ -61,8 +61,6 @@ double draw_line(t_data *data, int x1, int y1, int x2, int y2)
     i = 0;
     while (!is_wall(data, x2, y2))
     {
-        if (is_wall(data, x1, y1))
-            return get_distance(data, x1, y1);
         protected_ppx(data->img, x1, y1, get_rgba(255, 0, 0, 255));
         i++;
         if (x1 == x2 && y1 == y2)
@@ -79,7 +77,7 @@ double draw_line(t_data *data, int x1, int y1, int x2, int y2)
             y1 += sy;
         }
     }
-    return 0;
+    return get_distance(data, x1, y1);
 }
 
 double normalize_angle(double angle)

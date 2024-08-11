@@ -1,15 +1,23 @@
 NAME = cub3D
 
-CC = cc  -g -fsanitize=address
+CC = cc  -g #-fsanitize=address
 
 SRC = main.c\
+		get_next_line/get_next_line.c\
+		src/address_collector.c\
+		src/address_collector_utils.c\
 		src/drawing_utils.c\
 		src/player.c\
 		src/dda.c\
-		src/parsing.c\
-		src/address_collector.c\
-		src/address_collector_utils.c\
-		get_next_line/get_next_line.c\
+		parsing/start_parsing.c\
+		parsing/save_vars.c\
+		parsing/check_vars.c\
+		parsing/save_player_pos.c\
+		parsing/split_map.c\
+		parsing/valide_map.c\
+		parsing/double_check_vars.c\
+		parsing/fill_map_with_sp.c\
+		parsing/parsing_map.c\
 
 
 OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
