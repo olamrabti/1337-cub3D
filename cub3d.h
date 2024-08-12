@@ -11,13 +11,13 @@
 #include <fcntl.h>
 
 #define WIDTH 1088
-#define HEIGHT 704
+#define HEIGHT 1088
 
 #define ERROR 1
 #define SUCCESS 0
 // #define WIDTH 600
 // #define HEIGHT 600
-#define SIZE 8
+#define SIZE 16
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.0
 #define ROT_SPEED (2 * M_PI / 180)
@@ -60,8 +60,7 @@ typedef struct dda_step
 {
 	double d_x;
 	double d_y;
-	t_point start;
-	t_point end;
+	t_point first;
 	int distance;
 } t_dda;
 

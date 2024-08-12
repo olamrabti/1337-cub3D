@@ -13,22 +13,14 @@ double get_distance(t_data *data, double x, double y)
 
 int is_wall(t_data *data, int x, int y)
 {
-    int map_x;
-    int map_y;
-
-    map_y = y / (data->map->map_width);
-    map_x = x / ft_strlen(data->map->map_tiles[map_y]); // FIXME
-
-    printf("map_x : %d, map_y: %d\n", map_x, map_y);
-    printf("x : %d, y: %d\n", x, y);
-
-    if (map_x >= 0 && map_x < data->map->map_height && map_y >= 0 && map_y < ft_strlen(data->map->map_tiles[y / data->map->map_height]))
+    // SIZE will be changed to be flexible with all maps // TODO
+    if (x >= 0 && x < data->map->map_width * SIZE && y >= 0 && y < SIZE * data->map->map_height)
     {
-        if (data->map->map_tiles[map_x][map_y] == 1) // FIXME
+        if (data->map->map_tiles[y / SIZE][x / SIZE] == '1')
             return 1;
+        return 0;
     }
-    // printf("map addr : %p\n", data->map);
-    return 0;
+    return 1;
 }
 
 void clear_screen(mlx_image_t *img, int color)
@@ -89,33 +81,27 @@ double get_alpha(double ray_angle)
 
 t_dda get_hor_inters(t_data *data, double angle)
 {
+
     t_dda step;
-
-    step.start.y = floor(data->player.y / SIZE) * SIZE;
+    step.first.y = floor(data->player.y / SIZE) * SIZE;
+    step.d_y = SIZE;
     if (!is_up(angle))
-        step.start.y += SIZE;
-    step.d_x = 0;
-    if (tan(get_alpha(angle)) > 1e-6)
-        step.d_x = fabs(step.start.y - data->player.y) / tan(get_alpha(angle));
-    if (!is_right(angle))
+        step.first.y += SIZE;
+    else
+        step.d_y *= -1;
+    step.first.x = data->player.x + (step.first.y - data->player.y) / tan(angle); // removed get_alpha
+    step.d_x = SIZE / tan(angle);
+    if (!is_right(angle) && step.d_x > 0)
         step.d_x *= -1;
-    step.start.x = data->player.x + step.d_x;
-
-    step.end.y = step.start.y - SIZE;
-    if (!is_up(angle))
-        step.end.y += 2 * SIZE;
-    step.d_x = 0;
-    if (tan(get_alpha(angle)) > 1e-6)
-        step.d_x = SIZE / tan(get_alpha(angle));
-    if (!is_right(angle))
+    if (is_right(angle) && step.d_x < 0)
         step.d_x *= -1;
-    step.end.x = step.start.x + step.d_x;
-
-    if (step.end.x < 0)
-        step.end.x = 0;
-
-    step.d_y = step.end.y - step.start.y;
-    step.distance = sqrt(pow(step.end.x - step.start.x, 2) + pow(step.end.y - step.start.y, 2));
+    // while (step.first.x >= 0 && step.first.y >= 0 && !is_wall(data, step.first.x, step.first.y))
+    // {
+    //     step.distance = get_distance(data, step.first.x, step.first.y);
+    //     step.first.x += step.d_x;
+    //     step.first.y += step.d_y;
+    //     protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(0, 255, 0, 255));
+    // }
     return step;
 }
 
@@ -123,69 +109,68 @@ t_dda get_vert_inters(t_data *data, double angle)
 {
     t_dda step;
 
-    step.start.x = (floor(data->player.x / SIZE) * SIZE) + SIZE; //
-    if (!is_right(angle))
-        step.start.x -= SIZE;
-    step.start.y = data->player.y + (step.start.x - data->player.x) * tan(angle);
-
+    step.first.x = (floor(data->player.x / SIZE) * SIZE) + SIZE; //
     step.d_x = SIZE;
     if (!is_right(angle))
+        step.first.x -= SIZE;
+    if (!is_right(angle))
         step.d_x *= -1;
+    step.first.y = data->player.y + (step.first.x - data->player.x) * tan(angle);
     step.d_y = step.d_x * tan(angle);
-    step.end.x = step.start.x + step.d_x;
-    step.end.y = step.start.y + step.d_y;
-
-    if (step.end.x < 0)
-        step.end.x = 0;
-    if (step.end.y < 0)
-        step.end.y = 0;
-    step.distance = sqrt(pow(step.end.x - step.start.x, 2) + pow(step.end.y - step.start.y, 2));
-
+    if (is_up(angle) && step.d_y > 0)
+        step.d_y *= -1;
+    if (!is_up(angle) && step.d_y < 0)
+        step.d_y *= -1;
+    // while (step.first.x >= 0 && step.first.y >= 0 && !is_wall(data, step.first.x, step.first.y))
+    // {
+    //     step.distance = get_distance(data, step.first.x, step.first.y);
+    //     step.first.x += step.d_x;
+    //     step.first.y += step.d_y;
+    //     protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(255, 0, 0, 255));
+    // }
     return step;
 }
 
-double ft_dda(t_data *data, double tmp_angle)
+
+double ft_dda(t_data *data, double ray_angle)
 {
     t_dda step_x;
     t_dda step_y;
-    int i;
 
-    i = 0;
-    step_x = get_hor_inters(data, tmp_angle);
-    step_y = get_vert_inters(data, tmp_angle);
+    step_x = get_hor_inters(data, ray_angle);
+    step_y = get_vert_inters(data, ray_angle); // NOTE Correct
 
-    // printf(" h_i [ %d, %d], player [ %d, %d]\n", (int)step_x.start.x, (int)step_x.start.y, (int)data->player.x, (int)data->player.y);
+    // printf(" h_i [ %d, %d], player [ %d, %d]\n", (int)step_x.first.x, (int)step_x.first.y, (int)data->player.x, (int)data->player.y);
     // printf(" v_i [ %d, %d], player [ %d, %d]\n", (int)step_y.start.x, (int)step_y.start.y, (int)data->player.x, (int)data->player.y);
 
-    while (i < WIDTH / SIZE)
+    while (1)
     {
-        if (step_x.end.x < 0 || step_x.end.x >= WIDTH || step_x.end.y < 0 || step_x.end.y >= HEIGHT ||
-            step_y.end.x < 0 || step_y.end.x >= WIDTH || step_y.end.y < 0 || step_y.end.y >= HEIGHT)
+
+        step_x.first.x += step_x.d_x;
+        step_x.first.y += step_x.d_y;
+        
+        step_y.first.x += step_y.d_x;
+        step_y.first.y += step_y.d_y;
+        if (is_wall(data, step_x.first.x, step_x.first.y) || is_wall(data, step_y.first.x, step_y.first.y))
             break;
-        step_x.distance = get_distance(data, step_x.end.x, step_x.end.y);
-        step_y.distance = get_distance(data, step_y.end.x, step_y.end.y);
 
-        step_x.end.x += step_x.d_x;
-        step_x.end.y += step_x.d_y;
-
-        step_y.end.x += step_y.d_x;
-        step_y.end.y += step_y.d_y;
-        i++;
+        step_x.distance = get_distance(data, step_x.first.x, step_x.first.y);
+        step_y.distance = get_distance(data, step_y.first.x, step_y.first.y);
     }
-    // printf("distance 1 : %d, distance 2: %d \n", step_x.distance, step_y.distance);
 
+    // printf("distance 1 : %d, distance 2: %d \n", step_x.distance, step_y.distance);
     if (step_x.distance >= step_y.distance)
     {
-        render_wall(data, step_y.distance, step_y.end.x);
-        draw_line(data, data->player.x, data->player.y, step_y.end.x, step_y.end.y);
+        render_wall(data, step_y.distance, step_y.first.x);
+        draw_line(data, data->player.x, data->player.y, step_y.first.x, step_y.first.y);
     }
     else
     {
-        render_wall(data, step_x.distance, step_x.end.x);
-        draw_line(data, data->player.x, data->player.y, step_x.end.x, step_x.end.y);
+        render_wall(data, step_x.distance, step_x.first.x);
+        draw_line(data, data->player.x, data->player.y, step_x.first.x, step_x.first.y);
     }
 
-    // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f", tmp_angle, step_x.d_x, step_x.d_y);
+    // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f\n", ray_angle, step_x.d_x, step_x.d_y);
     // printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
     return 0;
 
@@ -203,6 +188,7 @@ void draw_rays(t_data *data)
     i = 0;
     angle_incr = FOV_ANGL / WIDTH;
     ray_angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2)); // orig
+
     while (i < WIDTH)
     {
         ft_dda(data, ray_angle);

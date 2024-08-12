@@ -4,7 +4,7 @@
  {
 	// printf ("player x : %d , player y : %d\n", player.x, player.x);
 	draw_circle(data->img, data->player.x, data->player.y);
-	// draw_rays(data);
+	draw_rays(data);
  }
 
 
