@@ -5,7 +5,7 @@ void protected_ppx(mlx_image_t *img, int x, int y, int color)
     if (x < WIDTH && x > 0 && y > 0 && y < HEIGHT)
         mlx_put_pixel(img, x, y, color);
 }
-void draw_rect(mlx_image_t *img, int x, int y, int color)
+void draw_rect(t_data *data, int x, int y, int color)
 {
     int tmp_x;
     int tmp_y;
@@ -14,15 +14,15 @@ void draw_rect(mlx_image_t *img, int x, int y, int color)
     tmp_y = y;
 
     // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
-    while (tmp_x <= x + SIZE)
+    while (tmp_x <= x + data->map->tile_size)
     {
         tmp_y = y;
-        while (tmp_y <= y + SIZE)
+        while (tmp_y <= y + data->map->tile_size)
         {
-            if (color == 1 && (tmp_y % SIZE) && (tmp_x % SIZE))
-                protected_ppx(img, tmp_x, tmp_y, get_rgba(255, 255, 255, 255));
+            if (color == 1 && (tmp_y % data->map->tile_size) && (tmp_x % data->map->tile_size))
+                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(255, 255, 255, 255));
             else
-                protected_ppx(img, tmp_x, tmp_y, get_rgba(0, 0, 0, 255));
+                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(0, 0, 0, 255));
             tmp_y++;
         }
         tmp_x++;
@@ -49,19 +49,19 @@ void draw_circle(mlx_image_t *img, int x_center, int y_center)
     }
 }
 
-double draw_line(t_data *data, int x1, int y1, int x2, int y2)
+double draw_line(t_data *data, double x1, double y1, double x2, double y2)
 {
-    int dx = abs(x2 - x1);
-    int dy = abs(y2 - y1);
-    int sx = x1 < x2 ? 1 : -1;
-    int sy = y1 < y2 ? 1 : -1;
-    int err = (dx > dy ? dx : -dy) / 2;
-    int e2;
+    double dx = fabs(x2 - x1);
+    double dy = fabs(y2 - y1);
+    double sx = x1 < x2 ? 1 : -1;
+    double sy = y1 < y2 ? 1 : -1;
+    double err = (dx > dy ? dx : -dy) / 2;
+    double e2;
     int i;
     i = 0;
-    while (!is_wall(data, x2, y2))
+    while (x1 < x2 )
     {
-        protected_ppx(data->img, x1, y1, get_rgba(255, 0, 0, 255));
+        protected_ppx(data->img, (int)x1, (int)y1, get_rgba(255, 0, 0, 255));
         i++;
         if (x1 == x2 && y1 == y2)
             return get_distance(data, x1, y1);
@@ -82,10 +82,11 @@ double draw_line(t_data *data, int x1, int y1, int x2, int y2)
 
 double normalize_angle(double angle)
 {
-    double normalized = fmod(angle, 2 * M_PI);
-    if (normalized < 0)
+    double normalized;
+    
+    normalized = fmod(angle, 2 * M_PI);
+    if (normalized < 0.0)
         normalized += 2 * M_PI;
     return normalized;
 }
-
 

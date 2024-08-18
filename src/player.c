@@ -2,7 +2,6 @@
 
  void draw_player(t_data *data)
  {
-	// printf ("player x : %d , player y : %d\n", player.x, player.x);
 	draw_circle(data->img, data->player.x, data->player.y);
 	draw_rays(data);
  }
@@ -27,7 +26,7 @@ void update_player(t_data *data)
     // printf("x : %d , y : ", data->player.x);
     // printf("%d\n", data->player.y);
 
-	// if (projected_x < SIZE * 8 && projected_x > SIZE && projected_y < SIZE * 6 && projected_y > SIZE)
+	// if (projected_x < data->map->tile_size * 8 && projected_x > SIZE && projected_y < SIZE * 6 && projected_y > SIZE)
 	if (is_wall(data, projected_x, projected_y) == 0)
 	{
 		// printf("is wall : %d\n", is_wall(*data, data->player.x, data->player.y));

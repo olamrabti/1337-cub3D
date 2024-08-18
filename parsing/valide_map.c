@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:25:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/11 10:49:35 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:33:06 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ int ft_fill_map_dimension(t_data *data)
     if (i == 0)
         return ERROR;
     data->map->map_width = max_width;
-    printf("map_width:-->%d\n", data->map->map_width);
+    // printf("map_width:-->%d\n", data->map->map_width);
     data->map->map_height = i;
-    printf("map_height:-->%d\n", data->map->map_height);
+    // printf("map_height:-->%d\n", data->map->map_height);
+    if (i > max_width)
+        data->map->tile_size = WIDTH / i;
+    else
+        data->map->tile_size = WIDTH / max_width;
+    printf("tilesize:-->%d\n", data->map->tile_size);
     return SUCCESS;
 }
 

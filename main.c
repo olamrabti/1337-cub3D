@@ -22,14 +22,14 @@ void draw_map (t_data *data)
 		while (j < ft_strlen(data->map->map_tiles[i])) // 
 		{
 			if (data->map->map_tiles[i][j])
-				draw_rect(data->img, y, x, (int)data->map->map_tiles[i][j] - 48);
+				draw_rect(data, y, x, (int)data->map->map_tiles[i][j] - 48);
 			else 
-				draw_rect(data->img,y, x, 0);
+				draw_rect(data,y, x, 0);
 			j++;
-			y += SIZE;
+			y += data->map->tile_size;
 		}
 		i++;
-		x += SIZE;
+		x += data->map->tile_size;
 	}
 }
 
@@ -49,9 +49,9 @@ int	main(int ac, char **av)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
 		return (free(data), ft_addrclear(&data->addr, free), ERROR);
-	data->player.x = data->map->player_x * SIZE;
-	data->player.y = data->map->player_y * SIZE;
-	printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
+	data->player.x = data->map->player_x * data->map->tile_size;
+	data->player.y = data->map->player_y * data->map->tile_size;
+	// printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
 	data->player.rotation_angle = 0;

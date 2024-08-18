@@ -15,19 +15,18 @@
 
 #define ERROR 1
 #define SUCCESS 0
-// #define WIDTH 600
-// #define HEIGHT 600
-#define SIZE 16
+
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.0
-#define ROT_SPEED (2 * M_PI / 180)
+#define ROT_SPEED (2 * M_PI / 200)
 
 typedef struct s_map
 {
 	int map_width;
 	int map_height;
-	int player_x;
-	int player_y;
+	double player_x;
+	double player_y;
+	int tile_size;
 	char **map_tiles;
 	char *no_texture_path;
 	char *so_texture_path;
@@ -91,21 +90,20 @@ int get_rgba(int r, int g, int b, int a);
 void protected_ppx(mlx_image_t *img, int x, int y, int color);
 void clear_screen(mlx_image_t *img, int color);
 // void parse_map(t_data *data, char *filename);
-void draw_rect(mlx_image_t *img, int x , int y, int color);
+void draw_rect(t_data *data, int x, int y, int color);
 void draw_player(t_data *data);
 void draw_circle(mlx_image_t *img, int x0, int y0);
 void draw_map (t_data *data);
-double draw_line(t_data *data, int x1, int y1, int x2, int y2);
+double draw_line(t_data *data, double x1, double y1, double x2, double y2);
 double normalize_angle(double angle);
 // dda
-int is_wall(t_data *data, int x, int y);
+int is_wall(t_data *data, double x, double y) ;
 double get_distance(t_data *data, double x, double y);
 void draw_rays(t_data *data); // change name later
 
-
-//=======================================================================
-//                             parsing                                 //
-//=======================================================================
+	//=======================================================================
+	//                             parsing                                 //
+	//=======================================================================
 
 int ft_parsing(char *map_path, t_data *data);
 // int ft_strcmp(const char *s1, const char *s2);
