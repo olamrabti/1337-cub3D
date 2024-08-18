@@ -66,7 +66,7 @@ void render_wall(t_data *data, double distance, double x)
 }
 int is_up(double angle)
 {
-    return (angle >= M_PI && angle <= 2 * M_PI);
+    return (angle > M_PI);
 }
 
 int is_right(double angle)
@@ -171,13 +171,19 @@ double ft_dda(t_data *data, double ray_angle)
     //     i++;
     // }
 
-    // draw_line(data, data->player.x, data->player.y, (int)data->player.x + (cos(ray_angle) * step_y.distance), (int)data->player.y + (sin(ray_angle) * step_y.distance));
     // // exit(0);
-    // printf("distance H : %d, distance V : %d \n", step_x.distance, step_y.distance);
+    printf("distance H : %d, distance V : %d \n", step_x.distance, step_y.distance);
     if (step_x.distance > step_y.distance)
+    {
         protected_ppx(data->img, (int)step_y.first.x, (int)step_y.first.y, get_rgba(0, 255, 0, 255));
+        draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_y.distance), data->player.y + (sin(ray_angle) * step_y.distance));
+    }
     else
+    {
         protected_ppx(data->img, (int)step_x.first.x, (int)step_x.first.y, get_rgba(255, 0, 0, 255));
+        draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_x.distance), data->player.y + (sin(ray_angle) * step_x.distance));
+
+    }
 
     // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f\n", ray_angle, step_x.d_x, step_x.d_y);
     // printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
@@ -195,7 +201,7 @@ void draw_rays(t_data *data)
     int i;
 
     i = 0;
-    angle_incr = FOV_ANGL / (WIDTH / 2);
+    angle_incr = FOV_ANGL / WIDTH;
     ray_angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2)); // orig
     // ray_angle = normalize_angle(data->player.rotation_angle);
     while (i < WIDTH)

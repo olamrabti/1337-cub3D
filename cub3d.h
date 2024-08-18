@@ -60,7 +60,7 @@ typedef struct dda_step
 	double d_x;
 	double d_y;
 	t_point first;
-	int distance;
+	long distance;
 } t_dda;
 
 

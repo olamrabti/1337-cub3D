@@ -59,9 +59,12 @@ double draw_line(t_data *data, double x1, double y1, double x2, double y2)
     double e2;
     int i;
     i = 0;
-    while (x1 < x2 )
+    while (1)
     {
-        protected_ppx(data->img, (int)x1, (int)y1, get_rgba(255, 0, 0, 255));
+        if (!is_wall(data, x1, y1))
+            protected_ppx(data->img, (int)x1, (int)y1, get_rgba(255, 0, 0, 255));
+        else
+            break;
         i++;
         if (x1 == x2 && y1 == y2)
             return get_distance(data, x1, y1);
