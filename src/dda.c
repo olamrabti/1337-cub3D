@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-long get_distance(t_data *data, double x, double y)
+double get_distance(t_data *data, double x, double y)
 {
     double delta_x;
     double delta_y;
@@ -56,12 +56,12 @@ t_dda get_hor_inters(t_data *data, double angle)
 {
 
     t_dda step;
-
-    step.first.y = floor(data->player.y / data->map->tile_size) * data->map->tile_size - 1; // -1 to make first point 1 pixel before the line
+  
+    step.first.y = (floor(data->player.y / data->map->tile_size) * data->map->tile_size) - 1; // -1 to make first point 1 pixel before the line
     step.d_y = data->map->tile_size;
 
     if (!is_up(angle))
-        step.first.y += data->map->tile_size + 1;
+        step.first.y += (data->map->tile_size + 1);
     else
         step.d_y *= -1;
     step.first.x = data->player.x + (step.first.y - data->player.y) / tan(angle);
@@ -89,11 +89,11 @@ t_dda get_vert_inters(t_data *data, double angle)
 {
     t_dda step;
 
-    step.first.x = (floor(data->player.x / data->map->tile_size) * data->map->tile_size) + data->map->tile_size; //
+    step.first.x = (floor(data->player.x / data->map->tile_size) * data->map->tile_size) + data->map->tile_size ; //
     step.d_x = data->map->tile_size;
     if (!is_right(angle))
     {
-        step.first.x -= data->map->tile_size + 1;
+        step.first.x -= data->map->tile_size + 1 ;
         step.d_x *= -1;
     }
     step.first.y = data->player.y + (step.first.x - data->player.x) * tan(angle);
@@ -108,9 +108,14 @@ t_dda get_vert_inters(t_data *data, double angle)
     {
         step.first.x += step.d_x;
         step.first.y += step.d_y;
+        if (is_right(angle))
+            step.distance = get_distance(data, step.first.x - 1 , step.first.y);
+        else
+            step.distance = get_distance(data, step.first.x, step.first.y);
         // protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(255, 0, 0, 255));
-        step.distance = get_distance(data, step.first.x, step.first.y);
     }
+
+ 
     return step;
 }
 // ==========================================================
@@ -120,6 +125,8 @@ double ft_dda(t_data *data, double ray_angle, int *direction)
     t_dda step_x;
     t_dda step_y;
     double distortion_factor;
+    double x;
+    double y;
 
     int i;
 
@@ -127,15 +134,19 @@ double ft_dda(t_data *data, double ray_angle, int *direction)
 
     step_x = get_hor_inters(data, ray_angle);
     step_y = get_vert_inters(data, ray_angle);
-    distortion_factor = cos(normalize_angle(data->player.rotation_angle - ray_angle));
-    if (step_x.distance > step_y.distance)
+    distortion_factor = cos(data->player.rotation_angle - ray_angle);
+    if (step_x.distance > step_y.distance) // know when to take or equal
     {
         *direction = VERTI;
         draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_y.distance), data->player.y + (sin(ray_angle) * step_y.distance), 1);
+        // printf("distance : %.4f\n", step_y.distance);
+        // return step_y.distance;
         return distortion_factor * step_y.distance;
     }
-        *direction = HORI;
+    *direction = HORI;
     draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_x.distance), data->player.y + (sin(ray_angle) * step_x.distance), 2);
+    // printf("distance : %.4f\n", step_x.distance);
+    // return step_x.distance;
     return distortion_factor * step_x.distance;
 }
 
@@ -152,10 +163,10 @@ void cast_rays(t_data *data)
     angle_incr = FOV_ANGL / WIDTH;
     ray_angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2)); // orig
     // ray_angle = normalize_angle(data->player.rotation_angle);
-    while (i <= WIDTH)
+    while (i < WIDTH)
     {
         distance = ft_dda(data, ray_angle, &direction);
-        render_wall(data, distance, i, direction);
+        // render_wall(data, distance, i, direction);
         ray_angle = normalize_angle(ray_angle + angle_incr);
         i++;
     }

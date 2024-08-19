@@ -2,18 +2,16 @@
 
 void render_wall(t_data *data, double distance, int ray_index, int direction )
 {
-    int wall_height;
-    int wall_top;
-    int wall_bottom;
+    double wall_height;
+    double wall_top;
+    double wall_bottom;
     double scale;
 
     scale = 16;
-    if (!distance)
-        distance = 1;
-    wall_height = ((int)(HEIGHT / distance) * scale);
+    wall_height = ((HEIGHT / distance) * scale);
     // wall_height = ((int)(HEIGHT / distance));
-    wall_top = (HEIGHT - wall_height) / 2;
-    wall_bottom = (HEIGHT + wall_height) / 2 ;
+    wall_top = (HEIGHT / 2) - (wall_height / 2);
+    wall_bottom = wall_top + wall_height;
 
     // printf("wall_top : %d\n", wall_top);
     while (wall_top < wall_bottom)

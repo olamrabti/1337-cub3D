@@ -10,8 +10,8 @@
 #include <math.h>
 #include <fcntl.h>
 
-#define WIDTH 1088
-#define HEIGHT 1088
+#define WIDTH 1080
+#define HEIGHT 1080
 #define CENTER_X (WIDTH / 2)
 #define CENTER_Y (HEIGHT / 2)
 
@@ -103,7 +103,7 @@ double draw_line(t_data *data, double x1, double y1, double x2, double y2, int c
 double normalize_angle(double angle);
 // dda
 int is_wall(t_data *data, double x, double y) ;
-long get_distance(t_data *data, double x, double y);
+double get_distance(t_data *data, double x, double y);
 void cast_rays(t_data *data); // change name later
 void render_wall(t_data *data, double distance, int ray_index, int direction);
 //=======================================================================
