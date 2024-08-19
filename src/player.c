@@ -3,7 +3,7 @@
  void draw_player(t_data *data)
  {
 	draw_circle(data->img, data->player.x, data->player.y);
-	draw_rays(data);
+	cast_rays(data);
  }
 
 
@@ -11,26 +11,16 @@
 void update_player(t_data *data)
 {
 	int step;
-	int projected_x;
-	int projected_y;
+	double projected_x;
+	double projected_y;
 
 	data->player.rotation_angle += data->player.turn_direction * ROT_SPEED;
 	step = data->player.walk_direction * MOVE_SPEED;
-	projected_x = (int)data->player.x + cos(data->player.rotation_angle) * step;
-	projected_y = (int)data->player.y + sin(data->player.rotation_angle) * step;
-    // printf("%d\n", data->player.turn_direction);
-    // printf("%d\n", data->player.walk_direction);
-    // printf("rot : %d\n", data->player.rotation_angle);
-    // printf("step : %d\n", step);
+	projected_x = data->player.x + cos(data->player.rotation_angle) * step;
+	projected_y = data->player.y + sin(data->player.rotation_angle) * step;
 
-    // printf("x : %d , y : ", data->player.x);
-    // printf("%d\n", data->player.y);
-
-	// if (projected_x < data->map->tile_size * 8 && projected_x > SIZE && projected_y < SIZE * 6 && projected_y > SIZE)
 	if (is_wall(data, projected_x, projected_y) == 0)
 	{
-		// printf("is wall : %d\n", is_wall(*data, data->player.x, data->player.y));
-
 		data->player.x += cos(data->player.rotation_angle) * step;
 		data->player.y += sin(data->player.rotation_angle) * step;
    		clear_screen(data->img, get_rgba(0, 0, 0, 255));

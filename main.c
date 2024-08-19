@@ -48,7 +48,7 @@ int	main(int ac, char **av)
 	if (!data->map)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
-		return (free(data), ft_addrclear(&data->addr, free), ERROR);
+		return (free(data), printf("parsing failed\n"), ERROR);
 	data->player.x = data->map->player_x * data->map->tile_size;
 	data->player.y = data->map->player_y * data->map->tile_size;
 	// printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);

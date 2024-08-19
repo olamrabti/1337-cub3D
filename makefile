@@ -9,6 +9,7 @@ SRC = main.c\
 		src/drawing_utils.c\
 		src/player.c\
 		src/dda.c\
+		src/3d_walls.c\
 		parsing/start_parsing.c\
 		parsing/save_vars.c\
 		parsing/check_vars.c\

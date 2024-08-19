@@ -12,9 +12,14 @@
 
 #define WIDTH 1088
 #define HEIGHT 1088
+#define CENTER_X (WIDTH / 2)
+#define CENTER_Y (HEIGHT / 2)
 
 #define ERROR 1
 #define SUCCESS 0
+
+#define VERTI 3
+#define HORI 4
 
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.0
@@ -60,7 +65,7 @@ typedef struct dda_step
 	double d_x;
 	double d_y;
 	t_point first;
-	long distance;
+	double distance;
 } t_dda;
 
 
@@ -94,16 +99,16 @@ void draw_rect(t_data *data, int x, int y, int color);
 void draw_player(t_data *data);
 void draw_circle(mlx_image_t *img, int x0, int y0);
 void draw_map (t_data *data);
-double draw_line(t_data *data, double x1, double y1, double x2, double y2);
+double draw_line(t_data *data, double x1, double y1, double x2, double y2, int color);
 double normalize_angle(double angle);
 // dda
 int is_wall(t_data *data, double x, double y) ;
-double get_distance(t_data *data, double x, double y);
-void draw_rays(t_data *data); // change name later
-
-	//=======================================================================
-	//                             parsing                                 //
-	//=======================================================================
+long get_distance(t_data *data, double x, double y);
+void cast_rays(t_data *data); // change name later
+void render_wall(t_data *data, double distance, int ray_index, int direction);
+//=======================================================================
+//                             parsing                                 //
+//=======================================================================
 
 int ft_parsing(char *map_path, t_data *data);
 // int ft_strcmp(const char *s1, const char *s2);

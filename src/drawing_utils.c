@@ -20,9 +20,9 @@ void draw_rect(t_data *data, int x, int y, int color)
         while (tmp_y <= y + data->map->tile_size)
         {
             if (color == 1 && (tmp_y % data->map->tile_size) && (tmp_x % data->map->tile_size))
-                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(255, 255, 255, 255));
+                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(255, 255, 255, 10));
             else
-                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(0, 0, 0, 255));
+                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(0, 0, 0, 10));
             tmp_y++;
         }
         tmp_x++;
@@ -49,7 +49,7 @@ void draw_circle(mlx_image_t *img, int x_center, int y_center)
     }
 }
 
-double draw_line(t_data *data, double x1, double y1, double x2, double y2)
+double draw_line(t_data *data, double x1, double y1, double x2, double y2, int color)
 {
     double dx = fabs(x2 - x1);
     double dy = fabs(y2 - y1);
@@ -62,7 +62,12 @@ double draw_line(t_data *data, double x1, double y1, double x2, double y2)
     while (1)
     {
         if (!is_wall(data, x1, y1))
-            protected_ppx(data->img, (int)x1, (int)y1, get_rgba(255, 0, 0, 255));
+        {
+            if (color == 1)
+                protected_ppx(data->img, (int)x1, (int)y1, get_rgba(255, 0, 0, 10));
+            if (color == 2)
+                protected_ppx(data->img, (int)x1, (int)y1, get_rgba(0, 255, 0, 10));
+        }
         else
             break;
         i++;

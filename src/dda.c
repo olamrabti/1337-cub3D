@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-double get_distance(t_data *data, double x, double y)
+long get_distance(t_data *data, double x, double y)
 {
     double delta_x;
     double delta_y;
@@ -41,29 +41,6 @@ void clear_screen(mlx_image_t *img, int color)
     }
 }
 
-void render_wall(t_data *data, double distance, double x)
-{
-    int wall_height;
-    int wall_top;
-    int wall_bottom;
-    double scale;
-
-    scale = 8;
-    if (!distance)
-        distance = 1;
-    // if (!distance)
-    //     return;
-    wall_height = ((int)(HEIGHT / distance) * scale);
-    wall_top = (HEIGHT - wall_height) / 2;
-    wall_bottom = (HEIGHT + wall_height) / 2;
-
-    // printf("wall_top : %d\n", wall_top);
-    while (wall_top < wall_bottom)
-    {
-        wall_top++;
-        protected_ppx(data->img, x, wall_top, get_rgba(255, 200, 0, 255));
-    }
-}
 int is_up(double angle)
 {
     return (angle > M_PI);
@@ -138,76 +115,47 @@ t_dda get_vert_inters(t_data *data, double angle)
 }
 // ==========================================================
 
-double ft_dda(t_data *data, double ray_angle)
+double ft_dda(t_data *data, double ray_angle, int *direction)
 {
     t_dda step_x;
     t_dda step_y;
+    double distortion_factor;
+
     int i;
 
     i = 0;
 
     step_x = get_hor_inters(data, ray_angle);
-    step_y = get_vert_inters(data, ray_angle); // NOTE Correct
-
-    // printf(" h_i [ %d, %d], player [ %d, %d]\n", (int)step_x.first.x, (int)step_x.first.y, (int)data->player.x, (int)data->player.y);
-    // printf(" v_i [ %d, %d], player [ %d, %d]\n", (int)step_y.start.x, (int)step_y.start.y, (int)data->player.x, (int)data->player.y);
-
-    // protected_ppx(data->img, step_x.first.x, step_x.first.y, get_rgba(255, 0, 0, 255));
-    // protected_ppx(data->img, step_y.first.x, step_y.first.y, get_rgba(0, 255, 0, 255));
-    // while (i < WIDTH / data->map->tile_size)
-    // {
-    //     if (is_wall(data, step_x.first.x, step_x.first.y) || is_wall(data, step_y.first.x, step_y.first.y))
-    //     {
-    //         step_x.distance = get_distance(data, step_x.first.x, step_x.first.y);
-    //         step_y.distance = get_distance(data, step_y.first.x, step_y.first.y);
-    //         protected_ppx(data->img, step_x.first.x, step_x.first.y, get_rgba(255, 0, 0, 255));
-    //         protected_ppx(data->img, step_y.first.x, step_y.first.y, get_rgba(0, 255, 0, 255));
-    //         break ;
-    //     }
-    //     step_x.first.x += step_x.d_x;
-    //     step_x.first.y += step_x.d_y;
-    //     step_y.first.x += step_y.d_x;
-    //     step_y.first.y += step_y.d_y;
-    //     i++;
-    // }
-
-    // // exit(0);
-    printf("distance H : %d, distance V : %d \n", step_x.distance, step_y.distance);
+    step_y = get_vert_inters(data, ray_angle);
+    distortion_factor = cos(normalize_angle(data->player.rotation_angle - ray_angle));
     if (step_x.distance > step_y.distance)
     {
-        protected_ppx(data->img, (int)step_y.first.x, (int)step_y.first.y, get_rgba(0, 255, 0, 255));
-        draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_y.distance), data->player.y + (sin(ray_angle) * step_y.distance));
+        *direction = VERTI;
+        draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_y.distance), data->player.y + (sin(ray_angle) * step_y.distance), 1);
+        return distortion_factor * step_y.distance;
     }
-    else
-    {
-        protected_ppx(data->img, (int)step_x.first.x, (int)step_x.first.y, get_rgba(255, 0, 0, 255));
-        draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_x.distance), data->player.y + (sin(ray_angle) * step_x.distance));
-
-    }
-
-    // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f\n", ray_angle, step_x.d_x, step_x.d_y);
-    // printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
-    return 0;
-
-    // if (step_x.distance <= step_y.distance)
-    //     return draw_line(data, data->player.x, data->player.y, (int)step_x.end.x, (int)step_x.end.y);
-    // return draw_line(data, data->player.x, data->player.y, (int)step_y.end.x, (int)step_y.end.y);
+        *direction = HORI;
+    draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_x.distance), data->player.y + (sin(ray_angle) * step_x.distance), 2);
+    return distortion_factor * step_x.distance;
 }
 
-void draw_rays(t_data *data)
+void cast_rays(t_data *data)
 {
     double ray_angle;
     double angle_incr;
+    double distance;
+    int direction;
     int i;
 
     i = 0;
+    direction = 0;
     angle_incr = FOV_ANGL / WIDTH;
     ray_angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2)); // orig
     // ray_angle = normalize_angle(data->player.rotation_angle);
-    while (i < WIDTH)
+    while (i <= WIDTH)
     {
-        // draw_line( data, data->player.x, data->player.y, (int)data->player.x + (cos(ray_angle) * 20), (int)data->player.y + (sin(ray_angle) * 20));
-        ft_dda(data, ray_angle);
+        distance = ft_dda(data, ray_angle, &direction);
+        render_wall(data, distance, i, direction);
         ray_angle = normalize_angle(ray_angle + angle_incr);
         i++;
     }

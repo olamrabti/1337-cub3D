@@ -21,3 +21,13 @@
 
 
     //     protected_ppx(data->img, (int)step.start.x, (int)step.start.y, get_rgba(255, 255, 255, 255));
+
+
+   // printf(" h_i [ %d, %d], player [ %d, %d]\n", (int)step_x.first.x, (int)step_x.first.y, (int)data->player.x, (int)data->player.y);
+    // printf(" v_i [ %d, %d], player [ %d, %d]\n", (int)step_y.start.x, (int)step_y.start.y, (int)data->player.x, (int)data->player.y);
+
+    // printf("distance H : %d, distance V : %d \n", step_x.distance, step_y.distance);
+
+
+    // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f\n", ray_angle, step_x.d_x, step_x.d_y);
+    // printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
