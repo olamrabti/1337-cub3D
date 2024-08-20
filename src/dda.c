@@ -56,15 +56,23 @@ t_dda get_hor_inters(t_data *data, double angle)
 {
 
     t_dda step;
-  
-    step.first.y = (floor(data->player.y / data->map->tile_size) * data->map->tile_size) - 1; // -1 to make first point 1 pixel before the line
+
+    step.first.y = (floor(data->player.y / data->map->tile_size) * data->map->tile_size); // -1 to make first point 1 pixel before the line
+    step.check_pt.y = step.first.y;                                                       // 1 pixel closer, if we hit the wall at chack pt we must stop and take the first's coordinates
     step.d_y = data->map->tile_size;
 
     if (!is_up(angle))
-        step.first.y += (data->map->tile_size + 1);
+    {
+        step.first.y += (data->map->tile_size);
+        step.check_pt.y += (data->map->tile_size + 1);
+    }
     else
+    {
         step.d_y *= -1;
+        step.check_pt.y -= 1;
+    }
     step.first.x = data->player.x + (step.first.y - data->player.y) / tan(angle);
+    step.check_pt.x = data->player.x + (step.first.y - data->player.y) / tan(angle);
 
     step.distance = get_distance(data, step.first.x, step.first.y);
     step.d_x = data->map->tile_size / tan(angle);
@@ -72,14 +80,18 @@ t_dda get_hor_inters(t_data *data, double angle)
         step.d_x *= -1;
     if (is_right(angle) && step.d_x < 0)
         step.d_x *= -1;
-    // protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(0, 255, 0, 255));
-    while (!is_wall(data, step.first.x, step.first.y))
+    while (1)
     {
+        step.distance = get_distance(data, step.first.x, step.first.y);
+        if (is_wall(data, step.check_pt.x, step.check_pt.y))
+            break;
         step.first.x += step.d_x;
         step.first.y += step.d_y;
-        // protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(0, 255, 0, 255));
-        step.distance = get_distance(data, step.first.x, step.first.y);
+        step.check_pt.x += step.d_x;
+        step.check_pt.y += step.d_y;
     }
+    // protected_ppx(data->img, (int)step.check_pt.x, (int)step.check_pt.y, get_rgba(255, 0, 0, 255));
+    // protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(0, 255, 0, 255));
     return step;
 }
 
@@ -89,14 +101,19 @@ t_dda get_vert_inters(t_data *data, double angle)
 {
     t_dda step;
 
-    step.first.x = (floor(data->player.x / data->map->tile_size) * data->map->tile_size) + data->map->tile_size ; //
+    step.first.x = (floor(data->player.x / data->map->tile_size) * data->map->tile_size) + data->map->tile_size; //
+    step.check_pt.x = step.first.x;
     step.d_x = data->map->tile_size;
     if (!is_right(angle))
     {
-        step.first.x -= data->map->tile_size + 1 ;
+        step.first.x -= data->map->tile_size;
+        step.check_pt.x -= (data->map->tile_size + 1);
         step.d_x *= -1;
     }
+    else
+        step.check_pt.x += 1;
     step.first.y = data->player.y + (step.first.x - data->player.x) * tan(angle);
+    step.check_pt.y = data->player.y + (step.first.x - data->player.x) * tan(angle);
     step.distance = get_distance(data, step.first.x, step.first.y);
     step.d_y = data->map->tile_size * tan(angle);
     if (is_up(angle) && step.d_y > 0)
@@ -104,18 +121,19 @@ t_dda get_vert_inters(t_data *data, double angle)
     if (!is_up(angle) && step.d_y < 0)
         step.d_y *= -1;
     // protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(255, 0, 0, 255));
-    while (!is_wall(data, step.first.x, step.first.y))
+    while (1)
     {
+        step.distance = get_distance(data, step.first.x, step.first.y);
+        if (is_wall(data, step.check_pt.x, step.check_pt.y))
+            break;
         step.first.x += step.d_x;
         step.first.y += step.d_y;
-        if (is_right(angle))
-            step.distance = get_distance(data, step.first.x - 1 , step.first.y);
-        else
-            step.distance = get_distance(data, step.first.x, step.first.y);
+        step.check_pt.x += step.d_x;
+        step.check_pt.y += step.d_y;
+        step.distance = get_distance(data, step.first.x, step.first.y);
         // protected_ppx(data->img, (int)step.first.x, (int)step.first.y, get_rgba(255, 0, 0, 255));
     }
 
- 
     return step;
 }
 // ==========================================================
@@ -124,6 +142,7 @@ double ft_dda(t_data *data, double ray_angle, int *direction)
 {
     t_dda step_x;
     t_dda step_y;
+
     double distortion_factor;
     double x;
     double y;
@@ -166,7 +185,7 @@ void cast_rays(t_data *data)
     while (i < WIDTH)
     {
         distance = ft_dda(data, ray_angle, &direction);
-        // render_wall(data, distance, i, direction);
+        render_wall(data, distance, i, direction);
         ray_angle = normalize_angle(ray_angle + angle_incr);
         i++;
     }

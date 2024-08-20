@@ -19,7 +19,8 @@ void update_player(t_data *data)
 	projected_x = data->player.x + cos(data->player.rotation_angle) * step;
 	projected_y = data->player.y + sin(data->player.rotation_angle) * step;
 
-	if (is_wall(data, projected_x, projected_y) == 0)
+	if (is_wall(data, projected_x - 5, projected_y) == 0 && is_wall(data, projected_x + 5, projected_y) == 0 &&
+	is_wall(data, projected_x, projected_y - 5) == 0 && is_wall(data, projected_x , projected_y + 5) == 0 )
 	{
 		data->player.x += cos(data->player.rotation_angle) * step;
 		data->player.y += sin(data->player.rotation_angle) * step;
