@@ -160,6 +160,7 @@ double ft_dda(t_data *data, double ray_angle, int *direction)
         draw_line(data, data->player.x, data->player.y, data->player.x + (cos(ray_angle) * step_y.distance), data->player.y + (sin(ray_angle) * step_y.distance), 1);
         // printf("distance : %.4f\n", step_y.distance);
         // return step_y.distance;
+
         return distortion_factor * step_y.distance;
     }
     *direction = HORI;
@@ -185,7 +186,9 @@ void cast_rays(t_data *data)
     while (i < WIDTH)
     {
         distance = ft_dda(data, ray_angle, &direction);
-        render_wall(data, distance, i, direction);
+        render_tex_col(data, distance, i , &direction);
+
+        // render_wall(data, distance, i, direction);
         ray_angle = normalize_angle(ray_angle + angle_incr);
         i++;
     }

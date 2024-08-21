@@ -79,7 +79,8 @@ typedef struct s_addr
 typedef struct s_data
 {
 	mlx_image_t	*img;
-	mlx_t	*mlx;
+	mlx_texture_t *tx;
+	mlx_t *mlx;
 	t_addr *addr;
 	t_player player;
 	t_map *map;
@@ -107,6 +108,8 @@ int is_wall(t_data *data, double x, double y) ;
 double get_distance(t_data *data, double x, double y);
 void cast_rays(t_data *data); // change name later
 void render_wall(t_data *data, double distance, int ray_index, int direction);
+void get_textures(t_data *data);
+void render_tex_col(t_data *data, double distance, int x, int direction);
 //=======================================================================
 //                             parsing                                 //
 //=======================================================================

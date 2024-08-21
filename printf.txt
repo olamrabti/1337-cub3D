@@ -31,3 +31,10 @@
 
     // printf("angle : %.2f, step1_dx: %.2f ,step1_dy: %.2f\n", ray_angle, step_x.d_x, step_x.d_y);
     // printf(" step2_dx: %.2f ,step2_dy: %.2f\n", step_y.d_x, step_y.d_y);
+
+
+
+100 pixel : 74
+101 pixel : 34
+102 pixel : 9
+103 pixel : 255

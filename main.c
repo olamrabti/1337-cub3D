@@ -54,7 +54,15 @@ int	main(int ac, char **av)
 	// printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
-	data->player.rotation_angle = 0;
+	if (data->map->player_direction == 'N')
+		data->player.rotation_angle = 3 * M_PI / 2;
+	else if (data->map->player_direction == 'S')
+		data->player.rotation_angle = M_PI / 2;
+	else if (data->map->player_direction == 'E')
+		data->player.rotation_angle = 0;
+	else if (data->map->player_direction == 'W')
+		data->player.rotation_angle = M_PI;
+	get_textures(data);
 
 	// TODO protect MLX utils if each one fails
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
