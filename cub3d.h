@@ -60,6 +60,15 @@ typedef struct point
 	double y;
 } t_point;
 
+typedef struct ray
+{
+	double end_x;
+	double end_y;
+	double angle;
+	double distance;
+	int direction;
+} t_ray;
+
 typedef struct dda_step
 {
 	double d_x;
@@ -109,7 +118,7 @@ double get_distance(t_data *data, double x, double y);
 void cast_rays(t_data *data); // change name later
 void render_wall(t_data *data, double distance, int ray_index, int direction);
 void get_textures(t_data *data);
-void render_tex_col(t_data *data, double distance, int x, int direction);
+void render_tex_col(t_data *data, t_ray *ray, int x);
 //=======================================================================
 //                             parsing                                 //
 //=======================================================================

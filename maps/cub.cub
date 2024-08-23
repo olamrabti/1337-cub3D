@@ -1,9 +1,9 @@
 
 
-NO ./textures/claywall1.png
-SO ./textures/claywall1.png
-WE ./textures/claywall1.png
-EA ./textures/claywall1.png
+NO ./textures/test.png
+SO ./textures/test.png
+WE ./textures/test.png
+EA ./textures/test.png
 
 F      220,222,222
 C 225,30,1
