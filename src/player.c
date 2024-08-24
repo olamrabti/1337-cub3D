@@ -6,27 +6,28 @@
 	cast_rays(data);
  }
 
-
-// update player based on walk direction and turn direction
 void update_player(t_data *data)
 {
 	int step;
 	double projected_x;
 	double projected_y;
 
+	// ft_putchar_fd("zbi", 2);
 	data->player.rotation_angle += data->player.turn_direction * ROT_SPEED;
 	step = data->player.walk_direction * MOVE_SPEED;
 	projected_x = data->player.x + cos(data->player.rotation_angle) * step;
 	projected_y = data->player.y + sin(data->player.rotation_angle) * step;
 
-	if (is_wall(data, projected_x - 5, projected_y) == 0 && is_wall(data, projected_x + 5, projected_y) == 0 &&
-	is_wall(data, projected_x, projected_y - 5) == 0 && is_wall(data, projected_x , projected_y + 5) == 0 )
+   	clear_screen(data->img, get_rgba(0, 0, 0, 255));
+	if (is_wall(data, projected_x , projected_y) == 0 && is_wall(data, projected_x, projected_y) == 0 &&
+	is_wall(data, projected_x, projected_y - 3) == 0 && is_wall(data, projected_x , projected_y ) == 0 )
 	{
-		data->player.x += cos(data->player.rotation_angle) * step;
-		data->player.y += sin(data->player.rotation_angle) * step;
-   		clear_screen(data->img, get_rgba(0, 0, 0, 255));
-		draw_map(data);
+		data->player.x = projected_x;
+		data->player.y = projected_y;
+		// cast_rays(data);
+		// draw_map(data);
 		draw_player(data);
+
 	}
 }
 

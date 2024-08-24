@@ -2,7 +2,7 @@
 
 void protected_ppx(mlx_image_t *img, int x, int y, int color)
 {
-    if (x < WIDTH && x > 0 && y > 0 && y < HEIGHT)
+    if (x <= WIDTH && x >= 0 && y >= 0 && y <= HEIGHT)
         mlx_put_pixel(img, x, y, color);
 }
 void draw_rect(t_data *data, int x, int y, int color)
@@ -12,8 +12,6 @@ void draw_rect(t_data *data, int x, int y, int color)
 
     tmp_x = x;
     tmp_y = y;
-
-    // printf("[x: %d, y: %d]\n", tmp_x, tmp_y);
     while (tmp_x <= x + data->map->tile_size)
     {
         tmp_y = y;
@@ -58,6 +56,7 @@ double draw_line(t_data *data, double x1, double y1, double x2, double y2, int c
     double err = (dx > dy ? dx : -dy) / 2;
     double e2;
     int i;
+    printf("l9lawi\n");
     i = 0;
     while (1)
     {

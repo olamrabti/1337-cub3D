@@ -18,8 +18,10 @@
 #define ERROR 1
 #define SUCCESS 0
 
-#define VERTI 3
-#define HORI 4
+#define NORTH 0
+#define SOUTH 1
+#define WEST 2
+#define EAST 3
 
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.0
@@ -88,7 +90,7 @@ typedef struct s_addr
 typedef struct s_data
 {
 	mlx_image_t	*img;
-	mlx_texture_t *tx;
+	mlx_texture_t **tx;
 	mlx_t *mlx;
 	t_addr *addr;
 	t_player player;
@@ -105,7 +107,6 @@ void key_event_handler(void *arg);
 int get_rgba(int r, int g, int b, int a);
 void protected_ppx(mlx_image_t *img, int x, int y, int color);
 void clear_screen(mlx_image_t *img, int color);
-// void parse_map(t_data *data, char *filename);
 void draw_rect(t_data *data, int x, int y, int color);
 void draw_player(t_data *data);
 void draw_circle(mlx_image_t *img, int x0, int y0);
@@ -117,8 +118,9 @@ int is_wall(t_data *data, double x, double y) ;
 double get_distance(t_data *data, double x, double y);
 void cast_rays(t_data *data); // change name later
 void render_wall(t_data *data, double distance, int ray_index, int direction);
-void get_textures(t_data *data);
+int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
+
 //=======================================================================
 //                             parsing                                 //
 //=======================================================================
