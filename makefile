@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = cc  -g -fsanitize=address
+CC = cc -Wall -Werror -Wextra  -Ofast
 
 SRC = main.c\
 		get_next_line/get_next_line.c\

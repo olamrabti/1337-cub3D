@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:25:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/18 15:33:06 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:18:47 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int ft_fill_map_dimension(t_data *data)
     if (i > max_width)
         data->map->tile_size = WIDTH / i;
     else
-        data->map->tile_size = WIDTH / max_width;
+        data->map->tile_size = HEIGHT / max_width;
     printf("tilesize:-->%d\n", data->map->tile_size);
     return SUCCESS;
 }

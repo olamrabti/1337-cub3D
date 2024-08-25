@@ -2,8 +2,8 @@
 
 void texture_ppx(t_data *data, double x, double y, t_ray *ray, double wall_height)
 {
-    int rel_x;
-    int rel_y;
+    unsigned int rel_x;
+    unsigned int rel_y;
     int color;
     int idx;
 
@@ -35,7 +35,6 @@ void render_tex_col(t_data *data, t_ray *ray, int x)
 
     while (wall_top < wall_bottom)
     {
-        // ft_putchar_fd("hsh", 2);
         texture_ppx(data, x, wall_top, ray, wall_height);
         wall_top++;
     }

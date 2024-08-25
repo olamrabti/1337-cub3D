@@ -19,7 +19,7 @@ void draw_map(t_data *data)
 	{
 		j = 0;
 		y = 0;
-		while (j < ft_strlen(data->map->map_tiles[i])) //
+		while (j < (int)ft_strlen(data->map->map_tiles[i])) //
 		{
 			if (data->map->map_tiles[i][j])
 				draw_rect(data, y, x, (int)data->map->map_tiles[i][j] - 48);
@@ -36,7 +36,6 @@ void draw_map(t_data *data)
 int main(int ac, char **av)
 {
 	t_data *data;
-	t_map *map;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Eroor\nWrong number of arguments\n", 2), ERROR);
@@ -72,8 +71,7 @@ int main(int ac, char **av)
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	draw_map(data);
 	// draw_player(data);
-	
-	
+
 	mlx_loop_hook(data->mlx, &key_event_handler, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

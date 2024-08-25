@@ -138,8 +138,6 @@ void ft_dda(t_data *data, t_ray *ray)
     t_dda step_y;
 
     double distortion_factor;
-    double x;
-    double y;
 
     step_x = get_hor_inters(data, ray->angle);
     step_y = get_vert_inters(data, ray->angle);
