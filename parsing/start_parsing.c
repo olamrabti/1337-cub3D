@@ -68,11 +68,11 @@ int ft_parsing_vars(char *map_path, t_data *data)
     char *line;
     char *single_line_vars;
 
-    single_line_vars = ft_strdup("");
+    single_line_vars = gc_strdup("", &data->addr);
     fd = open(map_path, O_RDONLY);
     if (fd < 0)
         return (ERROR);
-    line = get_next_line(fd);
+    line = get_next_line(fd, data);
     while (line)
     {
         int i = 0;
@@ -80,18 +80,17 @@ int ft_parsing_vars(char *map_path, t_data *data)
             i++;
         if (line[i] == '\n')
         {
-            line = get_next_line(fd);
+            line = get_next_line(fd, data);
             continue;
         }
         if (line[i] == '0' || line[i] == '1')
             break;
         if (ft_valide_wall_direction(&line[i]) == ERROR)
             return ft_putstr_fd("Error\nwrong map parameters\n", 2), ERROR;
-        single_line_vars = ft_strjoin(single_line_vars, line);
-        line = get_next_line(fd);
+        single_line_vars = gc_strjoin(single_line_vars, line, &data->addr);
+        line = get_next_line(fd, data);
     }
     data->map->single_line_vars = single_line_vars;
-    // printf("single_line_vars:|%s|\n", single_line_vars);
     close(fd);
     return SUCCESS;
 }
@@ -104,7 +103,6 @@ int ft_parsing(char *map_path, t_data *data)
         return (ERROR);
     if (ft_double_check_vars(data) == ERROR)
         return ERROR;
-
     if (ft_parsing_map(map_path, data) == ERROR)
         return ERROR;
     if (ft_save_vars(map_path, data) == ERROR)
@@ -119,18 +117,11 @@ int ft_parsing(char *map_path, t_data *data)
         return ERROR;
     if (ft_save_player_pos(data) == ERROR)
         return ERROR;
-
     if (ft_fill_map_dimension(data) == ERROR)
-        return ERROR;
-    
-    if (ft_valide_map(data) == ERROR)
         return ERROR;
     if (ft_fill_map_with_sp(data) == ERROR)
         return ERROR;
-    
-    
-
-
+    if (ft_valide_map(data) == ERROR)
+        return ERROR;
     return SUCCESS;
-    
 }

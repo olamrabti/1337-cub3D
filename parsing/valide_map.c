@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valide_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:25:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/25 12:35:40 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:18:21 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ int ft_fill_map_dimension(t_data *data)
     // printf("map_width:-->%d\n", data->map->map_width);
     data->map->map_height = i;
     // printf("map_height:-->%d\n", data->map->map_height);
-    if (i > max_width)
+     if (i > max_width)
         data->map->tile_size = WIDTH / i;
     else
         data->map->tile_size = HEIGHT / max_width;
     if (data->map->tile_size > TILE_SIZE)
         data->map->tile_size = TILE_SIZE * 0.3;
-        
-    printf("tilesize:-->%d\n", data->map->tile_size);
     return SUCCESS;
 }
 
@@ -78,27 +76,13 @@ int ft_start_with_one(t_data *data)
 int ft_check_zero_surroundings(char **map, int i, int j)
 {
     if (map[i][j + 1] == ' ' || map[i][j + 1] == '\0')
-    {
-        printf("1\n");
         return ERROR;
-    }
     if (j > 0 && map[i][j - 1] == ' ')
-    {
-        printf("2\n");
         return ERROR;
-    }
     if (map[i - 1][j] == ' ')
-    {
-        printf("i========|%d|\n", i - 1);
-        printf("j ========|%d|\n", j);
-        printf("===============|%c|\n", map[i - 1][j]);
         return ERROR;
-    }
     if (map[i + 1] && map[i + 1][j] == ' ')
-    {
-        printf("4\n");
         return ERROR;
-    }
     return SUCCESS;
 }
 
@@ -107,16 +91,12 @@ int ft_valide_map(t_data *data)
     char **temp = data->map->map_tiles;
     int i, j;
 
-
     if (ft_only_ones(temp[0]) == ERROR)
         return ERROR;
     if (ft_only_ones(temp[data->map->map_height - 1]) == ERROR)
         return ERROR;
-
-
     if (ft_start_with_one(data) == ERROR)
         return ERROR;
-
     i = 1;
     while (i < data->map->map_height - 1)
     {
@@ -126,11 +106,7 @@ int ft_valide_map(t_data *data)
             if (temp[i][j] == '0')
             {
                 if (ft_check_zero_surroundings(temp, i, j) == ERROR)
-                {
-                    printf("===============|%c|\n", temp[i][j]);
-                    printf("la asa7bi\n");
                     return ERROR;
-                }
             }
             j++;
         }

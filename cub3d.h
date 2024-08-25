@@ -1,14 +1,18 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 1
+#endif
+
 #include "MLX42/include/MLX42/MLX42.h"
 #include "Libft/libft.h"
-#include "get_next_line/get_next_line.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <fcntl.h>
+#include <limits.h>
 
 #define WIDTH 1080
 #define HEIGHT 1080
@@ -128,6 +132,8 @@ void render_tex_col(t_data *data, t_ray *ray, int x);
 //                             parsing                                 //
 //=======================================================================
 
+
+char *get_next_line(int fd, t_data *data);
 int ft_parsing(char *map_path, t_data *data);
 // int ft_strcmp(const char *s1, const char *s2);
 int ft_parsing_map(char *map_path, t_data *data);
@@ -135,11 +141,14 @@ int ft_save_vars(char *map_path, t_data *data);
 int ft_valide_wall_direction(char *line);
 int ft_check_vars(t_data *data);
 int ft_save_player_pos(t_data *data);
-char *ft_bring_map(int fd);
-
+char *ft_bring_map(int fd, t_data *data);
+char	**ft_split(char const *s, char c, t_data *data);
 int ft_has_tabs(t_data *data);
 int ft_split_map(t_data *data);
 
+char	*gc_substr(char *s, unsigned int start, size_t len, t_addr **addr);
+char	*gc_strdup(const char *s, t_addr **addr);
+char	*gc_strjoin(char *s1, char *s2, t_addr **addr);
 int ft_check_players(t_data *data);
 int ft_fill_map_dimension(t_data *data);
 

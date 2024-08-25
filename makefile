@@ -20,6 +20,9 @@ SRC = main.c\
 		parsing/double_check_vars.c\
 		parsing/fill_map_with_sp.c\
 		parsing/parsing_map.c\
+		parsing/pasing_helpers.c\
+		parsing/ft_split.c\
+
 
 
 OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
@@ -29,7 +32,7 @@ MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/li
 LIBFT_SRC = Libft/ft_atoi.c Libft/ft_putendl_fd.c Libft/ft_strncmp.c\
 Libft/ft_bzero.c Libft/ft_putnbr_fd.c Libft/ft_strnstr.c\
 Libft/ft_calloc.c Libft/ft_putstr_fd.c Libft/ft_strrchr.c\
-Libft/ft_isalnum.c Libft/ft_split.c Libft/ft_strtrim.c\
+Libft/ft_isalnum.c Libft/ft_strtrim.c\
 Libft/ft_isalpha.c Libft/ft_strchr.c Libft/ft_substr.c\
 Libft/ft_isascii.c Libft/ft_strdup.c Libft/ft_tolower.c\
 Libft/ft_isdigit.c Libft/ft_memchr.c Libft/ft_striteri.c Libft/ft_toupper.c\

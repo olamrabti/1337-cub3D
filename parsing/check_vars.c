@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_vars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:39:49 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/11 13:59:12 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:35:46 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int ft_count_comma(char *str)
     return ERROR;
 }
 
-int ft_parse_color(char *str)
+int ft_parse_color(char *str, t_data *data)
 {
     char **split;
     int i;
@@ -48,14 +48,14 @@ int ft_parse_color(char *str)
         return ERROR;
     if (ft_valide_rgb(str) == SUCCESS && ft_count_comma(str) == SUCCESS)
     {
-        split = ft_split(str, ',');
+        split = ft_split(str, ',', data);
         i = 0;
         while (split[i])
         {
             // printf("split: %s\n", split[i]);
             if (ft_atoi(split[i]) > 255 || ft_atoi(split[i]) < 0)
                 return ERROR;
-            free(split[i]);
+            // free(split[i]);
             i++;
         }
         if (i < 3)
@@ -68,9 +68,9 @@ int ft_parse_color(char *str)
 
 int ft_check_vars(t_data *data)
 {
-    if (ft_parse_color(data->map->f_color) == ERROR)
+    if (ft_parse_color(data->map->f_color, data) == ERROR)
         return ERROR;
-    if (ft_parse_color(data->map->c_color) == ERROR)
+    if (ft_parse_color(data->map->c_color, data) == ERROR)
         return ERROR;
     return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_player_pos.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:27:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/11 15:37:57 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/12 09:10:17 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int ft_check_players(t_data *data)
     j = 0;
     while (temp[i])
     {
-        // printf("tmp[%d] :%s\n",i, temp[i]);
         j = 0;
         while (temp[i][j])
         {
@@ -73,14 +72,10 @@ int ft_save_player_pos(t_data *data)
                 data->map->player_x = j;
                 data->map->player_y = i; 
                 temp[i][j] = '0';
-                printf("player{%c}\n", temp[i][j]);
             }
             j++;
         }
         i++;
     }
-    // printf("player_direction{%c}\n", data->map->player_direction);
-    // printf("player_x{%d}\n", data->map->player_x);
-    // printf("player_y{%d}\n", data->map->player_y);
     return SUCCESS;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:23:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/11 13:59:52 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:36:54 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int  ft_all_spaces(char *str)
 
 int ft_split_map(t_data *data)
 {
-    data->map->map_tiles = ft_split(data->map->single_line_map, '\n');
+    data->map->map_tiles = ft_split(data->map->single_line_map, '\n', data);
     if (!data->map->map_tiles)
         return ERROR;
     int i = 0;
@@ -35,7 +35,7 @@ int ft_split_map(t_data *data)
     {
         if (ft_all_spaces(temp[i]))
         {
-            free(temp[i]);
+            // free(temp[i]);
             temp[i] = NULL;
         }
         i++;
@@ -53,15 +53,10 @@ int ft_has_tabs(t_data *data)
     while (temp[i])
     {
         j = 0;
-        // printf("[%s]\n", temp[i]);
         while (temp[i][j])
         {
             if (temp[i][j] == '\t')
-            {
-                puts("here");
-                printf("---%c--\n", temp[i][j]);
                 return ERROR;
-            }
             j++;
         }
         i++;
