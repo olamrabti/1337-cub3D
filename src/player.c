@@ -14,8 +14,8 @@ void update_player(t_data *data)
 
 
 	step = data->player.walk_direction * MOVE_SPEED;
-	projected_x = data->player.x + cos(data->player.rotation_angle) * (step + (10)); // player always away from the wall size / 6
-	projected_y = data->player.y + sin(data->player.rotation_angle) * (step + (10));
+	projected_x = data->player.x + cos(data->player.rotation_angle) * (step + (6 * data->player.walk_direction)); // player always away from the wall size / 6
+	projected_y = data->player.y + sin(data->player.rotation_angle) * (step + (6 * data->player.walk_direction));
 
 	if (!is_wall(data, projected_x - 3, projected_y) && !is_wall(data, projected_x + 3, projected_y) \
 	&& !is_wall(data, projected_x, projected_y - 3) && !is_wall(data, projected_x, projected_y + 3)) // bigger player

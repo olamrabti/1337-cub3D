@@ -54,8 +54,10 @@ int main(int ac, char **av)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
 		return (free(data), printf("parsing failed\n"), ERROR);
-	data->player.x = data->map->player_x * TILE_SIZE;
-	data->player.y = data->map->player_y * TILE_SIZE;
+	// data->player.x = data->map->player_x * TILE_SIZE / 2;
+	// data->player.y = data->map->player_y * TILE_SIZE / 2;
+	data->player.x = data->map->player_x * TILE_SIZE + TILE_SIZE / 2;
+	data->player.y = data->map->player_y * TILE_SIZE + TILE_SIZE / 2;
 	// printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
