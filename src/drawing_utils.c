@@ -69,44 +69,6 @@ void draw_view(t_data *data, double scale)
     }
 }
 
-double draw_line(t_data *data, double x1, double y1, double x2, double y2, int color)
-{
-    double dx = fabs(x2 - x1);
-    double dy = fabs(y2 - y1);
-    double sx = x1 < x2 ? 1 : -1;
-    double sy = y1 < y2 ? 1 : -1;
-    double err = (dx > dy ? dx : -dy) / 2;
-    double e2;
-    int i;
-    i = 0;
-    while (1)
-    {
-        if (!is_wall(data, x1, y1))
-        {
-            if (color == 1)
-                protected_ppx(data->img, (int)x1, (int)y1, get_rgba(255, 0, 0, 10));
-            if (color == 2)
-                protected_ppx(data->img, (int)x1, (int)y1, get_rgba(0, 255, 0, 10));
-        }
-        else
-            break;
-        i++;
-        if (x1 == x2 && y1 == y2)
-            return get_distance(data, x1, y1);
-        e2 = err;
-        if (e2 > -dx)
-        {
-            err -= dy;
-            x1 += sx;
-        }
-        if (e2 < dy)
-        {
-            err += dx;
-            y1 += sy;
-        }
-    }
-    return get_distance(data, x1, y1);
-}
 
 double normalize_angle(double angle)
 {

@@ -19,6 +19,23 @@ void texture_ppx(t_data *data, double x, double y, t_ray *ray, double wall_heigh
     if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
         mlx_put_pixel(data->img, x, y, color);
 }
+void render_r_and_c(t_data *data ,double wall_top , double wall_bottom, int x)
+{
+    int i;
+
+    i = 0;
+    while (i < wall_top)
+    {
+        protected_ppx(data->img, x, i, get_rgba(119, 181, 254, 200));
+        i++;
+    }
+    i = wall_bottom;
+    while (i < HEIGHT)
+    {
+        protected_ppx(data->img, x, i, get_rgba(128, 128, 128, 255));
+        i++;
+    }
+}
 
 void render_tex_col(t_data *data, t_ray *ray, int x)
 {
@@ -31,7 +48,7 @@ void render_tex_col(t_data *data, t_ray *ray, int x)
     wall_height = ((HEIGHT / ray->distance) * scale);
     wall_top = (HEIGHT / 2) - (wall_height / 2);
     wall_bottom = wall_top + wall_height;
-    // render_r_and_c()
+    render_r_and_c(data,wall_top, wall_bottom, x);
 
     while (wall_top < wall_bottom)
     {
