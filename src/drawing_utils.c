@@ -12,15 +12,15 @@ void draw_rect(t_data *data, int x, int y, int color)
 
     tmp_x = x;
     tmp_y = y;
-    while (tmp_x <= x + TILE_SIZE * 0.2)
+    while (tmp_x <= x + data->map->tile_size)
     {
         tmp_y = y;
-        while (tmp_y <= y + TILE_SIZE * 0.2)
+        while (tmp_y <= y + data->map->tile_size)
         {
-            if (color == 1 && (tmp_y % TILE_SIZE * 0.2) && (tmp_x % TILE_SIZE * 0.2))
-                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(255, 255, 255, 10));
+            if (color == 1 && (tmp_y % data->map->tile_size) && (tmp_x % data->map->tile_size))
+                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(255, 255, 255, 30));
             else
-                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(0, 0, 0, 10));
+                protected_ppx(data->img, tmp_x, tmp_y, get_rgba(0, 0, 0, 30));
             tmp_y++;
         }
         tmp_x++;
@@ -46,7 +46,7 @@ void draw_circle(mlx_image_t *img, int x_center, int y_center)
         }
     }
 }
-void draw_view(t_data *data)
+void draw_view(t_data *data, double scale)
 {
     int radius;
     double angle;
@@ -62,8 +62,8 @@ void draw_view(t_data *data)
     {
         for (int r = 0; r <= radius; r++)
         {
-            x = data->player.x * 0.2 + r * cos(angle);
-            y = data->player.y * 0.2 + r * sin(angle);
+            x = data->player.x * scale + r * cos(angle);
+            y = data->player.y * scale + r * sin(angle);
             protected_ppx(data->img, (int)x, (int)y, get_rgba(0, 255, 0, 255));
         }
     }

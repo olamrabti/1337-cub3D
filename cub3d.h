@@ -112,7 +112,7 @@ void clear_screen(mlx_image_t *img, int color);
 void draw_rect(t_data *data, int x, int y, int color);
 void draw_player(t_data *data);
 void draw_circle(mlx_image_t *img, int x0, int y0);
-void draw_view(t_data *data);
+void draw_view(t_data *data, double scale);
 void draw_map(t_data *data);
 double draw_line(t_data *data, double x1, double y1, double x2, double y2, int color);
 double normalize_angle(double angle);

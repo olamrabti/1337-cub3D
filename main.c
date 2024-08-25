@@ -9,30 +9,34 @@ void draw_map(t_data *data)
 {
 	int i;
 	int j;
-	int x; //
+	int x;
 	int y;
+	double scale;
 
 	i = 0;
 	x = 0;
 	y = 0;
-	while (i < data->map->map_height) //
+	scale = data->map->tile_size / (double)TILE_SIZE;
+	// printf("scale = %.3f\n", scale);
+	// printf("scale rev = %.3f\n", (double)TILE_SIZE / data->map->tile_size);
+	while (i < data->map->map_height)
 	{
 		j = 0;
 		y = 0;
-		while (j < (int)ft_strlen(data->map->map_tiles[i])) //
+		while (j < (int)ft_strlen(data->map->map_tiles[i])) 
 		{
 			if (data->map->map_tiles[i][j])
 				draw_rect(data, y, x, (int)data->map->map_tiles[i][j] - 48);
 			else
 				draw_rect(data, y, x, 0);
 			j++;
-			y += TILE_SIZE * 0.2 ;
+			y += data->map->tile_size;
 		}
 		i++;
-		x += TILE_SIZE * 0.2 ;
+		x += data->map->tile_size;
 	}
-	draw_circle(data->img, data->player.x * 0.2, data->player.y * 0.2);
-	draw_view(data);
+	draw_circle(data->img, data->player.x * scale, data->player.y * scale);
+	draw_view(data , scale);
 }
 
 int main(int ac, char **av)
