@@ -15,8 +15,8 @@ int is_wall(t_data *data, double x, double y)
     double map_x;
     double map_y;
 
-    map_x = x / data->map->tile_size;
-    map_y = y / data->map->tile_size;
+    map_x = x / TILE_SIZE;
+    map_y = y / TILE_SIZE;
 
     if (map_x > 0 && map_x < data->map->map_width && map_y > 0 && map_y < (data->map->map_height))
     {
@@ -60,14 +60,14 @@ t_dda get_hor_inters(t_data *data, double angle)
 
     t_dda step;
 
-    step.first.y = (floor(data->player.y / data->map->tile_size) * data->map->tile_size);
+    step.first.y = (floor(data->player.y / TILE_SIZE) * TILE_SIZE);
     step.check_pt.y = step.first.y;
-    step.d_y = data->map->tile_size;
+    step.d_y = TILE_SIZE;
 
     if (!is_up(angle))
     {
-        step.first.y += (data->map->tile_size);
-        step.check_pt.y += (data->map->tile_size + 1);
+        step.first.y += (TILE_SIZE);
+        step.check_pt.y += (TILE_SIZE + 1);
     }
     else
     {
@@ -77,7 +77,7 @@ t_dda get_hor_inters(t_data *data, double angle)
     step.first.x = data->player.x + (step.first.y - data->player.y) / tan(angle);
     step.check_pt.x = step.first.x;
 
-    step.d_x = data->map->tile_size / tan(angle);
+    step.d_x = TILE_SIZE / tan(angle);
     if (!is_right(angle) && step.d_x > 0)
         step.d_x *= -1;
     if (is_right(angle) && step.d_x < 0)
@@ -100,20 +100,20 @@ t_dda get_vert_inters(t_data *data, double angle)
 {
     t_dda step;
 
-    step.first.x = (floor(data->player.x / data->map->tile_size) * data->map->tile_size) + data->map->tile_size; //
+    step.first.x = (floor(data->player.x / TILE_SIZE) * TILE_SIZE) + TILE_SIZE; //
     step.check_pt.x = step.first.x;
-    step.d_x = data->map->tile_size;
+    step.d_x = TILE_SIZE;
     if (!is_right(angle))
     {
-        step.first.x -= data->map->tile_size;
-        step.check_pt.x -= (data->map->tile_size + 1);
+        step.first.x -= TILE_SIZE;
+        step.check_pt.x -= (TILE_SIZE + 1);
         step.d_x *= -1;
     }
     else
         step.check_pt.x += 1;
     step.first.y = data->player.y + (step.first.x - data->player.x) * tan(angle);
     step.check_pt.y = step.first.y;
-    step.d_y = data->map->tile_size * tan(angle);
+    step.d_y = TILE_SIZE * tan(angle);
     if (is_up(angle) && step.d_y > 0)
         step.d_y *= -1;
     if (!is_up(angle) && step.d_y < 0)

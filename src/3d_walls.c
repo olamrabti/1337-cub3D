@@ -7,9 +7,9 @@ void texture_ppx(t_data *data, double x, double y, t_ray *ray, double wall_heigh
     int color;
     int idx;
 
-    rel_x = (fmod(ray->end_y, data->map->tile_size) / data->map->tile_size) * data->tx[ray->direction]->width;
+    rel_x = (fmod(ray->end_y, TILE_SIZE) / TILE_SIZE) * data->tx[ray->direction]->width;
     if (ray->direction == NORTH || ray->direction == SOUTH)
-        rel_x = (fmod(ray->end_x, data->map->tile_size) / data->map->tile_size) * data->tx[ray->direction]->width;
+        rel_x = (fmod(ray->end_x, TILE_SIZE) / TILE_SIZE) * data->tx[ray->direction]->width;
     rel_y = ((y - (HEIGHT / 2) + (wall_height / 2)) / wall_height) * data->tx[ray->direction]->height;
     if (rel_x < 0 || rel_x >= data->tx[ray->direction]->width || rel_y < 0 || rel_y >= data->tx[ray->direction]->height)
         return;

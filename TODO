@@ -1,7 +1,7 @@
 // [ ] imlpement A and D buttons 
 // [ ] minimap : 
-    // make it small
-    // remove rays and replace it with and 60 degree cercle
+    // [x] make it small
+    // [ ] remove rays and replace it with and 60 degree cercle
 // [ ] roof and ceiling coloring .
 // [x] handle aditional line in x 0 and y 0.
 // [x] texture on wall direction

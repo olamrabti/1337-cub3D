@@ -10,7 +10,7 @@ void draw_map(t_data *data)
 	int i;
 	int j;
 	int x; //
-	int y; //
+	int y;
 
 	i = 0;
 	x = 0;
@@ -26,11 +26,13 @@ void draw_map(t_data *data)
 			else
 				draw_rect(data, y, x, 0);
 			j++;
-			y += data->map->tile_size;
+			y += TILE_SIZE * 0.2 ;
 		}
 		i++;
-		x += data->map->tile_size;
+		x += TILE_SIZE * 0.2 ;
 	}
+	draw_circle(data->img, data->player.x * 0.2, data->player.y * 0.2);
+	draw_view(data);
 }
 
 int main(int ac, char **av)
@@ -48,8 +50,8 @@ int main(int ac, char **av)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
 		return (free(data), printf("parsing failed\n"), ERROR);
-	data->player.x = data->map->player_x * data->map->tile_size;
-	data->player.y = data->map->player_y * data->map->tile_size;
+	data->player.x = data->map->player_x * TILE_SIZE;
+	data->player.y = data->map->player_y * TILE_SIZE;
 	// printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
