@@ -1,12 +1,14 @@
 
-        F      0,255,255
 
 NO ./textures/LoamWall_1.png
 SO ./textures/claywall2.png
 WE ./textures/LoamWall_3.png
 EA ./textures/LoamWall_4.png
 
-C    225,30,1
+        F      0, 255,          255
+
+
+C    225, 30,                1 
 
 
 

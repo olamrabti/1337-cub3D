@@ -29,54 +29,91 @@ void draw_rect(t_data *data, int x, int y, int color)
 
 void draw_circle(mlx_image_t *img, int x_center, int y_center)
 {
-    int radius = 2;
     int x, y;
+    int radius = 4;
+    int radius_squared = radius * radius;
 
-    for (y = 0; y <= radius; y++)
+    x = x_center - radius;
+    // Iterate over the square bounding box of the circle
+    while (x <= x_center + radius)
     {
-        for (x = 0; x <= radius; x++)
+        y = y_center - radius;
+        while (y <= y_center + radius)
         {
-            if (x * x + y * y <= radius * radius)
+            // Check if the point is inside the circle
+            int dx = x - x_center;
+            int dy = y - y_center;
+            if (dx * dx + dy * dy <= radius_squared)
             {
-                protected_ppx(img, x_center + x, y_center + y, get_rgba(255, 0, 0, 255));
-                protected_ppx(img, x_center - x, y_center + y, get_rgba(255, 0, 0, 255));
-                protected_ppx(img, x_center + x, y_center - y, get_rgba(255, 0, 0, 255));
-                protected_ppx(img, x_center - x, y_center - y, get_rgba(255, 0, 0, 255));
+                // Check if the point is within the image boundaries
+                if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+                {
+                    protected_ppx(img, x, y, get_rgba(255, 0, 0, 255));
+                }
             }
+            y++;
         }
+        x++;
     }
 }
-void draw_view(t_data *data, double scale)
+
+void line(mlx_image_t *img, int x1, int y1, int x2, int y2, int color)
 {
-    int radius;
-    double angle;
-    double start_angle;
-    double end_angle;
-    double x, y;
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
 
-    radius = TILE_SIZE / 6;
-    start_angle = data->player.rotation_angle - (M_PI / 6); 
-    end_angle = data->player.rotation_angle + (M_PI / 6);
-
-    for (angle = start_angle; angle <= end_angle; angle += 0.01) 
+    while (1)
     {
-        for (int r = 0; r <= radius; r++)
+        protected_ppx(img, x1, y1, color); // Set the pixel at the current position
+
+        if (x1 == x2 && y1 == y2)
+            break;
+
+        int e2 = 2 * err;
+        if (e2 > -dy)
         {
-            x = data->player.x * scale + r * cos(angle);
-            y = data->player.y * scale + r * sin(angle);
-            protected_ppx(data->img, (int)x, (int)y, get_rgba(0, 255, 0, 255));
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y1 += sy;
         }
     }
 }
 
+// void draw_view(t_data *data)
+// {
+//     int apex_x = 100;                                              // The x-coordinate of the triangle's apex
+//     int apex_y = 100;                                              // The y-coordinate of the triangle's apex
+//     int radius = 50;                                               // Length of the triangle's height (adjust as needed)
+//     double start_angle = data->player.rotation_angle - (M_PI / 6); // 30 degrees to the left
+//     double end_angle = data->player.rotation_angle + (M_PI / 6);   // 30 degrees to the right
+
+//     // Calculate the two base points of the triangle
+//     int base_left_x = apex_x + radius * cos(start_angle);
+//     int base_left_y = apex_y + radius * sin(start_angle);
+//     int base_right_x = apex_x + radius * cos(end_angle);
+//     int base_right_y = apex_y + radius * sin(end_angle);
+
+//     // Draw the triangle using the three points: apex, base_left, and base_right
+//     line(data->minimap.minimap_img, apex_x, apex_y, base_left_x, base_left_y, get_rgba(0, 255, 0, 255));
+//     line(data->minimap.minimap_img, apex_x, apex_y, base_right_x, base_right_y, get_rgba(0, 255, 0, 255));
+//     line(data->minimap.minimap_img, base_left_x, base_left_y, base_right_x, base_right_y, get_rgba(0, 255, 0, 255));
+
+
+// }
 
 double normalize_angle(double angle)
 {
     double normalized;
-    
+
     normalized = fmod(angle, 2 * M_PI);
     if (normalized < 0.0)
         normalized += 2 * M_PI;
     return normalized;
 }
-

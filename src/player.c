@@ -28,8 +28,8 @@ void update_player(t_data *data)
 		data->player.rotation_angle += data->player.turn_direction * ROT_FASTER;
 
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
-	draw_player(data);
 	draw_map(data);
+	draw_player(data);
 }
 
 

@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = cc -Wall -Werror -Wextra  -Ofast
+CC = cc -Wall -Werror -Wextra  -Ofast -g #-fsanitize=address
 
 SRC = main.c\
 		get_next_line/get_next_line.c\
@@ -54,5 +54,5 @@ fclean : clean
 
 re : fclean all
 
-%.o: %.c cub3d.h get_next_line/get_next_line.h Libft/libft.h
+%.o: %.c cub3d.h Libft/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@

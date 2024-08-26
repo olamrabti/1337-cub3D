@@ -17,6 +17,7 @@
 #define WIDTH 1080
 #define HEIGHT 1080
 #define TILE_SIZE 30
+#define MINI_TILE 25
 #define CENTER_X (WIDTH / 2)
 #define CENTER_Y (HEIGHT / 2)
 
@@ -93,6 +94,15 @@ typedef struct s_addr
 	struct s_addr		*nxt;
 }	t_addr;
 
+typedef struct s_minimap
+{
+	mlx_image_t *minimap_img;
+	int x_p;
+	int y_p;
+	int x;
+	int y;
+	int color;
+} t_minimap;
 typedef struct s_data
 {
 	mlx_image_t	*img;
@@ -101,6 +111,8 @@ typedef struct s_data
 	t_addr *addr;
 	t_player player;
 	t_map *map;
+	t_minimap minimap;
+
 }	t_data;
 
 int		add_addr(t_addr **list, t_addr *new);
@@ -116,7 +128,7 @@ void clear_screen(mlx_image_t *img, int color);
 void draw_rect(t_data *data, int x, int y, int color);
 void draw_player(t_data *data);
 void draw_circle(mlx_image_t *img, int x0, int y0);
-void draw_view(t_data *data, double scale);
+void draw_view(t_data *data);
 void draw_map(t_data *data);
 double draw_line(t_data *data, double x1, double y1, double x2, double y2, int color);
 double normalize_angle(double angle);

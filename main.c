@@ -5,38 +5,80 @@ int get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void draw_map(t_data *data)
+void clear_minimap(mlx_image_t *img, int color)
 {
-	int i;
-	int j;
 	int x;
 	int y;
-	double scale;
 
-	i = 0;
-	x = 0;
 	y = 0;
-	scale = data->map->tile_size / (double)TILE_SIZE;
-	// printf("scale = %.3f\n", scale);
-	// printf("scale rev = %.3f\n", (double)TILE_SIZE / data->map->tile_size);
-	while (i < data->map->map_height)
+	while (y < 200)
 	{
-		j = 0;
-		y = 0;
-		while (j < (int)ft_strlen(data->map->map_tiles[i])) 
+		x = 0;
+		while (x < 200)
 		{
-			if (data->map->map_tiles[i][j])
-				draw_rect(data, y, x, (int)data->map->map_tiles[i][j] - 48);
-			else
-				draw_rect(data, y, x, 0);
-			j++;
-			y += data->map->tile_size;
+			protected_ppx(img, x, y, color);
+			x++;
 		}
-		i++;
-		x += data->map->tile_size;
+		y++;
 	}
-	draw_circle(data->img, data->player.x * scale, data->player.y * scale);
-	draw_view(data , scale);
+}
+
+
+void mini_map(t_data *data)
+{
+	int i, j;
+
+	if (data->minimap.x_p >= 0 && data->minimap.y_p >= 0 && data->minimap.x_p < data->map->map_width * MINI_TILE &&
+		data->minimap.y_p < data->map->map_height * MINI_TILE)
+	{
+		i = floor(data->minimap.y_p / MINI_TILE);
+		j = floor(data->minimap.x_p / MINI_TILE);
+
+		if (i < data->map->map_height && j < data->map->map_width)
+		{
+			char map_char = data->map->map_tiles[i][j];
+			int color = 0;
+			if (map_char == '0')
+				color = get_rgba(0, 0, 0, 255);
+			else if (map_char == '1')
+				color = get_rgba(255, 255, 255, 255);
+			else 
+				color = get_rgba(0, 0, 0, 255);
+			protected_ppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, color);
+		}
+	}
+}
+
+
+void draw_map(t_data *data)
+{
+	int minimap_size = 200;
+	int scale = minimap_size / 2;
+	// int radius_squared = scale * scale;
+
+	clear_minimap(data->minimap.minimap_img, get_rgba(0, 0, 0, 255));
+
+	data->minimap.y = 0;
+	data->minimap.y_p = ((data->player.y * MINI_TILE) / TILE_SIZE) - scale;
+	while (data->minimap.y < minimap_size)
+	{
+		data->minimap.x = 0;
+		data->minimap.x_p = ((data->player.x * MINI_TILE) / TILE_SIZE) - scale;
+		while (data->minimap.x < minimap_size)
+		{
+
+			
+			mini_map(data);
+			data->minimap.x++;
+			data->minimap.x_p++;
+		}
+		data->minimap.y++;
+		data->minimap.y_p++;
+	}
+
+	draw_circle(data->minimap.minimap_img, scale, scale);
+	// draw_view(data);
+
 }
 
 int main(int ac, char **av)
@@ -77,8 +119,12 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	draw_map(data);
-	// draw_player(data);
+
+	data->minimap.minimap_img = mlx_new_image(data->mlx, 200, 200);
+	if (!(data->minimap.minimap_img))
+		return (EXIT_FAILURE);
+	if (mlx_image_to_window(data->mlx, data->minimap.minimap_img, 0, 0) == -1)
+		return (EXIT_FAILURE);
 
 	mlx_loop_hook(data->mlx, &key_event_handler, data);
 	mlx_loop(data->mlx);
