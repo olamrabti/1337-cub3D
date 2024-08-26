@@ -47,6 +47,8 @@ typedef struct s_map
 	char *we_texture_path;
 	char *ea_texture_path;
 	char *f_color;
+	int *f_rgb;
+	int *c_rgb;
 	char *c_color;
 	char player_direction;
 	char *single_line_map;

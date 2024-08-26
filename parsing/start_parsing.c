@@ -95,6 +95,32 @@ int ft_parsing_vars(char *map_path, t_data *data)
     return SUCCESS;
 }
 
+int ft_stores_f_c(t_data *data)
+{
+    char **split;
+    int i;
+
+    split = ft_split(data->map->f_color, ',', data);
+    data->map->f_rgb = ft_calloc_ac(&data->addr, 3, sizeof(int));
+    i = 0;
+    while (split[i])
+    {
+        data->map->f_rgb[i] = ft_atoi(split[i]);
+        i++;
+    }
+    split = ft_split(data->map->c_color, ',', data);
+    data->map->c_rgb = ft_calloc_ac(&data->addr, 3, sizeof(int));
+    i = 0;
+    while (split[i])
+    {
+        data->map->c_rgb[i] = ft_atoi(split[i]);
+        i++;
+    }
+    printf("f_rgb: |%d| |%d| |%d|\n", data->map->f_rgb[0], data->map->f_rgb[1], data->map->f_rgb[2]);
+    printf("c_rgb: |%d| |%d| |%d|\n", data->map->c_rgb[0], data->map->c_rgb[1], data->map->c_rgb[2]);
+    return SUCCESS;
+}
+
 int ft_parsing(char *map_path, t_data *data)
 {
     if (ft_parse_map_path(map_path) == ERROR)
@@ -123,5 +149,8 @@ int ft_parsing(char *map_path, t_data *data)
         return ERROR;
     if (ft_valide_map(data) == ERROR)
         return ERROR;
+    if (ft_stores_f_c(data) == ERROR)
+        return ERROR;
+    
     return SUCCESS;
 }
