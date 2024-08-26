@@ -5,6 +5,11 @@ void protected_ppx(mlx_image_t *img, int x, int y, int color)
     if (x <= WIDTH && x >= 0 && y >= 0 && y <= HEIGHT)
         mlx_put_pixel(img, x, y, color);
 }
+void protected_mppx(mlx_image_t *img, int x, int y, int color)
+{
+    if (x <= 200 && x >= 0 && y >= 0 && y <= 200)
+        mlx_put_pixel(img, x, y, color);
+}
 void draw_rect(t_data *data, int x, int y, int color)
 {
     int tmp_x;
@@ -57,56 +62,27 @@ void draw_circle(mlx_image_t *img, int x_center, int y_center)
     }
 }
 
-void line(mlx_image_t *img, int x1, int y1, int x2, int y2, int color)
+void draw_view(t_data *data)
 {
-    int dx = abs(x2 - x1);
-    int dy = abs(y2 - y1);
-    int sx = (x1 < x2) ? 1 : -1;
-    int sy = (y1 < y2) ? 1 : -1;
-    int err = dx - dy;
+    double start_angle;
+    double end_angle;
+    int r;
 
-    while (1)
+    start_angle = normalize_angle(data->player.rotation_angle - (M_PI / 6));
+    end_angle =  start_angle + (M_PI / 3);
+
+    while (start_angle <= end_angle) 
     {
-        protected_ppx(img, x1, y1, color); // Set the pixel at the current position
-
-        if (x1 == x2 && y1 == y2)
-            break;
-
-        int e2 = 2 * err;
-        if (e2 > -dy)
+        r = 5;
+        while (r <= 15)
         {
-            err -= dy;
-            x1 += sx;
+            protected_mppx(data->minimap.minimap_img, 100 + (r * cos(start_angle)), 100 + (r * sin(start_angle)), get_rgba(0, 255, 0, 200));
+            r++;
         }
-        if (e2 < dx)
-        {
-            err += dx;
-            y1 += sy;
-        }
+       start_angle += 0.01;
     }
 }
 
-// void draw_view(t_data *data)
-// {
-//     int apex_x = 100;                                              // The x-coordinate of the triangle's apex
-//     int apex_y = 100;                                              // The y-coordinate of the triangle's apex
-//     int radius = 50;                                               // Length of the triangle's height (adjust as needed)
-//     double start_angle = data->player.rotation_angle - (M_PI / 6); // 30 degrees to the left
-//     double end_angle = data->player.rotation_angle + (M_PI / 6);   // 30 degrees to the right
-
-//     // Calculate the two base points of the triangle
-//     int base_left_x = apex_x + radius * cos(start_angle);
-//     int base_left_y = apex_y + radius * sin(start_angle);
-//     int base_right_x = apex_x + radius * cos(end_angle);
-//     int base_right_y = apex_y + radius * sin(end_angle);
-
-//     // Draw the triangle using the three points: apex, base_left, and base_right
-//     line(data->minimap.minimap_img, apex_x, apex_y, base_left_x, base_left_y, get_rgba(0, 255, 0, 255));
-//     line(data->minimap.minimap_img, apex_x, apex_y, base_right_x, base_right_y, get_rgba(0, 255, 0, 255));
-//     line(data->minimap.minimap_img, base_left_x, base_left_y, base_right_x, base_right_y, get_rgba(0, 255, 0, 255));
-
-
-// }
 
 double normalize_angle(double angle)
 {

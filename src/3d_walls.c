@@ -17,7 +17,7 @@ void texture_ppx(t_data *data, double x, double y, t_ray *ray, double wall_heigh
     color = get_rgba(data->tx[ray->direction]->pixels[idx], data->tx[ray->direction]->pixels[idx + 1], data->tx[ray->direction]->pixels[idx + 2], data->tx[ray->direction]->pixels[idx + 3]);
 
     if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
-        mlx_put_pixel(data->img, x, y, color);
+        protected_ppx(data->img, x, y, color);
 }
 void render_r_and_c(t_data *data ,double wall_top , double wall_bottom, int x)
 {
@@ -26,13 +26,13 @@ void render_r_and_c(t_data *data ,double wall_top , double wall_bottom, int x)
     i = 0;
     while (i < wall_top)
     {
-        protected_ppx(data->img, x, i, get_rgba(119, 181, 254, 200));
+        protected_ppx(data->img, x, i, get_rgba(data->map->c_rgb[0], data->map->c_rgb[1], data->map->c_rgb[2], 200));
         i++;
     }
     i = wall_bottom;
     while (i < HEIGHT)
     {
-        protected_ppx(data->img, x, i, get_rgba(128, 128, 128, 255));
+        protected_ppx(data->img, x, i, get_rgba(data->map->f_rgb[0], data->map->f_rgb[1], data->map->f_rgb[2], 200));
         i++;
     }
 }

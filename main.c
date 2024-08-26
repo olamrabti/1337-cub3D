@@ -44,11 +44,10 @@ void mini_map(t_data *data)
 				color = get_rgba(255, 255, 255, 255);
 			else 
 				color = get_rgba(0, 0, 0, 255);
-			protected_ppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, color);
+			protected_mppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, color);
 		}
 	}
 }
-
 
 void draw_map(t_data *data)
 {
@@ -67,7 +66,6 @@ void draw_map(t_data *data)
 		while (data->minimap.x < minimap_size)
 		{
 
-			
 			mini_map(data);
 			data->minimap.x++;
 			data->minimap.x_p++;
@@ -77,8 +75,7 @@ void draw_map(t_data *data)
 	}
 
 	draw_circle(data->minimap.minimap_img, scale, scale);
-	// draw_view(data);
-
+	draw_view(data);
 }
 
 int main(int ac, char **av)
@@ -96,11 +93,8 @@ int main(int ac, char **av)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
 		return (free(data), printf("parsing failed\n"), ERROR);
-	// data->player.x = data->map->player_x * TILE_SIZE / 2;
-	// data->player.y = data->map->player_y * TILE_SIZE / 2;
 	data->player.x = data->map->player_x * TILE_SIZE + TILE_SIZE / 2;
 	data->player.y = data->map->player_y * TILE_SIZE + TILE_SIZE / 2;
-	// printf("player[x: %.f , y: %.f]\n", data->player.x, data->player.y);
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
 	if (data->map->player_direction == 'N')

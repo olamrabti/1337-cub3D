@@ -31,8 +31,8 @@
 
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.5
-#define ROT_SPEED (2 * M_PI / 160)
-#define ROT_FASTER (2 * M_PI / 100)
+#define ROT_SPEED ((2 * M_PI ) / 160)
+#define ROT_FASTER ((2 * M_PI) / 60)
 
 typedef struct s_map
 {
@@ -141,11 +141,10 @@ void cast_rays(t_data *data); // change name later
 void render_wall(t_data *data, double distance, int ray_index, int direction);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
-
+void protected_mppx(mlx_image_t *img, int x, int y, int color);
 //=======================================================================
 //                             parsing                                 //
 //=======================================================================
-
 
 char *get_next_line(int fd, t_data *data);
 int ft_parsing(char *map_path, t_data *data);
