@@ -31,8 +31,8 @@
 
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.5
-#define ROT_SPEED ((2 * M_PI ) / 160)
-#define ROT_FASTER ((2 * M_PI) / 60)
+#define ROT_SPEED ((2 * M_PI ) / 140)
+#define ROT_FASTER ((2 * M_PI) / 80)
 
 typedef struct s_map
 {
@@ -84,7 +84,7 @@ typedef struct dda_step
 {
 	double d_x;
 	double d_y;
-	t_point first;
+	t_point next;
 	t_point check_pt;
 	double distance;
 } t_dda;
@@ -127,21 +127,18 @@ void key_event_handler(void *arg);
 int get_rgba(int r, int g, int b, int a);
 void protected_ppx(mlx_image_t *img, int x, int y, int color);
 void clear_screen(mlx_image_t *img, int color);
-void draw_rect(t_data *data, int x, int y, int color);
 void draw_player(t_data *data);
-void draw_circle(mlx_image_t *img, int x0, int y0);
+void draw_circle(mlx_image_t *img);
 void draw_view(t_data *data);
 void draw_map(t_data *data);
-double draw_line(t_data *data, double x1, double y1, double x2, double y2, int color);
 double normalize_angle(double angle);
-// dda
 int is_wall(t_data *data, double x, double y) ;
 double get_distance(t_data *data, double x, double y);
-void cast_rays(t_data *data); // change name later
-void render_wall(t_data *data, double distance, int ray_index, int direction);
+void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
 void protected_mppx(mlx_image_t *img, int x, int y, int color);
+
 //=======================================================================
 //                             parsing                                 //
 //=======================================================================

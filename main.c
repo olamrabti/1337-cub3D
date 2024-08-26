@@ -16,7 +16,7 @@ void clear_minimap(mlx_image_t *img, int color)
 		x = 0;
 		while (x < 200)
 		{
-			protected_ppx(img, x, y, color);
+			protected_mppx(img, x, y, color);
 			x++;
 		}
 		y++;
@@ -53,10 +53,8 @@ void draw_map(t_data *data)
 {
 	int minimap_size = 200;
 	int scale = minimap_size / 2;
-	// int radius_squared = scale * scale;
 
 	clear_minimap(data->minimap.minimap_img, get_rgba(0, 0, 0, 255));
-
 	data->minimap.y = 0;
 	data->minimap.y_p = ((data->player.y * MINI_TILE) / TILE_SIZE) - scale;
 	while (data->minimap.y < minimap_size)
@@ -65,7 +63,6 @@ void draw_map(t_data *data)
 		data->minimap.x_p = ((data->player.x * MINI_TILE) / TILE_SIZE) - scale;
 		while (data->minimap.x < minimap_size)
 		{
-
 			mini_map(data);
 			data->minimap.x++;
 			data->minimap.x_p++;
@@ -73,8 +70,7 @@ void draw_map(t_data *data)
 		data->minimap.y++;
 		data->minimap.y_p++;
 	}
-
-	draw_circle(data->minimap.minimap_img, scale, scale);
+	draw_circle(data->minimap.minimap_img);
 	draw_view(data);
 }
 

@@ -12,26 +12,30 @@ void update_player(t_data *data)
 	double projected_x;
 	double projected_y;
 
+	projected_x = data->player.x + cos(data->player.rotation_angle) * (TILE_SIZE / 2);
+	projected_y = data->player.y + sin(data->player.rotation_angle) * (TILE_SIZE / 2);
+	if (!is_wall(data, projected_x , projected_y))
+		data->player.rotation_angle += data->player.turn_direction * ROT_SPEED;
+	else
+	{
+		data->player.rotation_angle += data->player.turn_direction * ROT_FASTER;
+		printf(" %.f ,,", data->player.rotation_angle);
+	}
 
 	step = data->player.walk_direction * MOVE_SPEED;
-	projected_x = data->player.x + cos(data->player.rotation_angle) * (step + (6 * data->player.walk_direction)); // player always away from the wall size / 6
-	projected_y = data->player.y + sin(data->player.rotation_angle) * (step + (6 * data->player.walk_direction));
-
-	if (!is_wall(data, projected_x - 3, projected_y) && !is_wall(data, projected_x + 3, projected_y) \
-	&& !is_wall(data, projected_x, projected_y - 3) && !is_wall(data, projected_x, projected_y + 3)) // bigger player
+	projected_x = data->player.x + cos(data->player.rotation_angle) * (step);
+	projected_y = data->player.y + sin(data->player.rotation_angle) * (step);
+	if (!is_wall(data, projected_x - 5, projected_y) && !is_wall(data, projected_x + 5, projected_y) \
+	&& !is_wall(data, projected_x, projected_y - 5) && !is_wall(data, projected_x, projected_y + 5))
 	{
 		data->player.x += cos(data->player.rotation_angle) * step;
 		data->player.y += sin(data->player.rotation_angle) * step;
-		data->player.rotation_angle += data->player.turn_direction * ROT_SPEED;
 	} 
-	else
-		data->player.rotation_angle += data->player.turn_direction * ROT_FASTER;
-
+	
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
 	draw_map(data);
 	draw_player(data);
 }
-
 
 // handle key event 
 void key_event_handler(void *arg)

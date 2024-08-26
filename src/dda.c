@@ -60,13 +60,13 @@ t_dda get_hor_inters(t_data *data, double angle)
 
     t_dda step;
 
-    step.first.y = (floor(data->player.y / TILE_SIZE) * TILE_SIZE);
-    step.check_pt.y = step.first.y;
+    step.next.y = (floor(data->player.y / TILE_SIZE) * TILE_SIZE);
+    step.check_pt.y = step.next.y;
     step.d_y = TILE_SIZE;
 
     if (!is_up(angle))
     {
-        step.first.y += (TILE_SIZE);
+        step.next.y += (TILE_SIZE);
         step.check_pt.y += (TILE_SIZE + 1);
     }
     else
@@ -74,8 +74,8 @@ t_dda get_hor_inters(t_data *data, double angle)
         step.d_y *= -1;
         step.check_pt.y -= 1;
     }
-    step.first.x = data->player.x + (step.first.y - data->player.y) / tan(angle);
-    step.check_pt.x = step.first.x;
+    step.next.x = data->player.x + (step.next.y - data->player.y) / tan(angle);
+    step.check_pt.x = step.next.x;
 
     step.d_x = TILE_SIZE / tan(angle);
     if (!is_right(angle) && step.d_x > 0)
@@ -86,12 +86,12 @@ t_dda get_hor_inters(t_data *data, double angle)
     {
         if (is_wall(data, step.check_pt.x, step.check_pt.y))
             break;
-        step.first.x += step.d_x;
-        step.first.y += step.d_y;
+        step.next.x += step.d_x;
+        step.next.y += step.d_y;
         step.check_pt.x += step.d_x;
         step.check_pt.y += step.d_y;
     }
-    step.distance = get_distance(data, step.first.x, step.first.y);
+    step.distance = get_distance(data, step.next.x, step.next.y);
     return step;
 }
 
@@ -100,19 +100,19 @@ t_dda get_vert_inters(t_data *data, double angle)
 {
     t_dda step;
 
-    step.first.x = (floor(data->player.x / TILE_SIZE) * TILE_SIZE) + TILE_SIZE; //
-    step.check_pt.x = step.first.x;
+    step.next.x = (floor(data->player.x / TILE_SIZE) * TILE_SIZE) + TILE_SIZE; //
+    step.check_pt.x = step.next.x;
     step.d_x = TILE_SIZE;
     if (!is_right(angle))
     {
-        step.first.x -= TILE_SIZE;
+        step.next.x -= TILE_SIZE;
         step.check_pt.x -= (TILE_SIZE + 1);
         step.d_x *= -1;
     }
     else
         step.check_pt.x += 1;
-    step.first.y = data->player.y + (step.first.x - data->player.x) * tan(angle);
-    step.check_pt.y = step.first.y;
+    step.next.y = data->player.y + (step.next.x - data->player.x) * tan(angle);
+    step.check_pt.y = step.next.y;
     step.d_y = TILE_SIZE * tan(angle);
     if (is_up(angle) && step.d_y > 0)
         step.d_y *= -1;
@@ -123,12 +123,12 @@ t_dda get_vert_inters(t_data *data, double angle)
         
         if (is_wall(data, step.check_pt.x, step.check_pt.y))
             break;
-        step.first.x += step.d_x;
-        step.first.y += step.d_y;
+        step.next.x += step.d_x;
+        step.next.y += step.d_y;
         step.check_pt.x += step.d_x;
         step.check_pt.y += step.d_y;
     }
-    step.distance = get_distance(data, step.first.x, step.first.y);
+    step.distance = get_distance(data, step.next.x, step.next.y);
     return step;
 }
 
@@ -148,16 +148,16 @@ void ft_dda(t_data *data, t_ray *ray)
         if (is_right(ray->angle))
             ray->direction = WEST;
         ray->distance = distortion_factor * step_y.distance;
-        ray->end_x = step_y.first.x;
-        ray->end_y = step_y.first.y;
+        ray->end_x = step_y.next.x;
+        ray->end_y = step_y.next.y;
         // draw_line(data, data->player.x, data->player.y, ray->end_x, ray->end_y, get_rgba(255, 0, 0, 255));
         return;
     }
     ray->direction = NORTH;
     if (is_up(ray->angle))
         ray->direction = SOUTH;
-    ray->end_x = step_x.first.x;
-    ray->end_y = step_x.first.y;
+    ray->end_x = step_x.next.x;
+    ray->end_y = step_x.next.y;
     ray->distance = distortion_factor * step_x.distance;
     // draw_line(data, data->player.x, data->player.y, ray->end_x, ray->end_y, get_rgba(255, 0, 0, 255));
 }
