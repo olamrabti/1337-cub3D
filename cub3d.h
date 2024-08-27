@@ -31,8 +31,8 @@
 
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.5
-#define ROT_SPEED ((2 * M_PI ) / 140)
-#define ROT_FASTER ((2 * M_PI) / 80)
+#define ROTATE ((2 * M_PI ) / 160)
+#define ROT_FASTER ((2 * M_PI) / 100)
 
 typedef struct s_map
 {
@@ -62,7 +62,9 @@ typedef struct player
 	double y;
 	double turn_direction;
 	double walk_direction;
+	double side_walk;
 	double rotation_angle;
+	double close_to_wall;
 } t_player;
 
 typedef struct point
@@ -105,6 +107,7 @@ typedef struct s_minimap
 	int y;
 	int color;
 } t_minimap;
+
 typedef struct s_data
 {
 	mlx_image_t	*img;

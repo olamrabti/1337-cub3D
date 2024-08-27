@@ -115,6 +115,8 @@ int main(int ac, char **av)
 	data->player.y = data->map->player_y * TILE_SIZE + TILE_SIZE / 2;
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
+	data->player.side_walk = 0;
+	data->player.close_to_wall = 0;
 	if (data->map->player_direction == 'N')
 		data->player.rotation_angle = 3 * M_PI / 2;
 	else if (data->map->player_direction == 'S')

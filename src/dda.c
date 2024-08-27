@@ -167,14 +167,22 @@ void cast_rays(t_data *data)
     t_ray ray;
     double angle_incr;
     int i;
+    int j;
 
     i = 0;
+    j = 0;
     ray.direction = 0;
     angle_incr = FOV_ANGL / WIDTH;
     ray.angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2));
+    data->player.close_to_wall = 0;
     while (i < WIDTH)
     {
         ft_dda(data, &ray);
+        if (ray.distance < 10)
+        {
+            data->player.close_to_wall += ray.distance;
+            j++;
+        }
         render_tex_col(data, &ray, i);
         ray.angle = normalize_angle(ray.angle + angle_incr);
         i++;
