@@ -86,7 +86,7 @@ int ft_parsing_vars(char *map_path, t_data *data)
         if (line[i] == '0' || line[i] == '1')
             break;
         if (ft_valide_wall_direction(&line[i]) == ERROR)
-            return ft_putstr_fd("Error\nwrong map parameters\n", 2), ERROR;
+            return ERROR;
         single_line_vars = gc_strjoin(single_line_vars, line, &data->addr);
         line = get_next_line(fd, data);
     }
@@ -116,41 +116,61 @@ int ft_stores_f_c(t_data *data)
         data->map->c_rgb[i] = ft_atoi(split[i]);
         i++;
     }
-    printf("f_rgb: |%d| |%d| |%d|\n", data->map->f_rgb[0], data->map->f_rgb[1], data->map->f_rgb[2]);
-    printf("c_rgb: |%d| |%d| |%d|\n", data->map->c_rgb[0], data->map->c_rgb[1], data->map->c_rgb[2]);
     return SUCCESS;
+}
+
+void    ft_Error(int i)
+{
+    ft_putstr_fd("Error\n", 2);
+    if (i == 1)
+        ft_putstr_fd("Wrong path\n", 2);
+    if (i == 2)
+        ft_putstr_fd("Wrong map parameters\n", 2);
+    if (i == 3)
+        ft_putstr_fd("Missing variables\n", 2);
+    if (i == 4)
+        ft_putstr_fd("Duplicated variables\n", 2);
+    if (i == 5)
+        ft_putstr_fd("Wrong color parametres\n", 2);
+    if (i == 6)
+        ft_putstr_fd("Map contains tabs\n", 2);
+    if (i == 7)
+        ft_putstr_fd("Wrong player direction\n", 2);
+    if (i == 8)
+        ft_putstr_fd("Map is not valid\n", 2);
+    exit(ERROR);
 }
 
 int ft_parsing(char *map_path, t_data *data)
 {
     if (ft_parse_map_path(map_path) == ERROR)
-        return (ERROR);
+        return ft_Error(1), (ERROR);
     if (ft_parsing_vars(map_path, data) == ERROR)
-        return (ERROR);
+        return ft_Error(2), (ERROR);
     if (ft_double_check_vars(data) == ERROR)
-        return ERROR;
+        return ft_Error(3), ERROR;
     if (ft_parsing_map(map_path, data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), ERROR;
     if (ft_save_vars(map_path, data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), ERROR;
     if (ft_check_vars(data) == ERROR)
-        return ERROR;
+        return ft_Error(5), (ERROR);
     if (ft_split_map(data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), (ERROR);
     if (ft_has_tabs(data) == ERROR)
-        return ERROR;
+        return ft_Error(6), ERROR;
     if (ft_check_players(data) == ERROR)
-        return ERROR;
+        return ft_Error(7), ERROR;
     if (ft_save_player_pos(data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), ERROR;
     if (ft_fill_map_dimension(data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), ERROR;
     if (ft_fill_map_with_sp(data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), ERROR;
     if (ft_valide_map(data) == ERROR)
-        return ERROR;
+        return ft_Error(8), ERROR;
     if (ft_stores_f_c(data) == ERROR)
-        return ERROR;
+        return ft_Error(-1), ERROR;
     
     return SUCCESS;
 }

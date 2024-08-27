@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:23:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/12 11:36:54 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:33:05 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,16 @@ int ft_split_map(t_data *data)
 {
     data->map->map_tiles = ft_split(data->map->single_line_map, '\n', data);
     if (!data->map->map_tiles)
-        return ERROR;
+        return (ERROR);
     int i = 0;
     char **temp = data->map->map_tiles;
     while (temp[i])
     {
         if (ft_all_spaces(temp[i]))
-        {
-            // free(temp[i]);
             temp[i] = NULL;
-        }
         i++;
     }
-    return SUCCESS;
+    return (SUCCESS);
 }
 
 int ft_has_tabs(t_data *data)
@@ -56,10 +53,10 @@ int ft_has_tabs(t_data *data)
         while (temp[i][j])
         {
             if (temp[i][j] == '\t')
-                return ERROR;
+                return (ERROR);
             j++;
         }
         i++;
     }
-    return SUCCESS;
+    return (SUCCESS);
 }

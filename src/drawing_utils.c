@@ -52,7 +52,7 @@ void draw_view(t_data *data)
         r = 5;
         while (r <= 15)
         {
-            protected_mppx(data->minimap.minimap_img, 100 + (r * cos(start_angle)), 100 + (r * sin(start_angle)), get_rgba(159, 159, 159, 100));
+            protected_mppx(data->minimap.minimap_img, 100 + (r * cos(start_angle)), 100 + (r * sin(start_angle)), get_rgba(169, 169, 169, 255));
             r++;
         }
        start_angle += 0.01;

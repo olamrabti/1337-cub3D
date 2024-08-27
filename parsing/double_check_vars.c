@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_check_vars.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:16:54 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/11 11:04:53 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:20:39 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int ft_duplicated_vars(char *var, char *line)
 int ft_missing_vars(char *var, char *line)
 {
     if (ft_strnstr(line, var, ft_strlen(line)) == NULL)
-    {
-        printf("Missing variable: %s\n", var);
         return ERROR;
-    }
     return SUCCESS;
 }
 

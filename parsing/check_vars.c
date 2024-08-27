@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:39:49 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/25 20:20:16 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:30:29 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ int ft_parse_color(char *str, t_data *data)
         i = 0;
         while (split[i])
         {
-            // printf("split: %s\n", split[i]);
             if (ft_atoi(split[i]) > 255 || ft_atoi(split[i]) < 0)
                 return ERROR;
-            // free(split[i]);
             i++;
         }
         if (i < 3)

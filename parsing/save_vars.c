@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:09:28 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/12 11:59:32 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:45:05 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int ft_extract_and_assign(char *line, int i, char **destination, t_data *data)
     while (line[i] == ' ' || line[i] == '\t')
         i++;
     *destination = gc_substr(line, i, ft_strlen(&line[i]) - 1, &data->addr);
-    printf("|%s|\n", *destination);
     return SUCCESS;
 }
 
@@ -28,8 +27,7 @@ int ft_save_vars(char *map_path, t_data *data)
 
     fd = open(map_path, O_RDONLY);
     if (fd < 0)
-        return ERROR;
-
+        return (ERROR);
     line = get_next_line(fd, data);
     while (line)
     {
@@ -43,7 +41,6 @@ int ft_save_vars(char *map_path, t_data *data)
         }
         if (line[i] == '0' || line[i] == '1')
             break;
-
         if (ft_valide_wall_direction(&line[i]) == SUCCESS)
         {
             if (ft_strncmp(&line[i], "NO", 2) == 0)
@@ -59,10 +56,8 @@ int ft_save_vars(char *map_path, t_data *data)
             else if (ft_strncmp(&line[i], "C", 1) == 0)
                 ft_extract_and_assign(line, i + 1, &(data->map->c_color), data);
         }
-
         line = get_next_line(fd, data);
     }
-
     close(fd);
     return SUCCESS;
 }

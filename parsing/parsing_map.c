@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:49:11 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/12 12:00:30 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:28:33 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ int ft_another_newline(char *str)
             if (str[j] == '\n' || str[j] == ' ' || str[j] == '\t')
                 j++;
             else
-                return ERROR;
+                return (ERROR);
         }
     }
-    return SUCCESS;
+    return (SUCCESS);
 }
 
 int ft_check_newlines(char *single_line_map)
@@ -93,11 +93,11 @@ int ft_check_newlines(char *single_line_map)
         if (single_line_map[i] == '\n')
         {
             if (ft_another_newline(&single_line_map[i + 1]) == ERROR)
-                return ERROR;
+                return (ERROR);
         }
         i++;
     }
-    return SUCCESS;
+    return (SUCCESS);
 }
 
 int ft_parsing_map(char *map_path, t_data *data)

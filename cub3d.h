@@ -114,6 +114,7 @@ typedef struct s_data
 	t_player player;
 	t_map *map;
 	t_minimap minimap;
+	double mouse_sensitivity;
 
 }	t_data;
 

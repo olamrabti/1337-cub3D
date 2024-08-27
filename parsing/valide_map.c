@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:25:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/25 16:18:21 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:35:54 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ int ft_fill_map_dimension(t_data *data)
     if (i == 0)
         return ERROR;
     data->map->map_width = max_width;
-    // printf("map_width:-->%d\n", data->map->map_width);
     data->map->map_height = i;
-    // printf("map_height:-->%d\n", data->map->map_height);
      if (i > max_width)
         data->map->tile_size = WIDTH / i;
     else
@@ -106,7 +104,7 @@ int ft_valide_map(t_data *data)
             if (temp[i][j] == '0')
             {
                 if (ft_check_zero_surroundings(temp, i, j) == ERROR)
-                    return ERROR;
+                    return (ERROR);
             }
             j++;
         }

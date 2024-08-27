@@ -27,6 +27,8 @@ void clear_minimap(mlx_image_t *img, int color)
 void mini_map(t_data *data)
 {
 	int i, j;
+	char map_char;
+	int color;
 
 	if (data->minimap.x_p >= 0 && data->minimap.y_p >= 0 && data->minimap.x_p < data->map->map_width * MINI_TILE &&
 		data->minimap.y_p < data->map->map_height * MINI_TILE)
@@ -36,14 +38,12 @@ void mini_map(t_data *data)
 
 		if (i < data->map->map_height && j < data->map->map_width)
 		{
-			char map_char = data->map->map_tiles[i][j];
-			int color = 0;
-			if (map_char == '0')
-				color = get_rgba(0, 0, 0, 255);
-			else if (map_char == '1')
+			map_char = data->map->map_tiles[i][j];
+			color = 0;
+			if (map_char == '1')
 				color = get_rgba(255, 255, 255, 255);
 			else 
-				color = get_rgba(0, 0, 0, 255);
+				color = get_rgba(10, 10, 10, 0);
 			protected_mppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, color);
 		}
 	}
@@ -51,18 +51,19 @@ void mini_map(t_data *data)
 
 void draw_map(t_data *data)
 {
-	int minimap_size = 200;
-	int scale = minimap_size / 2;
+	int minimap_size;
 
+	minimap_size = 200;
 	clear_minimap(data->minimap.minimap_img, get_rgba(0, 0, 0, 255));
 	data->minimap.y = 0;
-	data->minimap.y_p = ((data->player.y * MINI_TILE) / TILE_SIZE) - scale;
+	data->minimap.y_p = ((data->player.y * MINI_TILE) / TILE_SIZE) - minimap_size / 2;
 	while (data->minimap.y < minimap_size)
 	{
 		data->minimap.x = 0;
-		data->minimap.x_p = ((data->player.x * MINI_TILE) / TILE_SIZE) - scale;
+		data->minimap.x_p = ((data->player.x * MINI_TILE) / TILE_SIZE) - minimap_size / 2;
 		while (data->minimap.x < minimap_size)
 		{
+			protected_mppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, get_rgba(10, 10, 10, 0));
 			mini_map(data);
 			data->minimap.x++;
 			data->minimap.x_p++;
@@ -73,6 +74,27 @@ void draw_map(t_data *data)
 	draw_circle(data->minimap.minimap_img);
 	draw_view(data);
 }
+
+// mlx_mousefunc mouse_event_handler(int button, int x, int y, void *param)
+// {
+// 	(void)x;
+// 	(void)y;
+
+// 	t_data *data;
+// 	data = (t_data *)param;
+// 	if (button == 1)
+// 	{
+// 		printf("x = %d, y = %d\n", x, y);
+// 	}
+// }
+
+// void ft_mouse_hook(t_data *data)
+// {
+	
+// 	mlx_mouse_hook(data->mlx, &mouse_event_handler, data);
+	
+	
+// }
 
 int main(int ac, char **av)
 {
@@ -103,6 +125,7 @@ int main(int ac, char **av)
 		data->player.rotation_angle = M_PI;
 	if (!get_textures(data))
 		return (free(data), printf("parsing failed\n"), ERROR);
+	data->mouse_sensitivity = 0.002;
 	// TODO protect MLX utils if each one fails
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (!data->mlx)
@@ -117,6 +140,7 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 
 	mlx_loop_hook(data->mlx, &key_event_handler, data);
+	// ft_mouse_hook(data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	ft_addrclear(&data->addr, free);

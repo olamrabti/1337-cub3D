@@ -19,7 +19,7 @@ void update_player(t_data *data)
 	else
 	{
 		data->player.rotation_angle += data->player.turn_direction * ROT_FASTER;
-		printf(" %.f ,,", data->player.rotation_angle);
+		// printf(" %.f ,,", data->player.rotation_angle);
 	}
 
 	step = data->player.walk_direction * MOVE_SPEED;
