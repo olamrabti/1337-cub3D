@@ -30,7 +30,7 @@
 #define EAST 3
 
 #define FOV_ANGL (M_PI / 3)
-#define MOVE_SPEED 2.5
+#define MOVE_SPEED 2.0
 #define ROTATE ((2 * M_PI ) / 160)
 #define ROT_FASTER ((2 * M_PI) / 100)
 

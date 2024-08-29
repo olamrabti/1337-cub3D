@@ -81,14 +81,16 @@ void ft_mouse(double x, double y, void *param)
 	(void)y;
 
 	data = (t_data *)param;
-
-	if (data->mouse_x != -1)
+	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
 	{
-		mouse_distance = x - data->mouse_x;
-		data->player.rotation_angle += mouse_distance * 0.002;
-		data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
+		if (data->mouse_x != -1)
+		{
+			mouse_distance = x - data->mouse_x;
+			data->player.rotation_angle += mouse_distance * 0.01;
+			data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
+		}
+		data->mouse_x = x;
 	}
-	data->mouse_x = x;
 }
 
 int main(int ac, char **av)
@@ -125,7 +127,7 @@ int main(int ac, char **av)
 		return (free(data), printf("parsing failed\n"), ERROR);
 
 	// TODO protect MLX utils if each one fails
-	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!data->mlx)
 		exit(EXIT_FAILURE);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
@@ -136,9 +138,9 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (mlx_image_to_window(data->mlx, data->minimap.minimap_img, 0, 0) == -1)
 		return (EXIT_FAILURE);
-
-	mlx_loop_hook(data->mlx, &key_event_handler, data);
 	mlx_cursor_hook(data->mlx, &ft_mouse, data);
+	mlx_loop_hook(data->mlx, &key_event_handler, data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

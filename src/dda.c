@@ -150,7 +150,6 @@ void ft_dda(t_data *data, t_ray *ray)
         ray->distance = distortion_factor * step_y.distance;
         ray->end_x = step_y.next.x;
         ray->end_y = step_y.next.y;
-        // draw_line(data, data->player.x, data->player.y, ray->end_x, ray->end_y, get_rgba(255, 0, 0, 255));
         return;
     }
     ray->direction = NORTH;
@@ -159,7 +158,6 @@ void ft_dda(t_data *data, t_ray *ray)
     ray->end_x = step_x.next.x;
     ray->end_y = step_x.next.y;
     ray->distance = distortion_factor * step_x.distance;
-    // draw_line(data, data->player.x, data->player.y, ray->end_x, ray->end_y, get_rgba(255, 0, 0, 255));
 }
 
 void cast_rays(t_data *data)
@@ -167,10 +165,8 @@ void cast_rays(t_data *data)
     t_ray ray;
     double angle_incr;
     int i;
-    int j;
 
     i = 0;
-    j = 0;
     ray.direction = 0;
     angle_incr = FOV_ANGL / WIDTH;
     ray.angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2));
@@ -181,17 +177,11 @@ void cast_rays(t_data *data)
         ft_dda(data, &ray);
         if (i == WIDTH / 2)
             data->player.animation_area += ray.distance;
-        // if (i == 0 || i == WIDTH / 2 || i == WIDTH - 1)
-        //     data->player.animation_area += ray.distance;
         if (ray.distance < 10)
-        {
             data->player.close_to_wall += ray.distance;
-            j++;
-        }
         render_tex_col(data, &ray, i);
         ray.angle = normalize_angle(ray.angle + angle_incr);
         i++;
     }
-    // data->player.animation_area /= 3;
     
 }

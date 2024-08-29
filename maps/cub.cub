@@ -5,7 +5,7 @@ SO ./textures/claywall2.png
 WE ./textures/LoamWall_3.png
 EA ./textures/LoamWall_4.png
 
- F     185, 185,          185
+ F     169, 161,          140
 
 
 C    135,  206, 235
