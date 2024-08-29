@@ -162,26 +162,25 @@ void ft_dda(t_data *data, t_ray *ray)
 
 void cast_rays(t_data *data)
 {
-    t_ray ray;
     double angle_incr;
     int i;
 
     i = 0;
-    ray.direction = 0;
+    data->player.rays[i].direction = 0;
     angle_incr = FOV_ANGL / WIDTH;
-    ray.angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2));
+    data->player.rays[i].angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2));
     data->player.close_to_wall = 0;
     data->player.animation_area = 0;
     while (i < WIDTH)
     {
-        ft_dda(data, &ray);
+        ft_dda(data, &data->player.rays[i]);
         if (i == WIDTH / 2)
-            data->player.animation_area += ray.distance;
-        if (ray.distance < 10)
-            data->player.close_to_wall += ray.distance;
-        render_tex_col(data, &ray, i);
-        ray.angle = normalize_angle(ray.angle + angle_incr);
+            data->player.animation_area += data->player.rays[i].distance;
+        if (data->player.rays[i].distance < 10)
+            data->player.close_to_wall += data->player.rays[i].distance;
+        // render_tex_col(data, &data->player.rays[i], i);
         i++;
+        data->player.rays[i].angle = normalize_angle(data->player.rays[i - 1].angle + angle_incr);
     }
-    
+    render_frame(data);
 }

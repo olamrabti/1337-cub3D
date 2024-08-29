@@ -107,7 +107,7 @@ int main(int ac, char **av)
 	if (!data->map)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
-		return (free(data), printf("parsing failed\n"), ERROR);
+		return (free(data), ft_addrclear(&data->addr, free) ,printf("parsing failed\n"), ERROR);
 	data->player.x = data->map->player_x * TILE_SIZE + TILE_SIZE / 2;
 	data->player.y = data->map->player_y * TILE_SIZE + TILE_SIZE / 2;
 	data->player.turn_direction = 1;
@@ -115,6 +115,9 @@ int main(int ac, char **av)
 	data->player.side_walk = 0;
 	data->mouse_x = -1;
 	data->player.close_to_wall = 0;
+	data->player.rays = ft_calloc_ac(&data->addr, WIDTH, sizeof(t_ray));
+	if (!data->player.rays)
+		return (free(data), ft_addrclear(&data->addr, free), printf("rays allocation Failed\n"), ERROR);
 	if (data->map->player_direction == 'N')
 		data->player.rotation_angle = 3 * M_PI / 2;
 	else if (data->map->player_direction == 'S')

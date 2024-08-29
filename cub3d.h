@@ -56,6 +56,15 @@ typedef struct s_map
 
 } t_map;
 
+typedef struct ray
+{
+	double end_x;
+	double end_y;
+	double angle;
+	double distance;
+	int direction;
+} t_ray;
+
 typedef struct player
 {
 	double x;
@@ -66,6 +75,7 @@ typedef struct player
 	double rotation_angle;
 	double close_to_wall;
 	double animation_area;
+	t_ray *rays;
 } t_player;
 
 typedef struct point
@@ -74,14 +84,6 @@ typedef struct point
 	double y;
 } t_point;
 
-typedef struct ray
-{
-	double end_x;
-	double end_y;
-	double angle;
-	double distance;
-	int direction;
-} t_ray;
 
 typedef struct dda_step
 {
@@ -142,7 +144,9 @@ int is_wall(t_data *data, double x, double y) ;
 double get_distance(t_data *data, double x, double y);
 void cast_rays(t_data *data);
 int get_textures(t_data *data);
+// void render_tex_col(t_data *data, t_ray *ray, int x);
 void render_tex_col(t_data *data, t_ray *ray, int x);
+void render_frame(t_data *data);
 void protected_mppx(mlx_image_t *img, int x, int y, int color);
 void update_player(t_data *data, int backward);
 
