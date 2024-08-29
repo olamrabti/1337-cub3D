@@ -162,16 +162,16 @@ void key_event_handler(void *arg)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		data->player.walk_direction = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-	{
 		data->player.walk_direction = 1;
-		ft_animation(data);
-	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		data->player.side_walk = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		data->player.side_walk = 1;
 	if (data->player.walk_direction || data->player.turn_direction || data->player.side_walk)
+	{
 		update_player(data);
+		ft_animation(data);
+	}
 	data->player.walk_direction = 0;
 	data->player.turn_direction = 0;
 	data->player.side_walk = 0;
