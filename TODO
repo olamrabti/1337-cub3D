@@ -5,4 +5,5 @@
 // [x] roof and ceiling coloring .
 // [x] handle aditional line in x 0 and y 0.
 // [x] texture on wall direction
-// [ ] for parsing : c and f colors must be int *.
+// [x] for parsing : c and f colors must be int *.
+// [ ] jmi fixi m3ak animation hhhhhh

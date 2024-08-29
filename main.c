@@ -23,7 +23,6 @@ void clear_minimap(mlx_image_t *img, int color)
 	}
 }
 
-
 void mini_map(t_data *data)
 {
 	int i, j;
@@ -42,7 +41,7 @@ void mini_map(t_data *data)
 			color = 0;
 			if (map_char == '1')
 				color = get_rgba(255, 255, 255, 255);
-			else 
+			else
 				color = get_rgba(10, 10, 10, 0);
 			protected_mppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, color);
 		}
@@ -75,26 +74,22 @@ void draw_map(t_data *data)
 	draw_view(data);
 }
 
-// mlx_mousefunc mouse_event_handler(int button, int x, int y, void *param)
-// {
-// 	(void)x;
-// 	(void)y;
+void ft_mouse(double x, double y, void *param)
+{
+	t_data *data;
+	double mouse_distance;
+	(void)y;
 
-// 	t_data *data;
-// 	data = (t_data *)param;
-// 	if (button == 1)
-// 	{
-// 		printf("x = %d, y = %d\n", x, y);
-// 	}
-// }
+	data = (t_data *)param;
 
-// void ft_mouse_hook(t_data *data)
-// {
-	
-// 	mlx_mouse_hook(data->mlx, &mouse_event_handler, data);
-	
-	
-// }
+	if (data->mouse_x != -1)
+	{
+		mouse_distance = x - data->mouse_x;
+		data->player.rotation_angle += mouse_distance * 0.002;
+		data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
+	}
+	data->mouse_x = x;
+}
 
 int main(int ac, char **av)
 {
@@ -116,6 +111,7 @@ int main(int ac, char **av)
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
 	data->player.side_walk = 0;
+	data->mouse_x = -1;
 	data->player.close_to_wall = 0;
 	if (data->map->player_direction == 'N')
 		data->player.rotation_angle = 3 * M_PI / 2;
@@ -127,7 +123,7 @@ int main(int ac, char **av)
 		data->player.rotation_angle = M_PI;
 	if (!get_textures(data))
 		return (free(data), printf("parsing failed\n"), ERROR);
-	data->mouse_sensitivity = 0.002;
+
 	// TODO protect MLX utils if each one fails
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (!data->mlx)
@@ -142,7 +138,8 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 
 	mlx_loop_hook(data->mlx, &key_event_handler, data);
-	// ft_mouse_hook(data);
+	mlx_cursor_hook(data->mlx, &ft_mouse, data);
+
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	ft_addrclear(&data->addr, free);

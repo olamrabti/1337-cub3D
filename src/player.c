@@ -1,6 +1,5 @@
 #include "../cub3d.h"
 
-
 int is_near_wall(t_data *data)
 {
 	double tmp_x;
@@ -36,20 +35,18 @@ void update_player(t_data *data)
 	double step;
 	double factor;
 
-
-
 	factor = 1.0 / (1.0 + data->player.close_to_wall);
 	// if (is_near_wall(data) && factor < 0.0005)
 	// {
-		// printf("ROT :%.4f\n", (double)ROTATE);
-		// printf("ROT_FASTER :%.4f\n", (double)ROT_FASTER);
-		// printf("fmod :%.4f\n", ((double)ROTATE / (factor * 1000)));
-		// printf("%.4f\n", factor);
-		factor = ((double)ROTATE / (factor * 1000));
-		if (factor > (double)ROTATE)
-			data->player.rotation_angle += data->player.turn_direction * factor;
-		else
-			data->player.rotation_angle += data->player.turn_direction * (double)ROT_FASTER;
+	// printf("ROT :%.4f\n", (double)ROTATE);
+	// printf("ROT_FASTER :%.4f\n", (double)ROT_FASTER);
+	// printf("fmod :%.4f\n", ((double)ROTATE / (factor * 1000)));
+	// printf("%.4f\n", factor);
+	factor = ((double)ROTATE / (factor * 1000));
+	if (factor > (double)ROTATE)
+		data->player.rotation_angle += data->player.turn_direction * factor;
+	else
+		data->player.rotation_angle += data->player.turn_direction * (double)ROT_FASTER;
 	// }
 	// else
 	// 	data->player.rotation_angle += data->player.turn_direction * ((double)ROT_FASTER);
@@ -67,7 +64,6 @@ void update_player(t_data *data)
 		data->player.x = tmp_x;
 		data->player.y = tmp_y;
 	}
-
 
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
 	draw_map(data);
@@ -110,6 +106,45 @@ void update_player(t_data *data)
 // 	cast_rays(data);
 // }
 
+mlx_image_t	*ft_get_frame(t_data *data)
+{
+	char *path;
+	mlx_texture_t *texture;
+	mlx_image_t *frame;
+
+	if (data->frame)
+		mlx_delete_image(data->mlx, data->frame);
+	path = ft_strjoin("./animation/", ft_itoa(data->frame_num));
+	path = ft_strjoin(path, ".png");
+	printf("path : %s\n", path);
+
+	texture = mlx_load_png(path);
+	if (!texture)
+		exit(EXIT_FAILURE);
+	frame = mlx_texture_to_image(data->mlx, texture);
+	mlx_delete_texture(texture);
+	if (!frame)
+		exit(EXIT_FAILURE);
+	return (frame);
+}
+
+
+void ft_animation(t_data *data)
+{
+	int i = 1;
+
+	while (i <= 24)
+	{
+		data->frame_num = i;
+		data->frame = ft_get_frame(data);
+		mlx_image_to_window(data->mlx, data->frame, WIDTH / 4, 650);
+		usleep(100000 * 2);
+		i++;
+
+	}
+
+}
+
 // handle key event
 void key_event_handler(void *arg)
 {
@@ -118,6 +153,8 @@ void key_event_handler(void *arg)
 	data = arg;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
+		ft_animation(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		data->player.turn_direction = 1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
