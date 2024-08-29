@@ -175,9 +175,14 @@ void cast_rays(t_data *data)
     angle_incr = FOV_ANGL / WIDTH;
     ray.angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2));
     data->player.close_to_wall = 0;
+    data->player.animation_area = 0;
     while (i < WIDTH)
     {
         ft_dda(data, &ray);
+        if (i == WIDTH / 2)
+            data->player.animation_area += ray.distance;
+        // if (i == 0 || i == WIDTH / 2 || i == WIDTH - 1)
+        //     data->player.animation_area += ray.distance;
         if (ray.distance < 10)
         {
             data->player.close_to_wall += ray.distance;
@@ -187,4 +192,6 @@ void cast_rays(t_data *data)
         ray.angle = normalize_angle(ray.angle + angle_incr);
         i++;
     }
+    // data->player.animation_area /= 3;
+    
 }

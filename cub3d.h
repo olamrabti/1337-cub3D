@@ -65,6 +65,7 @@ typedef struct player
 	double side_walk;
 	double rotation_angle;
 	double close_to_wall;
+	double animation_area;
 } t_player;
 
 typedef struct point
@@ -133,7 +134,6 @@ void key_event_handler(void *arg);
 int get_rgba(int r, int g, int b, int a);
 void protected_ppx(mlx_image_t *img, int x, int y, int color);
 void clear_screen(mlx_image_t *img, int color);
-void draw_player(t_data *data);
 void draw_circle(mlx_image_t *img);
 void draw_view(t_data *data);
 void draw_map(t_data *data);
@@ -144,7 +144,7 @@ void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
 void protected_mppx(mlx_image_t *img, int x, int y, int color);
-void update_player(t_data *data);
+void update_player(t_data *data, int backward);
 
 //=======================================================================
 //                             parsing                                 //
@@ -173,5 +173,6 @@ int ft_valide_map(t_data *data);
 
 int ft_double_check_vars(t_data *data);
 int ft_fill_map_with_sp(t_data *data);
+void ft_animation(t_data *data, int x, int y);
 
 #endif

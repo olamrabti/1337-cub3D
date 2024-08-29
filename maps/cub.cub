@@ -5,10 +5,10 @@ SO ./textures/claywall2.png
 WE ./textures/LoamWall_3.png
 EA ./textures/LoamWall_4.png
 
-        F      0, 255,          255
+ F     185, 185,          185
 
 
-C    225, 30,                1 
+C    135,  206, 235
 
 
 
