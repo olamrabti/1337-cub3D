@@ -131,17 +131,17 @@ mlx_image_t	*ft_get_frame(t_data *data)
 
 void ft_animation(t_data *data)
 {
-	int i = 1;
+	static	int i = 1;
 
-	while (i <= 24)
-	{
-		data->frame_num = i;
-		data->frame = ft_get_frame(data);
-		mlx_image_to_window(data->mlx, data->frame, WIDTH / 4, 650);
-		usleep(100000 * 2);
-		i++;
+	if (i == 24)
+		i = 1;
 
-	}
+	data->frame_num = i;
+	data->frame = ft_get_frame(data);
+	mlx_image_to_window(data->mlx, data->frame, WIDTH / 4, 650);
+	
+	i++;
+
 
 }
 
@@ -162,7 +162,10 @@ void key_event_handler(void *arg)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		data->player.walk_direction = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+	{
 		data->player.walk_direction = 1;
+		ft_animation(data);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		data->player.side_walk = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
