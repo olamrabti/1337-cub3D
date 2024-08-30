@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pasing_helpers.c                                   :+:      :+:    :+:   */
+/*   parsing_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:22:15 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 02:59:18 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 05:04:38 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char	*gc_strjoin(char *s1, char *s2, t_addr **addr)
 	return (arr);
 }
 
-
 static char	*put_str(int n, char *str, int count)
 {
 	str[count] = '\0';
@@ -114,5 +113,3 @@ char	*gc_itoa(int n, t_addr **addr)
 		return (NULL);
 	return (put_str(n, str, count));
 }
-
-

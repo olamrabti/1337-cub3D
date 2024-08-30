@@ -20,7 +20,7 @@ SRC = main.c\
 		parsing/double_check_vars.c\
 		parsing/fill_map_with_sp.c\
 		parsing/parsing_map.c\
-		parsing/pasing_helpers.c\
+		parsing/parsing_helpers.c\
 		parsing/ft_split.c\
 		parsing/stores_f_c.c\
 		parsing/check_zero.c\

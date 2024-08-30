@@ -6,13 +6,13 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 11:52:18 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/08/12 11:38:04 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:59:03 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3d.h"
+#include "../cub3d.h"
 
-static int	count_str(const char *str, char c)
+int	count_str(const char *str, char c)
 {
 	int	i;
 	int	count;
@@ -31,7 +31,7 @@ static int	count_str(const char *str, char c)
 	return (count);
 }
 
-static int	len_str(const char *str, char c)
+int	len_str(const char *str, char c)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ static int	len_str(const char *str, char c)
 	return (i);
 }
 
-static char	*ft_allocated_str(const char *str, char c, t_data *data)
+char	*ft_allocated_str(const char *str, char c, t_data *data)
 {
 	char	*result;
 	int		len_string;
@@ -56,11 +56,10 @@ static char	*ft_allocated_str(const char *str, char c, t_data *data)
 	return (result);
 }
 
-
 char	**ft_split(char const *s, char c, t_data *data)
 {
-	int		i;
 	char	**result;
+	int		i;
 
 	if (!s)
 		return (NULL);
