@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/30 05:32:51 by oumimoun          #+#    #+#             */
+/*   Updated: 2024/08/30 05:33:58 by oumimoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-int flag(char *str)
+int	flag(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str || !str[i])
@@ -16,35 +28,34 @@ int flag(char *str)
 	return (0);
 }
 
-char *ft_read_buffer(int fd, char *buff, char *temp, t_data *data)
+char	*ft_read_buffer(int fd, char *buff, char *temp, t_data *data)
 {
-	char *del;
-	int i;
+	char	*del;
+	int		i;
 
 	i = 1;
 	while (flag(temp) == 0 && i > 0)
 	{
 		i = read(fd, buff, BUFFER_SIZE);
 		if (i < 0)
-			return ( NULL);
+			return (NULL);
 		if (i == 0)
-			break;
+			break ;
 		buff[i] = '\0';
 		if (!temp)
 			temp = gc_strdup("", &data->addr);
 		del = temp;
 		temp = gc_strjoin(del, buff, &data->addr);
 	}
-
 	if (temp && temp[0] == '\0')
-		return ( NULL);
+		return (NULL);
 	return (temp);
 }
 
-char *ft_new_line(char *temp, t_data *data)
+char	*ft_new_line(char *temp, t_data *data)
 {
-	char *result;
-	int i;
+	char	*result;
+	int		i;
 
 	if (!temp)
 		return (NULL);
@@ -59,10 +70,10 @@ char *ft_new_line(char *temp, t_data *data)
 	return (result);
 }
 
-char *ft_the_next_line(char *temp, t_data *data)
+char	*ft_the_next_line(char *temp, t_data *data)
 {
-	char *new_buff;
-	int i;
+	char	*new_buff;
+	int		i;
 
 	i = 0;
 	while (temp[i] != '\n' && temp[i])
@@ -75,17 +86,17 @@ char *ft_the_next_line(char *temp, t_data *data)
 	return (new_buff);
 }
 
-char *get_next_line(int fd, t_data *data)
+char	*get_next_line(int fd, t_data *data)
 {
-	static char *temp;
-	char *buff;
-	char *line;
+	static char	*temp;
+	char		*buff;
+	char		*line;
 
 	if (BUFFER_SIZE > INT_MAX || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = ft_calloc_ac(&data->addr ,BUFFER_SIZE + 1, sizeof(char));
+	buff = ft_calloc_ac(&data->addr, BUFFER_SIZE + 1, sizeof(char));
 	if (!buff)
-		return ( NULL);
+		return (NULL);
 	temp = ft_read_buffer(fd, buff, temp, data);
 	line = ft_new_line(temp, data);
 	if (!line)

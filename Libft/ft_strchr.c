@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:52:28 by olamrabt          #+#    #+#             */
-/*   Updated: 2023/11/30 11:35:56 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/30 05:36:18 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strchr(const char *str, int c)
 		return ((char *)str + ft_strlen(str));
 	while (*str)
 	{
-		if (*str == (char)c) 
+		if (*str == (char)c)
 			return ((char *)str);
 		str++;
 	}
