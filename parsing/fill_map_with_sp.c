@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map_with_sp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:17:52 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 04:46:36 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_fill_map_with_sp(t_data *data)
 		len = ft_strlen(map[i]);
 		if (len < data->map->map_width)
 		{
-			new_line = (char *)ft_calloc_ac(&data->addr, \
+			new_line = (char *)safe_alloc(&data->addr, \
 				(data->map->map_width + 1), sizeof(char));
 			if (!new_line)
 				return (ERROR);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:22:15 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 05:04:38 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*gc_strdup(const char *s, t_addr **addr)
 
 	if (!s || !s[0])
 	{
-		copy = (char *)ft_calloc_ac(addr, 1, sizeof(char));
+		copy = (char *)safe_alloc(addr, 1, sizeof(char));
 		if (!copy)
 			return (NULL);
 		copy[0] = '\0';
 		return (copy);
 	}
-	copy = (char *)ft_calloc_ac(addr, (ft_strlen(s) + 1), sizeof(char));
+	copy = (char *)safe_alloc(addr, (ft_strlen(s) + 1), sizeof(char));
 	if (!copy)
 		return (NULL);
 	ft_memcpy(copy, s, ft_strlen(s));
@@ -42,7 +42,7 @@ char	*gc_substr(char *s, unsigned int start, size_t len, t_addr **addr)
 		return (gc_strdup("", addr));
 	if (len + start > (unsigned int)ft_strlen(s))
 		len = (unsigned int)ft_strlen(s) - start;
-	result = (char *)ft_calloc_ac(addr, (len + 1), sizeof(char));
+	result = (char *)safe_alloc(addr, (len + 1), sizeof(char));
 	if (!result)
 		exit(1);
 	ft_memcpy(result, s + start, len);
@@ -62,7 +62,7 @@ char	*gc_strjoin(char *s1, char *s2, t_addr **addr)
 		return (NULL);
 	s1_len = ft_strlen(dest);
 	s2_len = ft_strlen(s2);
-	arr = (char *)ft_calloc_ac(addr, (s1_len + s2_len + 1), sizeof(char));
+	arr = (char *)safe_alloc(addr, (s1_len + s2_len + 1), sizeof(char));
 	if (!arr)
 		return (NULL);
 	ft_memmove(arr, dest, s1_len);
@@ -108,7 +108,7 @@ char	*gc_itoa(int n, t_addr **addr)
 	}
 	if (n < 0)
 		count++;
-	str = (char *)ft_calloc_ac(addr, sizeof(char), count + 1);
+	str = (char *)safe_alloc(addr, sizeof(char), count + 1);
 	if (!str)
 		return (NULL);
 	return (put_str(n, str, count));

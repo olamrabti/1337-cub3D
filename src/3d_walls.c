@@ -1,5 +1,19 @@
 #include "../cub3d.h"
 
+int get_textures(t_data *data)
+{
+    data->tx = safe_alloc(&data->addr, 4, sizeof(mlx_texture_t));
+    if (!data->tx)
+        return 0;
+    data->tx[0] = mlx_load_png(data->map->no_texture_path);
+    data->tx[1] = mlx_load_png(data->map->so_texture_path);
+    data->tx[2] = mlx_load_png(data->map->we_texture_path);
+    data->tx[3] = mlx_load_png(data->map->ea_texture_path);
+    if (!data->tx[0] || !data->tx[1] || !data->tx[2] || !data->tx[3])
+        return ft_putstr_fd("Error\nTexture Loading Error\n", 2), 0;
+    return 1;
+}
+
 void texture_ppx(t_data *data, double x, double y, t_ray *ray, double wall_height)
 {
     unsigned int rel_x;
@@ -19,20 +33,24 @@ void texture_ppx(t_data *data, double x, double y, t_ray *ray, double wall_heigh
     if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
         protected_ppx(data->img, x, y, color);
 }
+
 void render_r_and_c(t_data *data ,double wall_top , double wall_bottom, int x)
 {
     int i;
+    int color;
 
     i = 0;
+    color = get_rgba(data->map->c_rgb[0], data->map->c_rgb[1], data->map->c_rgb[2], 200);
     while (i < wall_top)
     {
-        protected_ppx(data->img, x, i, get_rgba(data->map->c_rgb[0], data->map->c_rgb[1], data->map->c_rgb[2], 200));
+        protected_ppx(data->img, x, i, color);
         i++;
     }
     i = wall_bottom;
+    color = get_rgba(data->map->f_rgb[0], data->map->f_rgb[1], data->map->f_rgb[2], 200);
     while (i < HEIGHT)
     {
-        protected_ppx(data->img, x, i, get_rgba(data->map->f_rgb[0], data->map->f_rgb[1], data->map->f_rgb[2], 200));
+        protected_ppx(data->img, x, i, color);
         i++;
     }
 }

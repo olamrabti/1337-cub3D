@@ -125,25 +125,25 @@ typedef struct s_data
 }	t_data;
 
 int		add_addr(t_addr **list, t_addr *new);
-void	*ft_calloc_ac(t_addr **addr, size_t count, size_t size);
+void	*safe_alloc(t_addr **addr, size_t count, size_t size); // TODO Change name
 t_addr	*new_addr(char *value);
 void	ft_addrclear(t_addr **lst, void (*del)(void *));
 
-
-void key_event_handler(void *arg);
 int get_rgba(int r, int g, int b, int a);
 void protected_ppx(mlx_image_t *img, int x, int y, int color);
 void clear_screen(mlx_image_t *img, int color);
-void draw_circle(mlx_image_t *img);
-void draw_view(t_data *data);
 void draw_map(t_data *data);
+
 double normalize_angle(double angle);
-int is_wall(t_data *data, double x, double y) ;
+int is_up(double angle);
+int is_right(double angle);
 double get_distance(t_data *data, double x, double y);
+int is_wall(t_data *data, double x, double y);
+
+void key_event_handler(void *arg);
 void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
-void protected_mppx(mlx_image_t *img, int x, int y, int color);
 void update_player(t_data *data, int backward);
 
 //=======================================================================
@@ -189,6 +189,11 @@ int ft_start_with_one(t_data *data);
 
 int ft_parse_map_variables(char *map_path, t_data *data);
 
-
+// NOTE BONUS
+void clear_minimap(mlx_image_t *img, int color);
+void mini_map(t_data *data);
+void draw_circle(mlx_image_t *img);
+void protected_mppx(mlx_image_t *img, int x, int y, int color);
+void draw_view(t_data *data);
 
 #endif

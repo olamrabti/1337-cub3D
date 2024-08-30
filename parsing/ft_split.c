@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 11:52:18 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/08/30 04:59:03 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_allocated_str(const char *str, char c, t_data *data)
 	int		len_string;
 
 	len_string = len_str(str, c);
-	result = (char *)ft_calloc_ac(&data->addr, (len_string + 1), sizeof(char));
+	result = (char *)safe_alloc(&data->addr, (len_string + 1), sizeof(char));
 	if (!result)
 		return (NULL);
 	result[len_string] = '\0';
@@ -63,7 +63,7 @@ char	**ft_split(char const *s, char c, t_data *data)
 
 	if (!s)
 		return (NULL);
-	result = (char **)ft_calloc_ac(&data->addr, \
+	result = (char **)safe_alloc(&data->addr, \
 		(count_str(s, c) + 1), sizeof(char *));
 	i = 0;
 	while (*s)

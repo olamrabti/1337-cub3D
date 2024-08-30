@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stores_f_c.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 03:32:42 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 05:21:35 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_stores_f_c(t_data *data)
 	int		i;
 
 	split = ft_split(data->map->f_color, ',', data);
-	data->map->f_rgb = ft_calloc_ac(&data->addr, 3, sizeof(int));
+	data->map->f_rgb = safe_alloc(&data->addr, 3, sizeof(int));
 	i = 0;
 	while (split[i])
 	{
@@ -104,7 +104,7 @@ int	ft_stores_f_c(t_data *data)
 		i++;
 	}
 	split = ft_split(data->map->c_color, ',', data);
-	data->map->c_rgb = ft_calloc_ac(&data->addr, 3, sizeof(int));
+	data->map->c_rgb = safe_alloc(&data->addr, 3, sizeof(int));
 	i = 0;
 	while (split[i])
 	{

@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void	*ft_calloc_ac(t_addr **addr, size_t count, size_t size)
+void	*safe_alloc(t_addr **addr, size_t count, size_t size)
 {
 	char	*copy;
 

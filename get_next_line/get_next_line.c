@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 05:32:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 05:33:58 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*get_next_line(int fd, t_data *data)
 
 	if (BUFFER_SIZE > INT_MAX || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = ft_calloc_ac(&data->addr, BUFFER_SIZE + 1, sizeof(char));
+	buff = safe_alloc(&data->addr, BUFFER_SIZE + 1, sizeof(char));
 	if (!buff)
 		return (NULL);
 	temp = ft_read_buffer(fd, buff, temp, data);
