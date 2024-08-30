@@ -107,7 +107,7 @@ int main(int ac, char **av)
 	if (!data->map)
 		return (free(data), ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	if (ft_parsing(av[1], data) == ERROR)
-		return (free(data), printf("parsing failed\n"), ERROR);
+		return (free(data), ERROR);
 	data->player.x = data->map->player_x * TILE_SIZE + TILE_SIZE / 2;
 	data->player.y = data->map->player_y * TILE_SIZE + TILE_SIZE / 2;
 	data->player.turn_direction = 1;
@@ -124,7 +124,7 @@ int main(int ac, char **av)
 	else if (data->map->player_direction == 'W')
 		data->player.rotation_angle = M_PI;
 	if (!get_textures(data))
-		return (free(data), printf("parsing failed\n"), ERROR);
+		return (free(data), ERROR);
 
 	// TODO protect MLX utils if each one fails
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);

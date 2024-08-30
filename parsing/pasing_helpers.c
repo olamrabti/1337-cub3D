@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:22:15 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/12 11:24:40 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:59:18 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,47 @@ char	*gc_strjoin(char *s1, char *s2, t_addr **addr)
 }
 
 
+static char	*put_str(int n, char *str, int count)
+{
+	str[count] = '\0';
+	if (n < 0)
+	{
+		str[0] = '-';
+		n *= -1;
+		while (--count)
+		{
+			str[count] = n % 10 + 48;
+			n /= 10;
+		}
+		return (str);
+	}
+	while (count--)
+	{
+		str[count] = n % 10 + 48;
+		n /= 10;
+	}
+	return (str);
+}
+
+char	*gc_itoa(int n, t_addr **addr)
+{
+	size_t	count;
+	int		temp;
+	char	*str;
+
+	count = 1;
+	temp = n;
+	while (temp / 10)
+	{
+		temp /= 10;
+		count++;
+	}
+	if (n < 0)
+		count++;
+	str = (char *)ft_calloc_ac(addr, sizeof(char), count + 1);
+	if (!str)
+		return (NULL);
+	return (put_str(n, str, count));
+}
 
 

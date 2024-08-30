@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:49:11 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/27 08:28:33 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:22:10 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int ft_check_random_chars(char *line)
 char *ft_bring_map(int fd, t_data *data)
 {
     char *line;
+
     line = get_next_line(fd, data);
     while (line)
     {
@@ -61,7 +62,7 @@ char *ft_bring_map(int fd, t_data *data)
             break;
         line = get_next_line(fd, data);
     }
-    return line;
+    return (line);
 }
 
 int ft_another_newline(char *str)

@@ -6,30 +6,16 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:25:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/27 08:35:54 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:49:50 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int ft_fill_map_dimension(t_data *data)
+static int ft_fill_map_dimension_suite(t_data *data, int max_width, int i)
 {
-    int i = 0;
-    int max_width = 0;
-    char **map;
-
-    if (!data)
-        return ERROR;
-    map = data->map->map_tiles;
-    while (map[i])
-    {
-        int line_length = ft_strlen(map[i]);
-        if (line_length > max_width)
-            max_width = line_length;
-        i++;
-    }
     if (i == 0)
-        return ERROR;
+        return (ERROR);
     data->map->map_width = max_width;
     data->map->map_height = i;
      if (i > max_width)
@@ -38,7 +24,31 @@ int ft_fill_map_dimension(t_data *data)
         data->map->tile_size = HEIGHT / max_width;
     if (data->map->tile_size > TILE_SIZE)
         data->map->tile_size = TILE_SIZE * 0.3;
-    return SUCCESS;
+    return (SUCCESS);
+}
+
+int ft_fill_map_dimension(t_data *data)
+{
+    int i;
+    int max_width;
+    char **map;
+    int line_length;
+
+    if (!data)
+        return (ERROR);
+    map = data->map->map_tiles;
+    max_width = 0;
+    i = 0;
+    while (map[i])
+    {
+        line_length = ft_strlen(map[i]);
+        if (line_length > max_width)
+            max_width = line_length;
+        i++;
+    }
+    if (ft_fill_map_dimension_suite(data, max_width, i) == ERROR)
+        return ERROR;
+    return (SUCCESS);
 }
 
 int ft_only_ones(char *str)
@@ -56,59 +66,21 @@ int ft_only_ones(char *str)
 int ft_start_with_one(t_data *data)
 {
     char **map;
-    map = data->map->map_tiles;
-    int i = 0;
+    int i;
     int j;
+
+    i = 0;
+    map = data->map->map_tiles;
     while (map[i])
     {
         j = 0;
         while (map[i][j] == ' ')
             j++;
         if (map[i][j] != '1')
-            return ERROR;
+            return (ERROR);
         i++;
     }
-    return SUCCESS;
+    return (SUCCESS);
 }
 
-int ft_check_zero_surroundings(char **map, int i, int j)
-{
-    if (map[i][j + 1] == ' ' || map[i][j + 1] == '\0')
-        return ERROR;
-    if (j > 0 && map[i][j - 1] == ' ')
-        return ERROR;
-    if (map[i - 1][j] == ' ')
-        return ERROR;
-    if (map[i + 1] && map[i + 1][j] == ' ')
-        return ERROR;
-    return SUCCESS;
-}
 
-int ft_valide_map(t_data *data)
-{
-    char **temp = data->map->map_tiles;
-    int i, j;
-
-    if (ft_only_ones(temp[0]) == ERROR)
-        return ERROR;
-    if (ft_only_ones(temp[data->map->map_height - 1]) == ERROR)
-        return ERROR;
-    if (ft_start_with_one(data) == ERROR)
-        return ERROR;
-    i = 1;
-    while (i < data->map->map_height - 1)
-    {
-        j = 0;
-        while (temp[i][j])
-        {
-            if (temp[i][j] == '0')
-            {
-                if (ft_check_zero_surroundings(temp, i, j) == ERROR)
-                    return (ERROR);
-            }
-            j++;
-        }
-        i++;
-    }
-    return SUCCESS;
-}

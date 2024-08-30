@@ -22,6 +22,8 @@ SRC = main.c\
 		parsing/parsing_map.c\
 		parsing/pasing_helpers.c\
 		parsing/ft_split.c\
+		parsing/stores_f_c.c\
+		parsing/check_zero.c\
 
 
 

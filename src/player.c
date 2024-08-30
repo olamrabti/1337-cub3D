@@ -56,8 +56,8 @@ mlx_image_t	*ft_get_frame(t_data *data)
 
 	if (data->frame)
 		mlx_delete_image(data->mlx, data->frame);
-	path = ft_strjoin("./animation/", ft_itoa(data->frame_num));
-	path = ft_strjoin(path, ".png");
+	path = gc_strjoin("./animation/", gc_itoa(data->frame_num, &data->addr), &data->addr);
+	path = gc_strjoin(path, ".png", &data->addr);
 
 	texture = mlx_load_png(path);
 	if (!texture)
@@ -82,7 +82,7 @@ void ft_animation(t_data *data , int x , int y)
 	i++;
 }
 
-// handle key event
+
 void key_event_handler(void *arg)
 {
 	t_data *data;
@@ -92,8 +92,6 @@ void key_event_handler(void *arg)
 	backward = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
-	// 	ft_animation(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		data->player.turn_direction = 1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))

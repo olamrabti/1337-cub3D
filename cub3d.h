@@ -150,12 +150,15 @@ void update_player(t_data *data, int backward);
 //                             parsing                                 //
 //=======================================================================
 
+
+void    ft_Error(int i);
+char	*gc_itoa(int n, t_addr **addr);
 char *get_next_line(int fd, t_data *data);
 int ft_parsing(char *map_path, t_data *data);
-// int ft_strcmp(const char *s1, const char *s2);
+int ft_strcmp(const char *s1, const char *s2);
 int ft_parsing_map(char *map_path, t_data *data);
 int ft_save_vars(char *map_path, t_data *data);
-int ft_valide_wall_direction(char *line);
+
 int ft_check_vars(t_data *data);
 int ft_save_player_pos(t_data *data);
 char *ft_bring_map(int fd, t_data *data);
@@ -168,11 +171,24 @@ char	*gc_strdup(const char *s, t_addr **addr);
 char	*gc_strjoin(char *s1, char *s2, t_addr **addr);
 int ft_check_players(t_data *data);
 int ft_fill_map_dimension(t_data *data);
-
-int ft_valide_map(t_data *data);
-
 int ft_double_check_vars(t_data *data);
 int ft_fill_map_with_sp(t_data *data);
 void ft_animation(t_data *data, int x, int y);
+int ft_stores_f_c(t_data *data);
+
+int ft_valide_wall_direction(char *line);
+int ft_parse_map_path(char *map_path);
+int ft_check_zero_surroundings(char **map, int i, int j);
+int ft_valide_map(t_data *data);
+int ft_read_map_lines(int fd, t_data *data, char **single_line_vars);
+
+int ft_only_ones(char *str);
+
+int ft_start_with_one(t_data *data);
+
+
+int ft_parse_map_variables(char *map_path, t_data *data);
+
+
 
 #endif
