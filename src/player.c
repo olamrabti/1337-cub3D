@@ -3,63 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:29:01 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 04:31:33 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:04:35 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_get_next_pos(t_data *data, int backward)
+void	ft_get_next_pos(t_data *data)
 {
 	double	tmp_x;
 	double	tmp_y;
 	double	step;
 
+	if (data->player.animation_area < 5)
+	{
+		data->player.x += cos(data->player.rotation_angle) * (-0.2);
+		data->player.y += sin(data->player.rotation_angle) * (-0.2);
+	}
 	step = data->player.walk_direction * MOVE_SPEED;
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y))
-	{
-		if (data->player.animation_area > 6 && !backward)
-			data->player.x = tmp_x;
-		else if (backward)
-			data->player.x = tmp_x;
-	}
+		data->player.x = tmp_x;
 	if (!is_wall(data, tmp_x, tmp_y - 3) && !is_wall(data, tmp_x, tmp_y + 3))
-	{
-		if (data->player.animation_area > 6 && !backward)
-			data->player.y = tmp_y;
-		else if (backward)
-			data->player.y = tmp_y;
-	}
+		data->player.y = tmp_y;
 }
 
-void	update_player(t_data *data, int backward)
+void	update_player(t_data *data)
 {
 	double	factor;
+	double	rot_speed;
 
 	factor = 1000.0 / (1.0 + data->player.close_to_wall);
-	factor = ((double)ROTATE / (factor));
-	if (factor > (double)ROTATE)
-		data->player.rotation_angle += data->player.turn_direction * factor;
+	rot_speed = (((2 * M_PI) / 160) / (factor));
+	if (rot_speed > ((2 * M_PI) / 160))
+		data->player.rotation_angle += data->player.turn_direction * rot_speed;
 	else
-		data->player.rotation_angle += data->player.turn_direction \
-			* (double)ROT_FASTER;
-	ft_get_next_pos(data, backward);
+	{
+		rot_speed = ((2 * M_PI) / 100);
+		data->player.rotation_angle += data->player.turn_direction * rot_speed;
+	}
+	ft_get_next_pos(data);
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
 	cast_rays(data);
 }
 
-void	ft_reset(t_data *data, int backward)
+void	ft_reset(t_data *data)
 {
 	if (data->player.walk_direction || data->player.turn_direction \
 		|| data->player.side_walk)
-		update_player(data, backward);
+		update_player(data);
 	data->player.walk_direction = 0;
 	data->player.turn_direction = 0;
 	data->player.side_walk = 0;
@@ -79,15 +77,12 @@ void	key_event_handler(void *arg)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		data->player.turn_direction = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-	{
 		data->player.walk_direction = -1;
-		backward = 1;
-	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		data->player.walk_direction = 1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		data->player.side_walk = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		data->player.side_walk = 1;
-	ft_reset(data, backward);
+	ft_reset(data);
 }

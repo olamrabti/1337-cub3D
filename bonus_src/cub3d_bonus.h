@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:15:30 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 05:38:12 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/31 08:43:57 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 # define WEST 2
 # define EAST 3
 # define MOVE_SPEED 2.0
-# define CENTER_Y (HEIGHT / 2)
+
+// TODO declare as variables in their functions 
 # define FOV_ANGL (M_PI / 3)
-# define CENTER_X (WIDTH / 2)
 # define ROTATE ((2 * M_PI ) / 160)
 # define ROT_FASTER ((2 * M_PI) / 100)
 
@@ -155,9 +155,6 @@ int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
 void update_player(t_data *data, int backward);
 
-//=======================================================================
-//                             parsing                                 //
-//=======================================================================
 
 void    ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);

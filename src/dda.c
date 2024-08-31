@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:25:22 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 04:27:13 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/31 10:40:55 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void	cast_rays(t_data *data)
 
 	i = 0;
 	ray.direction = 0;
-	angle_incr = FOV_ANGL / WIDTH;
-	ray.angle = normalize_angle(data->player.rotation_angle - (FOV_ANGL / 2));
+	angle_incr = (M_PI / 3) / WIDTH;
+	ray.angle = normalize_angle(data->player.rotation_angle - (M_PI / 6));
 	data->player.close_to_wall = 0;
 	data->player.animation_area = 0;
 	while (i < WIDTH)

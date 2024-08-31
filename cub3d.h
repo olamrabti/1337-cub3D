@@ -31,8 +31,6 @@
 
 #define FOV_ANGL (M_PI / 3)
 #define MOVE_SPEED 2.0
-#define ROTATE ((2 * M_PI ) / 160)
-#define ROT_FASTER ((2 * M_PI) / 100)
 
 typedef struct s_map
 {
@@ -81,6 +79,7 @@ typedef struct ray
 	double angle;
 	double distance;
 	int direction;
+	double wall_height;
 } t_ray;
 
 typedef struct dda_step
@@ -125,7 +124,7 @@ typedef struct s_data
 }	t_data;
 
 int		add_addr(t_addr **list, t_addr *new);
-void	*safe_alloc(t_addr **addr, size_t count, size_t size); // TODO Change name
+void	*safe_alloc(t_addr **addr, size_t count, size_t size); 
 t_addr	*new_addr(char *value);
 void	ft_addrclear(t_addr **lst, void (*del)(void *));
 
@@ -144,11 +143,8 @@ void key_event_handler(void *arg);
 void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
-void update_player(t_data *data, int backward);
+void update_player(t_data *data);
 
-//=======================================================================
-//                             parsing                                 //
-//=======================================================================
 
 void    ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
