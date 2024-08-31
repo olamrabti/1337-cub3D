@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "cub3d_bonus.h"
 
 // NOTE BONUS
 void protected_mppx(mlx_image_t *img, int x, int y, int color)

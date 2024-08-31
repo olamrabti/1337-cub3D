@@ -1,4 +1,22 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
+// NOTE BONUS
+void ft_mouse(double x, double y, void *param)
+{
+	t_data *data;
+	double mouse_distance;
+
+	data = (t_data *)param;
+	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	{
+		if (data->mouse_x != -1)
+		{
+			mouse_distance = x - data->mouse_x;
+			data->player.rotation_angle += mouse_distance * 0.01;
+			data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
+		}
+		data->mouse_x = x;
+	}
+}
 
 int init_player(t_data *data)
 {
@@ -31,8 +49,15 @@ int init_mlx(t_data *data)
 	if (!data->img)
 		return (ERROR);
 	if ( mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
+		return ERROR;
+
+	// NOTE : BONUS
+	data->minimap.minimap_img = mlx_new_image(data->mlx, 200, 200);
+	if (!(data->minimap.minimap_img))
 		return (ERROR);
-	return (SUCCESS);
+	if (mlx_image_to_window(data->mlx, data->minimap.minimap_img, 0, 0) == -1)
+		return (ERROR);
+	return SUCCESS;
 }
 
 int ft_clean_exit(t_data *data)
@@ -61,6 +86,7 @@ int main(int ac, char **av)
 		return (ft_clean_exit(data));
 	if (init_mlx(data) != SUCCESS)
 		return (ft_putstr_fd("Error\n MLX initialization\n", 2), ft_clean_exit(data));
+	mlx_cursor_hook(data->mlx, &ft_mouse, data);
 	if (!mlx_loop_hook(data->mlx, &key_event_handler, data))
 		return (ft_putstr_fd("Error\n MLX initialization\n", 2), ft_clean_exit(data));
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);

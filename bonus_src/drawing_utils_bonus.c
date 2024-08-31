@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "cub3d_bonus.h"
 
 void protected_ppx(mlx_image_t *img, int x, int y, int color)
 {
@@ -46,3 +46,28 @@ void clear_screen(mlx_image_t *img, int color)
     }
 }
 
+void draw_map(t_data *data)
+{
+    int minimap_size;
+
+    minimap_size = 200;
+    clear_minimap(data->minimap.minimap_img, get_rgba(0, 0, 0, 255));
+    data->minimap.y = 0;
+    data->minimap.y_p = ((data->player.y * MINI_TILE) / TILE_SIZE) - minimap_size / 2;
+    while (data->minimap.y < minimap_size)
+    {
+        data->minimap.x = 0;
+        data->minimap.x_p = ((data->player.x * MINI_TILE) / TILE_SIZE) - minimap_size / 2;
+        while (data->minimap.x < minimap_size)
+        {
+            protected_mppx(data->minimap.minimap_img, data->minimap.x, data->minimap.y, get_rgba(10, 10, 10, 0));
+            mini_map(data);
+            data->minimap.x++;
+            data->minimap.x_p++;
+        }
+        data->minimap.y++;
+        data->minimap.y_p++;
+    }
+    draw_circle(data->minimap.minimap_img);
+    draw_view(data);
+}

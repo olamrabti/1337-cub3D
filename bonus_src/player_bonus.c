@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "cub3d_bonus.h"
 
 void ft_get_next_pos(t_data *data, int backward)
 {
@@ -38,9 +38,18 @@ void update_player(t_data *data, int backward)
 		data->player.rotation_angle += data->player.turn_direction * factor;
 	else
 		data->player.rotation_angle += data->player.turn_direction * (double)ROT_FASTER;
+
 	ft_get_next_pos(data, backward);
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
+	draw_map(data);
 	cast_rays(data);
+
+	// NOTE BONUS
+	factor = floor(3 * (120.0 / (1.0 + data->player.animation_area)));
+	if (data->player.animation_area > 50)
+		ft_animation(data, 480, 820 + factor);
+	else
+		ft_animation(data, 480, 830 + factor * 3);
 }
 
 void ft_reset(t_data *data)
