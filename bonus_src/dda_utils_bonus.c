@@ -1,31 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda_utils_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/31 04:57:33 by oumimoun          #+#    #+#             */
+/*   Updated: 2024/08/31 04:58:17 by oumimoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
-double normalize_angle(double angle)
+double	normalize_angle(double angle)
 {
-    double normalized;
+	double	normalized;
 
-    normalized = fmod(angle, 2 * M_PI);
-    if (normalized < 0.0)
-        normalized += 2 * M_PI;
-    return normalized;
+	normalized = fmod(angle, 2 * M_PI);
+	if (normalized < 0.0)
+		normalized += 2 * M_PI;
+	return (normalized);
 }
 
-double get_distance(t_data *data, double x, double y)
+double	get_distance(t_data *data, double x, double y)
 {
-    double delta_x;
-    double delta_y;
+	double	delta_x;
+	double	delta_y;
 
-    delta_x = x - data->player.x;
-    delta_y = y - data->player.y;
-    return sqrt((delta_x * delta_x) + (delta_y * delta_y));
+	delta_x = x - data->player.x;
+	delta_y = y - data->player.y;
+	return (sqrt((delta_x * delta_x) + (delta_y * delta_y)));
 }
 
-int is_up(double angle)
+int	is_up(double angle)
 {
-    return (angle > M_PI);
+	return (angle > M_PI);
 }
 
-int is_right(double angle)
+int	is_right(double angle)
 {
-    return (angle >= (3 * M_PI / 2) || angle < M_PI / 2);
+	return (angle >= (3 * M_PI / 2) || angle < M_PI / 2);
 }

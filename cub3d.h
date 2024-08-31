@@ -150,7 +150,6 @@ void update_player(t_data *data, int backward);
 //                             parsing                                 //
 //=======================================================================
 
-
 void    ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
 char *get_next_line(int fd, t_data *data);
@@ -158,14 +157,12 @@ int ft_parsing(char *map_path, t_data *data);
 int ft_strcmp(const char *s1, const char *s2);
 int ft_parsing_map(char *map_path, t_data *data);
 int ft_save_vars(char *map_path, t_data *data);
-
 int ft_check_vars(t_data *data);
 int ft_save_player_pos(t_data *data);
 char *ft_bring_map(int fd, t_data *data);
 char	**ft_split(char const *s, char c, t_data *data);
 int ft_has_tabs(t_data *data);
 int ft_split_map(t_data *data);
-
 char	*gc_substr(char *s, unsigned int start, size_t len, t_addr **addr);
 char	*gc_strdup(const char *s, t_addr **addr);
 char	*gc_strjoin(char *s1, char *s2, t_addr **addr);
@@ -175,25 +172,14 @@ int ft_double_check_vars(t_data *data);
 int ft_fill_map_with_sp(t_data *data);
 void ft_animation(t_data *data, int x, int y);
 int ft_stores_f_c(t_data *data);
-
 int ft_valide_wall_direction(char *line);
 int ft_parse_map_path(char *map_path);
 int ft_check_zero_surroundings(char **map, int i, int j);
 int ft_valide_map(t_data *data);
 int ft_read_map_lines(int fd, t_data *data, char **single_line_vars);
-
 int ft_only_ones(char *str);
-
 int ft_start_with_one(t_data *data);
-
-
 int ft_parse_map_variables(char *map_path, t_data *data);
 
-// NOTE BONUS
-void clear_minimap(mlx_image_t *img, int color);
-void mini_map(t_data *data);
-void draw_circle(mlx_image_t *img);
-void protected_mppx(mlx_image_t *img, int x, int y, int color);
-void draw_view(t_data *data);
 
 #endif

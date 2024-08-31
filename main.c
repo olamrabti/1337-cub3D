@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
+/*   Updated: 2024/08/31 04:17:45 by oumimoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int init_player(t_data *data)
+int	init_player(t_data *data)
 {
 	data->player.x = (data->map->player_x * TILE_SIZE) + (TILE_SIZE / 2);
 	data->player.y = (data->map->player_y * TILE_SIZE) + (TILE_SIZE / 2);
@@ -19,10 +31,10 @@ int init_player(t_data *data)
 		data->player.rotation_angle = M_PI;
 	if (!get_textures(data))
 		return (ERROR);
-	return SUCCESS;
+	return (SUCCESS);
 }
 
-int init_mlx(t_data *data)
+int	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!data->mlx)
@@ -30,21 +42,21 @@ int init_mlx(t_data *data)
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->img)
 		return (ERROR);
-	if ( mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
+	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 		return (ERROR);
 	return (SUCCESS);
 }
 
-int ft_clean_exit(t_data *data)
+int	ft_clean_exit(t_data *data)
 {
 	ft_addrclear(&data->addr, free);
 	free(data);
-	return ERROR;
+	return (ERROR);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_data *data;
+	t_data	*data;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), ERROR);
@@ -60,9 +72,11 @@ int main(int ac, char **av)
 	if (init_player(data) != SUCCESS)
 		return (ft_clean_exit(data));
 	if (init_mlx(data) != SUCCESS)
-		return (ft_putstr_fd("Error\n MLX initialization\n", 2), ft_clean_exit(data));
+		return (ft_putstr_fd("Error\n MLX initialization\n", 2), \
+			ft_clean_exit(data));
 	if (!mlx_loop_hook(data->mlx, &key_event_handler, data))
-		return (ft_putstr_fd("Error\n MLX initialization\n", 2), ft_clean_exit(data));
+		return (ft_putstr_fd("Error\n MLX initialization\n", 2), \
+			ft_clean_exit(data));
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

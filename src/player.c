@@ -1,17 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/31 04:29:01 by oumimoun          #+#    #+#             */
+/*   Updated: 2024/08/31 04:31:33 by oumimoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-void ft_get_next_pos(t_data *data, int backward)
+void	ft_get_next_pos(t_data *data, int backward)
 {
-	double tmp_x;
-	double tmp_y;
-	double step;
+	double	tmp_x;
+	double	tmp_y;
+	double	step;
 
 	step = data->player.walk_direction * MOVE_SPEED;
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-
 	if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y))
 	{
 		if (data->player.animation_area > 6 && !backward)
@@ -28,32 +39,36 @@ void ft_get_next_pos(t_data *data, int backward)
 	}
 }
 
-void update_player(t_data *data, int backward)
+void	update_player(t_data *data, int backward)
 {
-	double factor;
+	double	factor;
 
 	factor = 1000.0 / (1.0 + data->player.close_to_wall);
 	factor = ((double)ROTATE / (factor));
 	if (factor > (double)ROTATE)
 		data->player.rotation_angle += data->player.turn_direction * factor;
 	else
-		data->player.rotation_angle += data->player.turn_direction * (double)ROT_FASTER;
+		data->player.rotation_angle += data->player.turn_direction \
+			* (double)ROT_FASTER;
 	ft_get_next_pos(data, backward);
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
 	cast_rays(data);
 }
 
-void ft_reset(t_data *data)
+void	ft_reset(t_data *data, int backward)
 {
+	if (data->player.walk_direction || data->player.turn_direction \
+		|| data->player.side_walk)
+		update_player(data, backward);
 	data->player.walk_direction = 0;
 	data->player.turn_direction = 0;
 	data->player.side_walk = 0;
 }
 
-void key_event_handler(void *arg)
+void	key_event_handler(void *arg)
 {
-	t_data *data;
-	int backward;
+	t_data	*data;
+	int		backward;
 
 	data = arg;
 	backward = 0;
@@ -74,7 +89,5 @@ void key_event_handler(void *arg)
 		data->player.side_walk = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		data->player.side_walk = 1;
-	if (data->player.walk_direction || data->player.turn_direction || data->player.side_walk)
-		update_player(data, backward);
-	ft_reset(data);
+	ft_reset(data, backward);
 }
