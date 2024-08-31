@@ -18,8 +18,6 @@
 #define HEIGHT 1080
 #define TILE_SIZE 30
 #define MINI_TILE 25
-#define CENTER_X (WIDTH / 2)
-#define CENTER_Y (HEIGHT / 2)
 
 #define ERROR 1
 #define SUCCESS 0

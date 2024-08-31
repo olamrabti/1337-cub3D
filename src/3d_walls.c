@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:18:52 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 10:43:47 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:01:02 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@ int	get_textures(t_data *data)
 	data->tx = safe_alloc(&data->addr, 4, sizeof(mlx_texture_t));
 	if (!data->tx)
 		return (0);
+	printf("tx :%p\n", &data->tx);
 	data->tx[0] = mlx_load_png(data->map->no_texture_path);
+	add_addr(&data->addr, new_addr((char *)data->tx[0]));
 	data->tx[1] = mlx_load_png(data->map->so_texture_path);
+	add_addr(&data->addr, new_addr((char *)data->tx[1]));
 	data->tx[2] = mlx_load_png(data->map->we_texture_path);
+	add_addr(&data->addr, new_addr((char *)data->tx[2]));
 	data->tx[3] = mlx_load_png(data->map->ea_texture_path);
+	add_addr(&data->addr, new_addr((char *)data->tx[3]));
+	printf("tx1 : %p, tx2 : %p, tx3 : %p, tx4 : %p\n", &data->tx[0], &data->tx[1], &data->tx[2], &data->tx[3]);
 	if (!data->tx[0] || !data->tx[1] || !data->tx[2] || !data->tx[3])
 		return (ft_putstr_fd("Error\nTexture Loading Error\n", 2), 0);
 	return (1);

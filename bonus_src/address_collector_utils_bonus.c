@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   address_collector_utils_bonus.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:53:22 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 04:53:23 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:48:05 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	is_duplicate(t_addr *list, t_addr *node)
 	curr = list;
 	while (curr && curr != node)
 	{
-		if (curr->address == node->address)
+		// if (curr->address == node->address)
+		if (!ft_strcmp(curr->address, node->address))
 			return (1);
 		curr = curr->nxt;
 	}

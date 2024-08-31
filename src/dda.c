@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:25:22 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 10:40:55 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:31:17 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	ft_dda(t_data *data, t_ray *ray)
 	distortion_factor = cos(data->player.rotation_angle - ray->angle);
 	if (step_x.distance > step_y.distance)
 	{
-		ray->direction = EAST;
+		ray->direction = WEST;
 		if (is_right(ray->angle))
-			ray->direction = WEST;
+			ray->direction = EAST;
 		ray->distance = distortion_factor * step_y.distance;
 		ray->end_x = step_y.next.x;
 		ray->end_y = step_y.next.y;

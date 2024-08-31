@@ -1,3 +1,11 @@
 // [x] .h macros
 // [x] function has too many args
 // [ ] main in bonus 
+
+// [ ] double check all protections 
+// [ ] test leaks again
+// [ ] test parsing to avoid any unexpected unhandeled edge case
+// [ ] Makefile and files revision
+// [ ] maybe remove unused files from libft
+// [ ] allow window resize
+// [x] double check textures direction 
