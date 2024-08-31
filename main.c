@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 15:04:33 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/08/31 16:24:38 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	// atexit(f);
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), ERROR);
 	data = malloc(sizeof(t_data));
@@ -85,5 +84,8 @@ int	main(int ac, char **av)
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-	return (ft_clean_exit(data),SUCCESS);
+	ft_clean_exit(data);
+	delete_textures(data);
+	atexit(f);
+	return (SUCCESS);
 }

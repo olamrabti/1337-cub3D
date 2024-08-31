@@ -142,9 +142,9 @@ void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
 void update_player(t_data *data);
+void delete_textures(t_data *data); 
 
-
-void    ft_error(int i);
+void ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
 char *get_next_line(int fd, t_data *data);
 int ft_parsing(char *map_path, t_data *data);
