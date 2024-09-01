@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 16:24:38 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/01 05:33:56 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	init_player(t_data *data)
 	data->player.turn_direction = 1;
 	data->player.walk_direction = 0;
 	data->player.side_walk = 0;
-	data->mouse_x = -1;
 	data->player.close_to_wall = 0;
 	if (data->map->player_direction == 'N')
 		data->player.rotation_angle = 3 * M_PI / 2;
@@ -71,7 +70,7 @@ int	main(int ac, char **av)
 	data->map = safe_alloc(&data->addr, 1, sizeof(t_map));
 	if (!data->map)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data));
-	if (ft_parsing(av[1], data) == ERROR)
+	if (ft_parsing(av[1], data, &data->map) == ERROR)
 		return (ft_clean_exit(data));
 	if (init_player(data) != SUCCESS)
 		return (ft_clean_exit(data));
@@ -83,9 +82,9 @@ int	main(int ac, char **av)
 			ft_clean_exit(data));
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(data->mlx);
+	// delete_textures(data);
 	mlx_terminate(data->mlx);
 	ft_clean_exit(data);
-	delete_textures(data);
-	atexit(f);
+	// atexit(f);
 	return (SUCCESS);
 }

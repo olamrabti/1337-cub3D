@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:15:30 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 08:43:57 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/01 05:59:38 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define WIDTH 1080
 # define HEIGHT 1080
 # define TILE_SIZE 30
-# define MINI_TILE 25
+# define MINI_TILE 20
 # define ERROR 1
 # define SUCCESS 0
 # define NORTH 0
@@ -37,10 +37,10 @@
 # define EAST 3
 # define MOVE_SPEED 2.0
 
-// TODO declare as variables in their functions 
-# define FOV_ANGL (M_PI / 3)
-# define ROTATE ((2 * M_PI ) / 160)
-# define ROT_FASTER ((2 * M_PI) / 100)
+
+#define FOV_ANGL 1.0472 
+# define ROTATE 0.03926990816
+# define ROT_FASTER 0.06283185307
 
 typedef struct s_map
 {
@@ -155,11 +155,14 @@ int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
 void update_player(t_data *data, int backward);
 
+//=======================================================================
+//                             parsing                                 //
+//=======================================================================
 
 void    ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
 char *get_next_line(int fd, t_data *data);
-int ft_parsing(char *map_path, t_data *data);
+int	ft_parsing(char *map_path, t_data *data);
 int ft_strcmp(const char *s1, const char *s2);
 int ft_parsing_map(char *map_path, t_data *data);
 int ft_save_vars(char *map_path, t_data *data);
@@ -185,6 +188,16 @@ int ft_valide_map(t_data *data);
 int ft_read_map_lines(int fd, t_data *data, char **single_line_vars);
 int ft_only_ones(char *str);
 int ft_start_with_one(t_data *data);
-int ft_parse_map_variables(char *map_path, t_data *data);
+int ft_parse_map_variables(char *map_path, t_data *data, t_map **map);
+
+void	clear_minimap(mlx_image_t *img, int color);
+void	protected_mppx(mlx_image_t *img, int x, int y, int color);
+
+void	mini_map(t_data *data);
+void	draw_view(t_data *data);
+void	draw_circle(mlx_image_t *img);
+
+void delete_textures(t_data *data);
+
 
 #endif

@@ -6,13 +6,14 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:21:20 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 05:19:36 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 05:58:59 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+// #include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h" 
 
-void	ft_error(int i)
+void ft_error(int i)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (i == 1)
@@ -34,7 +35,7 @@ void	ft_error(int i)
 	exit(ERROR);
 }
 
-int	ft_parsing_suite(t_data *data)
+int ft_parsing_suite(t_data *data)
 {
 	if (ft_has_tabs(data) == ERROR)
 		return (ft_error(6), (ERROR));
@@ -53,11 +54,15 @@ int	ft_parsing_suite(t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_parsing(char *map_path, t_data *data)
+int ft_parsing(char *map_path, t_data *data)
 {
+
+	printf("Before parse_map_path: %p\n", data->map);
 	if (ft_parse_map_path(map_path) == ERROR)
 		return (ft_error(1), (ERROR));
-	if (ft_parse_map_variables(map_path, data) == ERROR)
+	printf("After parse_map_path: %p\n", data->map);
+	printf("PLAYER_X: %f\n", data->map->player_x);
+	if (ft_parse_map_variables(map_path, &data, &data->map) == ERROR)
 		return (ft_error(2), (ERROR));
 	if (ft_double_check_vars(data) == ERROR)
 		return (ft_error(3), (ERROR));

@@ -27,7 +27,7 @@
 #define WEST 2
 #define EAST 3
 
-#define FOV_ANGL (M_PI / 3)
+#define FOV_ANGL 1.0472 
 #define MOVE_SPEED 2.0
 
 typedef struct s_map
@@ -114,10 +114,6 @@ typedef struct s_data
 	t_addr *addr;
 	t_player player;
 	t_map *map;
-	t_minimap minimap;
-	double mouse_x;
-	mlx_image_t		*frame;
-	int frame_num;
 
 }	t_data;
 
@@ -147,7 +143,7 @@ void delete_textures(t_data *data);
 void ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
 char *get_next_line(int fd, t_data *data);
-int ft_parsing(char *map_path, t_data *data);
+int ft_parsing(char *map_path, t_data *data, t_map **map);
 int ft_strcmp(const char *s1, const char *s2);
 int ft_parsing_map(char *map_path, t_data *data);
 int ft_save_vars(char *map_path, t_data *data);
@@ -173,7 +169,7 @@ int ft_valide_map(t_data *data);
 int ft_read_map_lines(int fd, t_data *data, char **single_line_vars);
 int ft_only_ones(char *str);
 int ft_start_with_one(t_data *data);
-int ft_parse_map_variables(char *map_path, t_data *data);
+int ft_parse_map_variables(char *map_path, t_data *data, t_map **map);
 
 
 #endif

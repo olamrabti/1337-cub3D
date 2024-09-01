@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_walls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:18:52 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 16:29:41 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:06:38 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int get_textures(t_data *data)
 }
 void delete_textures(t_data *data)
 {
+	if (!data->tx)
+		return;
 	if (data->tx[0])
 		mlx_delete_texture(data->tx[0]);
 	if (data->tx[1])

@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:58:43 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 05:00:45 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 04:13:12 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	is_wall(t_data *data, double x, double y)
 
 	map_x = x / TILE_SIZE;
 	map_y = y / TILE_SIZE;
-	if (map_x > 0 && map_x < data->map->map_width && map_y > 0 \
-		&& map_y < (data->map->map_height))
+	if (map_x > 0 && map_x < data->map.map_width && map_y > 0 \
+		&& map_y < (data->map.map_height))
 	{
-		if (data->map->map_tiles[(int)map_y][(int)map_x] != '0')
+		if (data->map.map_tiles[(int)map_y][(int)map_x] != '0')
 			return (1);
 		return (0);
 	}

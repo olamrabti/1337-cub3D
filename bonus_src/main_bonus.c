@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:01:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 05:02:45 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 05:39:29 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,29 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	data->addr = NULL;
-	data->map = safe_alloc(&data->addr, 1, sizeof(t_map));
+	// data->map = safe_alloc(&data->addr, 1, sizeof(t_map));
+	data->map = malloc(sizeof(t_map));
 	if (!data->map)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data));
+	data->map->map_tiles = NULL;
+	data->map->no_texture_path = NULL;
+	data->map->so_texture_path = NULL;
+	data->map->we_texture_path = NULL;
+	data->map->ea_texture_path = NULL;
+	data->map->f_color = NULL;
+	data->map->c_color = NULL;
+	data->map->single_line_map = NULL;
+	data->map->single_line_vars = NULL;
+	data->map->c_rgb = NULL;
+	data->map->f_rgb = NULL;
+	data->map->player_direction = 0;
+	data->map->player_x = 0;
+	data->map->player_y = 0;
+	data->map->map_width = 0;
+	data->map->map_height = 0;
+	data->map->tile_size = 0;
+	
+	printf("data->map: %p\n", data->map);
 	if (ft_parsing(av[1], data) == ERROR)
 		return (ft_clean_exit(data));
 	if (init_player(data) != SUCCESS)
@@ -104,6 +124,9 @@ int	main(int ac, char **av)
 			ft_clean_exit(data));
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(data->mlx);
+	// delete_textures(data);
 	mlx_terminate(data->mlx);
+	// ft_clean_exit(data);
+	// atexit(f);
 	return (SUCCESS);
 }

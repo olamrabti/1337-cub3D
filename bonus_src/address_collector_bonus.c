@@ -6,19 +6,19 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:53:12 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 04:53:17 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 06:09:07 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	*safe_alloc(t_addr **addr, size_t count, size_t size)
+void *safe_alloc(t_addr **addr, size_t count, size_t size)
 {
-	char	*copy;
+	char *copy;
 
 	if (count != 0 && size > 9223372036854775807ULL / count)
 		return (NULL);
-	copy = (char *)malloc(count * size);
+	copy = malloc(count * size);
 	if (!copy)
 		exit(1);
 	ft_bzero(copy, size * count);
@@ -26,9 +26,9 @@ void	*safe_alloc(t_addr **addr, size_t count, size_t size)
 	return (copy);
 }
 
-t_addr	*new_addr(char *value)
+t_addr *new_addr(char *value)
 {
-	t_addr	*node;
+	t_addr *node;
 
 	node = malloc(sizeof(t_addr));
 	if (!node)
@@ -38,9 +38,9 @@ t_addr	*new_addr(char *value)
 	return (node);
 }
 
-int	add_addr(t_addr **list, t_addr *new)
+int add_addr(t_addr **list, t_addr *new)
 {
-	t_addr	*temp;
+	t_addr *temp;
 
 	if (!list || !new)
 		return (1);
@@ -51,7 +51,7 @@ int	add_addr(t_addr **list, t_addr *new)
 		return (0);
 	}
 	temp = *list;
-	while (temp->nxt != NULL)
+	while (temp && temp->nxt)
 		temp = temp->nxt;
 	temp->nxt = new;
 	return (0);

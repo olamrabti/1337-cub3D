@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:23:45 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 04:23:51 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 06:13:55 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*safe_alloc(t_addr **addr, size_t count, size_t size)
 
 	if (count != 0 && size > 9223372036854775807ULL / count)
 		return (NULL);
-	copy = (char *)malloc(count * size);
+	copy = malloc(count * size);
 	if (!copy)
 		exit(1);
 	ft_bzero(copy, size * count);
@@ -51,8 +51,11 @@ int	add_addr(t_addr **list, t_addr *new)
 		return (0);
 	}
 	temp = *list;
+	printf("temp: %p\n", temp);
 	while (temp->nxt != NULL)
+	{
 		temp = temp->nxt;
+	}
 	temp->nxt = new;
 	return (0);
 }

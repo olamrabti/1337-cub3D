@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stores_f_c.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 03:32:42 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/01 06:00:51 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,12 @@ int	ft_read_map_lines(int fd, t_data *data, char **single_line_vars)
 	return (SUCCESS);
 }
 
-int	ft_parse_map_variables(char *map_path, t_data *data)
+int	ft_parse_map_variables(char *map_path, t_data *data, t_map **map)
 {
 	int		fd;
 	char	*single_line_vars;
+
+	printf("map %p\n", *map);
 
 	single_line_vars = gc_strdup("", &data->addr);
 	fd = open(map_path, O_RDONLY);
@@ -85,7 +87,9 @@ int	ft_parse_map_variables(char *map_path, t_data *data)
 		return (ERROR);
 	if (ft_read_map_lines(fd, data, &single_line_vars) == ERROR)
 		return (close(fd), ERROR);
-	data->map->single_line_vars = single_line_vars;
+	printf("data->map->player_x: %f\n", data->map->player_x);
+	(*map)->single_line_vars = single_line_vars;
+	printf("single_line_vars: %s\n", single_line_vars);
 	close(fd);
 	return (SUCCESS);
 }
