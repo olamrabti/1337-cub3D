@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:23:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 00:29:20 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:15:38 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	ft_split_map(t_map **map, t_addr **addr)
 	(*map)->map_tiles = ft_split((*map)->single_line_map, '\n', addr);
 	if (!(*map)->map_tiles) 
 		return (ERROR);
-	printf("here\n");
 	i = 0;
 	temp = (*map)->map_tiles;
 	while (temp[i])

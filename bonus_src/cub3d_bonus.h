@@ -27,8 +27,6 @@
 
 
 #define FOV_ANGL 1.0472 
-# define ROTATE 0.03926990816
-# define ROT_FASTER 0.06283185307
 
 typedef struct s_map
 {
@@ -141,7 +139,7 @@ void key_event_handler(void *arg);
 void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
-void update_player(t_data *data, int backward);
+void update_player(t_data *data);
 
 //=======================================================================
 //                             parsing                                 //

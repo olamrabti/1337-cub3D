@@ -91,7 +91,7 @@ LIBFT_SRC = Libft/ft_atoi.c\
 			Libft/ft_putchar_fd.c\
 			Libft/ft_strmapi.c\
 
-all : $(NAME)
+all : $(NAME) clean
 
 OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
 
@@ -103,7 +103,7 @@ $(NAME) : $(OBJS)
 
 OBJS_BONUS = $(SRC_BONUS:.c=.o) $(LIBFT_SRC:.c=.o)
 
-bonus: $(NAME_BONUS)
+bonus: $(NAME_BONUS) clean
 
 $(NAME_BONUS): $(OBJS_BONUS)
 	$(CC) $(CFLAGS) $(OBJS_BONUS) $(MLX) -o $(NAME_BONUS)
