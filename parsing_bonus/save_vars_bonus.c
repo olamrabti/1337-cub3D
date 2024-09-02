@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_vars.c                                        :+:      :+:    :+:   */
+/*   save_vars_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:09:28 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 01:06:27 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 00:06:39 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 int	ft_extract_and_assign(char *line, int i, char **destination, t_addr **addr)
 {

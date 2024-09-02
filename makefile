@@ -42,19 +42,19 @@ SRC_BONUS = bonus_src/main_bonus.c\
 		bonus_src/dda_utils_bonus.c\
 		bonus_src/minimap_bonus.c\
 		get_next_line/get_next_line.c\
-		parsing/start_parsing.c\
-		parsing/save_vars.c\
-		parsing/check_vars.c\
-		parsing/save_player_pos.c\
-		parsing/split_map.c\
-		parsing/valide_map.c\
-		parsing/double_check_vars.c\
-		parsing/fill_map_with_sp.c\
-		parsing/parsing_map.c\
-		parsing/parsing_helpers.c\
-		parsing/ft_split.c\
-		parsing/stores_f_c.c\
-		parsing/check_zero.c\
+		parsing_bonus/start_parsing_bonus.c\
+		parsing_bonus/save_vars_bonus.c\
+		parsing_bonus/check_vars_bonus.c\
+		parsing_bonus/save_player_pos_bonus.c\
+		parsing_bonus/split_map_bonus.c\
+		parsing_bonus/valide_map_bonus.c\
+		parsing_bonus/double_check_vars_bonus.c\
+		parsing_bonus/fill_map_with_sp_bonus.c\
+		parsing_bonus/parsing_map_bonus.c\
+		parsing_bonus/parsing_helpers_bonus.c\
+		parsing_bonus/ft_split_bonus.c\
+		parsing_bonus/stores_f_c_bonus.c\
+		parsing_bonus/check_zero_bonus.c\
 
 
 LIBFT_SRC = Libft/ft_atoi.c\

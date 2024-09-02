@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:23:45 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 06:13:55 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 01:10:18 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*safe_alloc(t_addr **addr, size_t count, size_t size)
 	return (copy);
 }
 
-t_addr	*new_addr(char *value)
+t_addr	*new_addr(void *value)
 {
 	t_addr	*node;
 
@@ -51,7 +51,6 @@ int	add_addr(t_addr **list, t_addr *new)
 		return (0);
 	}
 	temp = *list;
-	printf("temp: %p\n", temp);
 	while (temp->nxt != NULL)
 	{
 		temp = temp->nxt;

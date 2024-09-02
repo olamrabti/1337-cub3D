@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_helpers.c                                  :+:      :+:    :+:   */
+/*   parsing_helpers_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:22:15 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 01:06:11 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:38:09 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 char	*gc_strdup(const char *s, t_addr **addr)
 {

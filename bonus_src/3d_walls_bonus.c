@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:50:18 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 04:14:05 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:52:13 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	get_textures(t_data *data)
 	data->tx = safe_alloc(&data->addr, 4, sizeof(mlx_texture_t));
 	if (!data->tx)
 		return (0);
-	data->tx[0] = mlx_load_png(data->map.no_texture_path);
-	data->tx[1] = mlx_load_png(data->map.so_texture_path);
-	data->tx[2] = mlx_load_png(data->map.we_texture_path);
-	data->tx[3] = mlx_load_png(data->map.ea_texture_path);
+	data->tx[0] = mlx_load_png(data->map->no_texture_path);
+	data->tx[1] = mlx_load_png(data->map->so_texture_path);
+	data->tx[2] = mlx_load_png(data->map->we_texture_path);
+	data->tx[3] = mlx_load_png(data->map->ea_texture_path);
 	if (!data->tx[0] || !data->tx[1] || !data->tx[2] || !data->tx[3])
 		return (ft_putstr_fd("Error\nTexture Loading Error\n", 2), 0);
 	return (1);
@@ -74,16 +74,16 @@ void	render_r_and_c(t_data *data, double wall_top, double wall_bottom, int x)
 	int	color;
 
 	i = 0;
-	color = get_rgba(data->map.c_rgb[0], data->map.c_rgb[1], \
-		data->map.c_rgb[2], 200);
+	color = get_rgba(data->map->c_rgb[0], data->map->c_rgb[1], \
+		data->map->c_rgb[2], 200);
 	while (i < wall_top)
 	{
 		protected_ppx(data->img, x, i, color);
 		i++;
 	}
 	i = wall_bottom;
-	color = get_rgba(data->map.f_rgb[0], data->map.f_rgb[1], \
-		data->map.f_rgb[2], 200);
+	color = get_rgba(data->map->f_rgb[0], data->map->f_rgb[1], \
+		data->map->f_rgb[2], 200);
 	while (i < HEIGHT)
 	{
 		protected_ppx(data->img, x, i, color);

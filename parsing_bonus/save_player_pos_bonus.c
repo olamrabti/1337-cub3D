@@ -1,53 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_map.c                                        :+:      :+:    :+:   */
+/*   save_player_pos_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 11:23:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 01:06:32 by oumimoun         ###   ########.fr       */
+/*   Created: 2024/07/23 11:27:09 by oumimoun          #+#    #+#             */
+/*   Updated: 2024/09/01 23:38:31 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
-int	ft_all_spaces(char *str)
+int	ft_is_player_direction(char c)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '\t')
-			return (0);
-		i++;
-	}
-	return (1);
+	if (c == 'N')
+		return (1);
+	if (c == 'S')
+		return (1);
+	if (c == 'E')
+		return (1);
+	if (c == 'W')
+		return (1);
+	return (0);
 }
 
-int	ft_split_map(t_map **map, t_addr **addr)
+int	ft_check_players(t_map **map)
 {
-	int		i;
 	char	**temp;
-	
+	int		i;
+	int		j;
+	int		count;
 
-	(*map)->map_tiles = ft_split((*map)->single_line_map, '\n', addr);
-	if (!(*map)->map_tiles) 
-		return (ERROR);
-	printf("here\n");
-	i = 0;
+	count = 0;
 	temp = (*map)->map_tiles;
+	i = 0;
+	j = 0;
 	while (temp[i])
 	{
-		if (ft_all_spaces(temp[i]))
-			temp[i] = NULL;
+		j = 0;
+		while (temp[i][j])
+		{
+			if (ft_is_player_direction(temp[i][j]))
+				count++;
+			j++;
+		}
 		i++;
 	}
+	if (count != 1)
+		return (ERROR);
 	return (SUCCESS);
 }
 
-int	ft_has_tabs(t_map **map)
+int	ft_save_player_pos(t_map **map)
 {
 	char	**temp;
 	int		i;
@@ -55,13 +60,19 @@ int	ft_has_tabs(t_map **map)
 
 	temp = (*map)->map_tiles;
 	i = 0;
+	j = 0;
 	while (temp[i])
 	{
 		j = 0;
 		while (temp[i][j])
 		{
-			if (temp[i][j] == '\t')
-				return (ERROR);
+			if (ft_is_player_direction(temp[i][j]))
+			{
+				(*map)->player_direction = temp[i][j];
+				(*map)->player_x = j;
+				(*map)->player_y = i;
+				temp[i][j] = '0';
+			}
 			j++;
 		}
 		i++;

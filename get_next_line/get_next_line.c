@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 05:32:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 16:00:39 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:53:52 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	flag(char *str)
 	return (0);
 }
 
-char	*ft_read_buffer(int fd, char *buff, char *temp, t_data *data)
+char	*ft_read_buffer(int fd, char *buff, char *temp, t_addr **addr)
 {
 	char	*del;
 	int		i;
@@ -43,16 +43,16 @@ char	*ft_read_buffer(int fd, char *buff, char *temp, t_data *data)
 			break ;
 		buff[i] = '\0';
 		if (!temp)
-			temp = gc_strdup("", &data->addr);
+			temp = gc_strdup("", addr);
 		del = temp;
-		temp = gc_strjoin(del, buff, &data->addr);
+		temp = gc_strjoin(del, buff, addr);
 	}
 	if (temp && temp[0] == '\0')
 		return (NULL);
 	return (temp);
 }
 
-char	*ft_new_line(char *temp, t_data *data)
+char	*ft_new_line(char *temp, t_addr **addr)
 {
 	char	*result;
 	int		i;
@@ -64,13 +64,13 @@ char	*ft_new_line(char *temp, t_data *data)
 		i++;
 	if (temp[i] == '\n')
 		i++;
-	result = gc_substr(temp, 0, i, &data->addr);
+	result = gc_substr(temp, 0, i, addr);
 	if (!result)
 		return (NULL);
 	return (result);
 }
 
-char	*ft_the_next_line(char *temp, t_data *data)
+char	*ft_the_next_line(char *temp, t_addr **addr)
 {
 	char	*new_buff;
 	int		i;
@@ -80,13 +80,13 @@ char	*ft_the_next_line(char *temp, t_data *data)
 		i++;
 	if (temp[i] == '\n')
 		i++;
-	new_buff = gc_strdup(temp + i, &data->addr);
+	new_buff = gc_strdup(temp + i, addr);
 	if (!new_buff)
 		return (NULL);
 	return (new_buff);
 }
 
-char	*get_next_line(int fd, t_data *data)
+char	*get_next_line(int fd, t_addr **addr)
 {
 	static char	*temp;
 	char		*buff;
@@ -94,13 +94,13 @@ char	*get_next_line(int fd, t_data *data)
 
 	if (BUFFER_SIZE > INT_MAX || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = safe_alloc(&data->addr, BUFFER_SIZE + 1, sizeof(char));
+	buff = safe_alloc(addr, BUFFER_SIZE + 1, sizeof(char));
 	if (!buff)
 		return (NULL);
-	temp = ft_read_buffer(fd, buff, temp, data);
-	line = ft_new_line(temp, data);
+	temp = ft_read_buffer(fd, buff, temp, addr);
+	line = ft_new_line(temp, addr);
 	if (!line)
 		return (temp = NULL, NULL);
-	temp = ft_the_next_line(temp, data);
+	temp = ft_the_next_line(temp, addr);
 	return (line);
 }

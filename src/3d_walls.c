@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:18:52 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 02:06:38 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 02:16:19 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int get_textures(t_data *data)
 	data->tx = safe_alloc(&data->addr, 4, sizeof(mlx_texture_t));
 	if (!data->tx)
 		return (0);
+	// printf("NO: %s\n", data->map->no_texture_path);
+	// printf("SO: %s\n", data->map->so_texture_path);
+	// printf("WE: %s\n", data->map->we_texture_path);
+	// printf("EA: %s\n", data->map->ea_texture_path);
+	
 	data->tx[0] = mlx_load_png(data->map->no_texture_path);
 	data->tx[1] = mlx_load_png(data->map->so_texture_path);
 	data->tx[2] = mlx_load_png(data->map->we_texture_path);

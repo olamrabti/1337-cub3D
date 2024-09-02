@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "iterator": "c"
+        "iterator": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c",
+        "cub3d_bonus.h": "c"
     }
 }

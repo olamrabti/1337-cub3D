@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valide_map.c                                       :+:      :+:    :+:   */
+/*   valide_map_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:25:51 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 01:06:47 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 00:08:22 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 int	ft_fill_map_dimension_suite(t_map **map, int max_width, int i)
 {

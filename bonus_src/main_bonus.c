@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:01:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 05:39:29 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 02:19:53 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	init_player(t_data *data)
 
 int	init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D_bonus", false);
 	if (!data->mlx)
 		return (ERROR);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
@@ -81,38 +81,41 @@ int	ft_clean_exit(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data	*data;
+	t_map	*map;
+	t_addr	*addr;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), ERROR);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
-	data->addr = NULL;
+	addr = NULL;
 	// data->map = safe_alloc(&data->addr, 1, sizeof(t_map));
-	data->map = malloc(sizeof(t_map));
-	if (!data->map)
+	map = malloc(sizeof(t_map));
+	if (!map)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data));
-	data->map->map_tiles = NULL;
-	data->map->no_texture_path = NULL;
-	data->map->so_texture_path = NULL;
-	data->map->we_texture_path = NULL;
-	data->map->ea_texture_path = NULL;
-	data->map->f_color = NULL;
-	data->map->c_color = NULL;
-	data->map->single_line_map = NULL;
-	data->map->single_line_vars = NULL;
-	data->map->c_rgb = NULL;
-	data->map->f_rgb = NULL;
-	data->map->player_direction = 0;
-	data->map->player_x = 0;
-	data->map->player_y = 0;
-	data->map->map_width = 0;
-	data->map->map_height = 0;
-	data->map->tile_size = 0;
+	map->map_tiles = NULL;
+	map->no_texture_path = NULL;
+	map->so_texture_path = NULL;
+	map->we_texture_path = NULL;
+	map->ea_texture_path = NULL;
+	map->f_color = NULL;
+	map->c_color = NULL;
+	map->single_line_map = NULL;
+	map->single_line_vars = NULL;
+	map->c_rgb = NULL;
+	map->f_rgb = NULL;
+	map->player_direction = 0;
+	map->player_x = 0;
+	map->player_y = 0;
+	map->map_width = 0;
+	map->map_height = 0;
+	map->tile_size = 0;
 	
-	printf("data->map: %p\n", data->map);
-	if (ft_parsing(av[1], data) == ERROR)
+	if (ft_parsing(av[1], &map, &addr) == ERROR)
 		return (ft_clean_exit(data));
+	data->map = map;
+	data->addr = addr;
 	if (init_player(data) != SUCCESS)
 		return (ft_clean_exit(data));
 	if (init_mlx(data) != SUCCESS)

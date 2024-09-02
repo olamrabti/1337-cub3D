@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_check_vars.c                                :+:      :+:    :+:   */
+/*   double_check_vars_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:16:54 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 01:05:59 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:37:59 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 int	ft_duplicated_vars(char *var, char *line)
 {

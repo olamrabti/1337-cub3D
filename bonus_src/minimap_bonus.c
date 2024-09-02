@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:04:28 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 04:14:27 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:52:28 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ void	mini_map(t_data *data)
 	int		color;
 
 	if (data->minimap.x_p >= 0 && data->minimap.y_p >= 0 && \
-		data->minimap.x_p < data->map.map_width * MINI_TILE && \
-		data->minimap.y_p < data->map.map_height * MINI_TILE)
+		data->minimap.x_p < data->map->map_width * MINI_TILE && \
+		data->minimap.y_p < data->map->map_height * MINI_TILE)
 	{
 		i = floor(data->minimap.y_p / MINI_TILE);
 		j = floor(data->minimap.x_p / MINI_TILE);
-		if (i < data->map.map_height && j < data->map.map_width)
+		if (i < data->map->map_height && j < data->map->map_width)
 		{
-			map_char = data->map.map_tiles[i][j];
+			map_char = data->map->map_tiles[i][j];
 			color = 0;
 			if (map_char == '1')
 				color = get_rgba(255, 255, 255, 255);

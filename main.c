@@ -6,15 +6,11 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 05:33:56 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 02:30:07 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void f(){
-	system("leaks cub3D");
-}
 
 int	init_player(t_data *data)
 {
@@ -60,18 +56,48 @@ int	ft_clean_exit(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data	*data;
+	t_map	*map;
+	t_addr	*addr;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), ERROR);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
-	data->addr = NULL;
-	data->map = safe_alloc(&data->addr, 1, sizeof(t_map));
-	if (!data->map)
+	addr = NULL;
+	// map = safe_alloc(&data->addr, 1, sizeof(t_map));
+	map = malloc(sizeof(t_map));
+	if (!map)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data));
-	if (ft_parsing(av[1], data, &data->map) == ERROR)
+	// map->map_tiles = NULL;
+	// map->no_texture_path = NULL;
+	// map->so_texture_path = NULL;
+	// map->we_texture_path = NULL;
+	// map->ea_texture_path = NULL;
+	// map->f_color = NULL;
+	// map->c_color = NULL;
+	// map->single_line_map = NULL;
+	// map->single_line_vars = NULL;
+	// map->c_rgb = NULL;
+	// map->f_rgb = NULL;
+	// map->player_direction = 0;
+	// map->player_x = 0;
+	// map->player_y = 0;
+	// map->map_width = 0;
+	// map->map_height = 0;
+	// map->tile_size = 0;
+
+	if (ft_parsing(av[1], &map, &addr) == ERROR)
 		return (ft_clean_exit(data));
+	printf("NO: %s\n", map->no_texture_path);
+	printf("SO: %s\n", map->so_texture_path);
+	printf("WE: %s\n", map->we_texture_path);
+	printf("EA: %s\n", map->ea_texture_path);
+	printf("F: %s\n", map->f_color);
+	printf("C: %s\n", map->c_color);
+	
+	data->map = map;
+	data->addr = addr;
 	if (init_player(data) != SUCCESS)
 		return (ft_clean_exit(data));
 	if (init_mlx(data) != SUCCESS)
@@ -84,7 +110,7 @@ int	main(int ac, char **av)
 	mlx_loop(data->mlx);
 	// delete_textures(data);
 	mlx_terminate(data->mlx);
-	ft_clean_exit(data);
+	// ft_clean_exit(data);
 	// atexit(f);
 	return (SUCCESS);
 }

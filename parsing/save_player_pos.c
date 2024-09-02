@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:27:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/30 05:06:02 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 01:06:21 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_is_player_direction(char c)
 	return (0);
 }
 
-int	ft_check_players(t_data *data)
+int	ft_check_players(t_map **map)
 {
 	char	**temp;
 	int		i;
@@ -33,7 +33,7 @@ int	ft_check_players(t_data *data)
 	int		count;
 
 	count = 0;
-	temp = data->map->map_tiles;
+	temp = (*map)->map_tiles;
 	i = 0;
 	j = 0;
 	while (temp[i])
@@ -52,13 +52,13 @@ int	ft_check_players(t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_save_player_pos(t_data *data)
+int	ft_save_player_pos(t_map **map)
 {
 	char	**temp;
 	int		i;
 	int		j;
 
-	temp = data->map->map_tiles;
+	temp = (*map)->map_tiles;
 	i = 0;
 	j = 0;
 	while (temp[i])
@@ -68,9 +68,9 @@ int	ft_save_player_pos(t_data *data)
 		{
 			if (ft_is_player_direction(temp[i][j]))
 			{
-				data->map->player_direction = temp[i][j];
-				data->map->player_x = j;
-				data->map->player_y = i;
+				(*map)->player_direction = temp[i][j];
+				(*map)->player_x = j;
+				(*map)->player_y = i;
 				temp[i][j] = '0';
 			}
 			j++;

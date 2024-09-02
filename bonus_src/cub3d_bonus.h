@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 05:15:30 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 05:59:38 by oumimoun         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
@@ -28,7 +16,7 @@
 # define WIDTH 1080
 # define HEIGHT 1080
 # define TILE_SIZE 30
-# define MINI_TILE 20
+# define MINI_TILE 25
 # define ERROR 1
 # define SUCCESS 0
 # define NORTH 0
@@ -138,7 +126,7 @@ typedef struct s_data
 
 int		add_addr(t_addr **list, t_addr *new);
 void	*safe_alloc(t_addr **addr, size_t count, size_t size);
-t_addr	*new_addr(char *value);
+t_addr	*new_addr(void *value);
 void	ft_addrclear(t_addr **lst, void (*del)(void *));
 int get_rgba(int r, int g, int b, int a);
 void protected_ppx(mlx_image_t *img, int x, int y, int color);
@@ -161,34 +149,34 @@ void update_player(t_data *data, int backward);
 
 void    ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
-char *get_next_line(int fd, t_data *data);
-int	ft_parsing(char *map_path, t_data *data);
+char *get_next_line(int fd, t_addr **addr);
+int ft_parsing(char *map_path, t_map **map, t_addr **addr);
 int ft_strcmp(const char *s1, const char *s2);
-int ft_parsing_map(char *map_path, t_data *data);
-int ft_save_vars(char *map_path, t_data *data);
-int ft_check_vars(t_data *data);
-int ft_save_player_pos(t_data *data);
-char *ft_bring_map(int fd, t_data *data);
-char	**ft_split(char const *s, char c, t_data *data);
-int ft_has_tabs(t_data *data);
-int ft_split_map(t_data *data);
+int	ft_parsing_map(char *map_path, t_map **map, t_addr **addr);
+int	ft_save_vars(char *map_path, t_map **map, t_addr **addr);
+int	ft_check_vars(t_map **map, t_addr **addr);
+int	ft_save_player_pos(t_map **map);
+char	*ft_bring_map(int fd, t_addr **addr);
+char	**ft_split(char const *s, char c, t_addr **addr);
+int	ft_has_tabs(t_map **map);
+int	ft_split_map(t_map **map, t_addr **addr);
 char	*gc_substr(char *s, unsigned int start, size_t len, t_addr **addr);
 char	*gc_strdup(const char *s, t_addr **addr);
 char	*gc_strjoin(char *s1, char *s2, t_addr **addr);
-int ft_check_players(t_data *data);
-int ft_fill_map_dimension(t_data *data);
-int ft_double_check_vars(t_data *data);
-int ft_fill_map_with_sp(t_data *data);
+int	ft_check_players(t_map **map);
+int	ft_fill_map_dimension(t_map **map);
+int ft_double_check_vars(t_map **map);
+int ft_fill_map_with_sp(t_map **map, t_addr **addr);
 void ft_animation(t_data *data, int x, int y);
-int ft_stores_f_c(t_data *data);
+int	ft_stores_f_c(t_map **map, t_addr **addr);
 int ft_valide_wall_direction(char *line);
 int ft_parse_map_path(char *map_path);
 int ft_check_zero_surroundings(char **map, int i, int j);
-int ft_valide_map(t_data *data);
-int ft_read_map_lines(int fd, t_data *data, char **single_line_vars);
+int ft_valide_map(t_map **map);
+int	ft_read_map_lines(int fd, char **single_line_vars, t_addr **addr);
 int ft_only_ones(char *str);
-int ft_start_with_one(t_data *data);
-int ft_parse_map_variables(char *map_path, t_data *data, t_map **map);
+int	ft_start_with_one(t_map **map);
+int	ft_parse_map_variables(char *map_path, t_map **map, t_addr **addr);
 
 void	clear_minimap(mlx_image_t *img, int color);
 void	protected_mppx(mlx_image_t *img, int x, int y, int color);
