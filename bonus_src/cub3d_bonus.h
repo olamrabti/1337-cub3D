@@ -5,7 +5,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "../MLX42.h"
 # include <unistd.h>
 # include "../Libft/libft.h"
 # include <stdio.h>
@@ -24,9 +24,7 @@
 # define WEST 2
 # define EAST 3
 # define MOVE_SPEED 2.0
-
-
-#define FOV_ANGL 1.0472 
+# define FOV_ANGL 1.0472 
 
 typedef struct s_map
 {

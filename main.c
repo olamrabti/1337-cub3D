@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 02:30:07 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:08:59 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,37 +65,11 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	addr = NULL;
-	// map = safe_alloc(&data->addr, 1, sizeof(t_map));
-	map = malloc(sizeof(t_map));
+	map = safe_alloc(&data->addr, 1, sizeof(t_map));
 	if (!map)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data));
-	// map->map_tiles = NULL;
-	// map->no_texture_path = NULL;
-	// map->so_texture_path = NULL;
-	// map->we_texture_path = NULL;
-	// map->ea_texture_path = NULL;
-	// map->f_color = NULL;
-	// map->c_color = NULL;
-	// map->single_line_map = NULL;
-	// map->single_line_vars = NULL;
-	// map->c_rgb = NULL;
-	// map->f_rgb = NULL;
-	// map->player_direction = 0;
-	// map->player_x = 0;
-	// map->player_y = 0;
-	// map->map_width = 0;
-	// map->map_height = 0;
-	// map->tile_size = 0;
-
 	if (ft_parsing(av[1], &map, &addr) == ERROR)
 		return (ft_clean_exit(data));
-	printf("NO: %s\n", map->no_texture_path);
-	printf("SO: %s\n", map->so_texture_path);
-	printf("WE: %s\n", map->we_texture_path);
-	printf("EA: %s\n", map->ea_texture_path);
-	printf("F: %s\n", map->f_color);
-	printf("C: %s\n", map->c_color);
-	
 	data->map = map;
 	data->addr = addr;
 	if (init_player(data) != SUCCESS)
@@ -108,9 +82,8 @@ int	main(int ac, char **av)
 			ft_clean_exit(data));
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(data->mlx);
-	// delete_textures(data);
+	delete_textures(data);
 	mlx_terminate(data->mlx);
-	// ft_clean_exit(data);
-	// atexit(f);
+	ft_clean_exit(data);
 	return (SUCCESS);
 }

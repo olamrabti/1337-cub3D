@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:58:43 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 23:51:34 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:13:44 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	draw_map(t_data *data)
 		while (data->minimap.x < minimap_size)
 		{
 			protected_mppx(data->minimap.minimap_img, data->minimap.x, \
-				data->minimap.y, get_rgba(10, 10, 10, 0));
+				data->minimap.y, get_rgba(10, 10, 10, 100));
 			mini_map(data);
 			data->minimap.x++;
 			data->minimap.x_p++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:04:28 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 23:52:28 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:11:54 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	mini_map(t_data *data)
 			if (map_char == '1')
 				color = get_rgba(255, 255, 255, 255);
 			else
-				color = get_rgba(10, 10, 10, 0);
+				color = get_rgba(10, 10, 10, 100);
 			protected_mppx(data->minimap.minimap_img, data->minimap.x, \
 				data->minimap.y, color);
 		}
