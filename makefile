@@ -4,7 +4,7 @@ NAME_BONUS = cub3D_bonus
 
 HEADERS = cub3d.h  Libft/libft.h /bonus_src/cub3d_bonus.h MLX42.h
 
-CC = cc -Wall -Werror -Wextra  -Ofast -g #-fsanitize=address
+CC = cc -Wall -Werror -Wextra #-Ofast -g #-fsanitize=address
 
 MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib" #libmlx.a should not be included in files it should be made during make.
 

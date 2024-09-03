@@ -75,7 +75,7 @@ typedef struct ray
 	double	angle;
 	double	distance;
 	int		direction;
-
+	double wall_height;
 }	t_ray;
 
 typedef struct dda_step
@@ -138,11 +138,6 @@ void cast_rays(t_data *data);
 int get_textures(t_data *data);
 void render_tex_col(t_data *data, t_ray *ray, int x);
 void update_player(t_data *data);
-
-//=======================================================================
-//                             parsing                                 //
-//=======================================================================
-
 void    ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
 char *get_next_line(int fd, t_addr **addr);

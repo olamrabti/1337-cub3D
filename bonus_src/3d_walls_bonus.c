@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:50:18 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 23:52:13 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/03 03:37:10 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void delete_textures(t_data *data)
 		mlx_delete_texture(data->tx[3]);
 }
 
-void	texture_ppx(t_data *data, double x, double y, t_ray *ray, \
-	double wall_height)
+void	texture_ppx(t_data *data, double x, double y, t_ray *ray)
 {
 	unsigned int	rel_x;
 	unsigned int	rel_y;
@@ -53,7 +52,7 @@ void	texture_ppx(t_data *data, double x, double y, t_ray *ray, \
 	if (ray->direction == NORTH || ray->direction == SOUTH)
 		rel_x = (fmod(ray->end_x, TILE_SIZE) / TILE_SIZE) * \
 			data->tx[ray->direction]->width;
-	rel_y = ((y - (HEIGHT / 2) + (wall_height / 2)) / wall_height) * \
+	rel_y = ((y - (HEIGHT / 2) + (ray->wall_height / 2)) / ray->wall_height) * \
 		data->tx[ray->direction]->height;
 	if (rel_x < 0 || rel_x >= data->tx[ray->direction]->width || \
 		rel_y < 0 || rel_y >= data->tx[ray->direction]->height)
@@ -100,12 +99,13 @@ void	render_tex_col(t_data *data, t_ray *ray, int x)
 
 	scale = 16;
 	wall_height = ((HEIGHT / ray->distance) * scale);
+	ray->wall_height = wall_height;
 	wall_top = (HEIGHT / 2) - (wall_height / 2);
 	wall_bottom = wall_top + wall_height;
 	render_r_and_c(data, wall_top, wall_bottom, x);
 	while (wall_top < wall_bottom)
 	{
-		texture_ppx(data, x, wall_top, ray, wall_height);
+		texture_ppx(data, x, wall_top, ray);
 		wall_top++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:12:50 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/03 02:50:37 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/03 03:41:11 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ void	update_player(t_data *data)
 
 void	ft_reset(t_data *data)
 {
-	if (data->player.walk_direction || data->player.turn_direction \
-		|| data->player.side_walk)
-		update_player(data);
 	data->player.walk_direction = 0;
 	data->player.turn_direction = 0;
 	data->player.side_walk = 0;
@@ -88,5 +85,8 @@ void	key_event_handler(void *arg)
 		data->player.side_walk = -1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		data->player.side_walk = 1;
+	if (data->player.walk_direction || data->player.turn_direction \
+		|| data->player.side_walk)
+		update_player(data);
 	ft_reset(data);
 }

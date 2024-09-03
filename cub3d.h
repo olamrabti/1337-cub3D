@@ -16,7 +16,6 @@
 #define WIDTH 1080
 #define HEIGHT 1080
 #define TILE_SIZE 30
-
 #define ERROR 1
 #define SUCCESS 0
 #define NORTH 0
@@ -24,10 +23,8 @@
 #define WEST 2
 #define EAST 3
 #define MOVE_SPEED 2.0
-
 #define FOV_ANGL 1.0472
 #define ROTATE 0.03926990816
-#define ROT_FASTER 0.06283185307
 
 typedef struct s_map
 {
