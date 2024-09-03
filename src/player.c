@@ -28,10 +28,11 @@ void	ft_get_next_pos(t_data *data)
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-	if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y))
+	if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y) && !is_wall(data, tmp_x, tmp_y - 3) && !is_wall(data, tmp_x, tmp_y + 3))
+	{
 		data->player.x = tmp_x;
-	if (!is_wall(data, tmp_x, tmp_y - 3) && !is_wall(data, tmp_x, tmp_y + 3))
 		data->player.y = tmp_y;
+	}
 }
 
 void	update_player(t_data *data)
