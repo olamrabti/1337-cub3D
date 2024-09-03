@@ -2,7 +2,7 @@ NAME = cub3D
 
 NAME_BONUS = cub3D_bonus
 
-HEADERS = cub3d.h cub3d.h Libft/libft.h
+HEADERS = cub3d.h  Libft/libft.h /bonus_src/cub3d_bonus.h MLX42.h
 
 CC = cc -Wall -Werror -Wextra  -Ofast -g #-fsanitize=address
 
@@ -98,7 +98,7 @@ OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
 
-%.o: %.c $(HEADERS) /bonus_src/cub3d_bonus.h
+%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 OBJS_BONUS = $(SRC_BONUS:.c=.o) $(LIBFT_SRC:.c=.o)

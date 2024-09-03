@@ -8,3 +8,6 @@
 // [ ] allow window resize
 // [ ] check mlx file to push
 // [ ] test leaaks again
+
+// [ ] fix relink
+// [x] leaks

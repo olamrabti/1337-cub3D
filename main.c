@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 15:08:59 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/03 02:59:50 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_player(t_data *data)
 
 int	init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (!data->mlx)
 		return (ERROR);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
@@ -46,11 +46,17 @@ int	init_mlx(t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_clean_exit(t_data *data)
+int	ft_clean_exit(t_data *data, t_map *map)
 {
 	ft_addrclear(&data->addr, free);
 	free(data);
+	free(map);
 	return (ERROR);
+}
+
+void f(void)
+{
+	system("leaks cub3D");
 }
 
 int	main(int ac, char **av)
@@ -65,25 +71,26 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_putstr_fd("Error\nmalloc\n", 2), ERROR);
 	addr = NULL;
-	map = safe_alloc(&data->addr, 1, sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	if (!map)
-		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data));
+		return (ft_putstr_fd("Error\nmalloc\n", 2), ft_clean_exit(data, map));
 	if (ft_parsing(av[1], &map, &addr) == ERROR)
-		return (ft_clean_exit(data));
+		return (ft_clean_exit(data, map));
 	data->map = map;
 	data->addr = addr;
 	if (init_player(data) != SUCCESS)
-		return (ft_clean_exit(data));
+		return (ft_clean_exit(data, map));
 	if (init_mlx(data) != SUCCESS)
 		return (ft_putstr_fd("Error\n MLX initialization\n", 2), \
-			ft_clean_exit(data));
+			ft_clean_exit(data, map));
 	if (!mlx_loop_hook(data->mlx, &key_event_handler, data))
 		return (ft_putstr_fd("Error\n MLX initialization\n", 2), \
-			ft_clean_exit(data));
+			ft_clean_exit(data, map));
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(data->mlx);
 	delete_textures(data);
 	mlx_terminate(data->mlx);
-	ft_clean_exit(data);
+	ft_clean_exit(data, map);
+	atexit(f);
 	return (SUCCESS);
 }
