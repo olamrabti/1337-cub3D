@@ -23,8 +23,6 @@
 #define WEST 2
 #define EAST 3
 #define MOVE_SPEED 2.0
-#define FOV_ANGL 1.0472
-#define ROTATE 0.03926990816
 
 typedef struct s_map
 {

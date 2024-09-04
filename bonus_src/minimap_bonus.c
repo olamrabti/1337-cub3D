@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:04:28 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 11:11:54 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:56:07 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	draw_view(t_data *data)
 	double	end_angle;
 	int		r;
 
-	start_angle = normalize_angle(data->player.rotation_angle - (M_PI / 6));
-	end_angle = start_angle + (M_PI / 3);
+	start_angle = normalize_angle(data->player.rotation_angle - (M_PI / 4));
+	end_angle = start_angle + (M_PI / 2);
 	while (start_angle <= end_angle)
 	{
 		r = 5;

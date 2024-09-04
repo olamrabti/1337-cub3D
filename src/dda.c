@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:25:22 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 11:31:17 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:11:25 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,9 @@ void	cast_rays(t_data *data)
 	i = 0;
 	ray.direction = 0;
 	angle_incr = (M_PI / 3) / WIDTH;
+	printf("%.5f\n", angle_incr);
+	exit(0);
 	ray.angle = normalize_angle(data->player.rotation_angle - (M_PI / 6));
-	data->player.close_to_wall = 0;
 	data->player.animation_area = 0;
 	while (i < WIDTH)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:12:50 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/03 03:41:11 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:52:08 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@ void ft_get_next_pos(t_data *data)
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-	if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y))
+	if (!is_wall(data, tmp_x - 3, tmp_y - 3) &&
+		!is_wall(data, tmp_x + 3, tmp_y + 3) &&
+		!is_wall(data, tmp_x - 3, tmp_y + 3) &&
+		!is_wall(data, tmp_x + 3, tmp_y - 3))
+	{
 		data->player.x = tmp_x;
-	if (!is_wall(data, tmp_x, tmp_y - 3) && !is_wall(data, tmp_x, tmp_y + 3))
 		data->player.y = tmp_y;
+	}
+	// if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y))
+	// 	data->player.x = tmp_x;
+	// if (!is_wall(data, tmp_x, tmp_y - 3) && !is_wall(data, tmp_x, tmp_y + 3))
+	// 	data->player.y = tmp_y;
 }
 
 void	update_player(t_data *data)

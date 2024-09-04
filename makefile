@@ -2,11 +2,13 @@ NAME = cub3D
 
 NAME_BONUS = cub3D_bonus
 
-HEADERS = cub3d.h  Libft/libft.h /bonus_src/cub3d_bonus.h MLX42.h
+HEADERS = cub3d.h Libft/libft.h MLX42.h
 
-CC = cc -Wall -Werror -Wextra #-Ofast -g #-fsanitize=address
+HEADERS_BONUS = /bonus_src/cub3d_bonus.h Libft/libft.h MLX42.h
 
-MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib" #libmlx.a should not be included in files it should be made during make.
+CC = cc -Wall -Werror -Wextra -Ofast
+
+MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
 
 SRC = main.c\
 		get_next_line/get_next_line.c\
@@ -99,6 +101,9 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
 
 %.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+%_bonus.o: %_bonus.c $(HEADERS_BONUS) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
 OBJS_BONUS = $(SRC_BONUS:.c=.o) $(LIBFT_SRC:.c=.o)
