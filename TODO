@@ -10,8 +10,6 @@
 TODAY'S TODOS :
 
 // [ ] refactor mandatory code , logic stays untouchable.
-    // moved is_wall from drawing utils to dda_utils
-    // Error handling in main and mlx init
 // [ ] refactor bonus code , logic stays untouchable.
 
 // [ ] norm, prepare maps and textures for testing . (oumimoun)
