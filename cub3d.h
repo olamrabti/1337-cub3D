@@ -5,9 +5,11 @@
 #define BUFFER_SIZE 1
 #endif
 
+
+
+
 #include "MLX42.h"
 #include <unistd.h>
-#include "./Libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -156,5 +158,22 @@ int ft_read_map_lines(int fd, char **single_line_vars, t_addr **addr);
 int ft_only_ones(char *str);
 int ft_start_with_one(t_map **map);
 int ft_parse_map_variables(char *map_path, t_map **map, t_addr **addr);
+
+
+
+void	ft_putstr_fd(char *s, int fd);
+void	ft_bzero(void *s, size_t n);
+int	ft_strncmp(char *s1, char *s2, unsigned int n);
+int	ft_strlen(const char *str);
+int	ft_isdigit(int c);
+int	ft_atoi(char *str);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+size_t	ft_strlcpy(char *dest, char *src, size_t size);
+void	*ft_memset(void *ptr, int value, size_t num);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t len);
+
+char	*ft_strchr(const char *str, int c);
+
 
 #endif

@@ -5,9 +5,9 @@
 #  define BUFFER_SIZE 1
 # endif
 
+
 # include "../MLX42.h"
 # include <unistd.h>
-# include "../Libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -178,6 +178,21 @@ void	draw_view(t_data *data);
 void	draw_circle(mlx_image_t *img);
 
 void delete_textures(t_data *data);
+
+
+void	ft_putstr_fd(char *s, int fd);
+void	ft_bzero(void *s, size_t n);
+int	ft_strncmp(char *s1, char *s2, unsigned int n);
+int	ft_strlen(const char *str);
+int	ft_isdigit(int c);
+int	ft_atoi(char *str);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+size_t	ft_strlcpy(char *dest, char *src, size_t size);
+void	*ft_memset(void *ptr, int value, size_t num);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t len);
+
+char	*ft_strchr(const char *str, int c);
 
 
 #endif

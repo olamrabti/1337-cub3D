@@ -22,3 +22,6 @@ TODAY'S TODOS :
     // distortion effect (tldr).
     // AWSD keys and mouse 
     // texture and why we scale wallheight
+
+
+// [ ] check atoi overflow
