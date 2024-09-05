@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:29:01 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 10:14:17 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:25:31 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	update_player(t_data *data)
 	double	rot_speed;
 
 	factor = 1000.0 / (1.0 + data->player.close_to_wall);
-	// rot_speed = (((2 * M_PI) / 160) / (factor));
-	// if (rot_speed > ((2 * M_PI) / 160))
-	// 	data->player.rotation_angle += data->player.turn_direction * rot_speed;
-	// else
-	// {
+	rot_speed = (((2 * M_PI) / 160) / (factor));
+	if (rot_speed > ((2 * M_PI) / 160))
+		data->player.rotation_angle += data->player.turn_direction * rot_speed;
+	else
+	{
 		rot_speed = ((2 * M_PI) / 100);
 		data->player.rotation_angle += data->player.turn_direction * rot_speed;
-	// }
+	}
 	ft_get_next_pos(data);
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
 	cast_rays(data);

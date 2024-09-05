@@ -133,6 +133,7 @@ int is_up(double angle);
 int is_right(double angle);
 double get_distance(t_data *data, double x, double y);
 int is_wall(t_data *data, double x, double y);
+int is_wall_p(t_data *data, double p_x, double p_y);
 void key_event_handler(void *arg);
 void cast_rays(t_data *data);
 int get_textures(t_data *data);

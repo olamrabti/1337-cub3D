@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:12:50 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/04 17:52:08 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:20:37 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,18 @@ void ft_get_next_pos(t_data *data)
 	double tmp_y;
 	double step;
 
-	if (data->player.animation_area < 5)
-	{
-		data->player.x += cos(data->player.rotation_angle) * (-0.2);
-		data->player.y += sin(data->player.rotation_angle) * (-0.2);
-	}
 	step = data->player.walk_direction * MOVE_SPEED;
+
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
+
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-	if (!is_wall(data, tmp_x - 3, tmp_y - 3) &&
-		!is_wall(data, tmp_x + 3, tmp_y + 3) &&
-		!is_wall(data, tmp_x - 3, tmp_y + 3) &&
-		!is_wall(data, tmp_x + 3, tmp_y - 3))
-	{
+
+	if (!is_wall_p(data, tmp_x, data->player.y))
 		data->player.x = tmp_x;
+	if (!is_wall_p(data, data->player.x, tmp_y))
 		data->player.y = tmp_y;
-	}
-	// if (!is_wall(data, tmp_x - 3, tmp_y) && !is_wall(data, tmp_x + 3, tmp_y))
-	// 	data->player.x = tmp_x;
-	// if (!is_wall(data, tmp_x, tmp_y - 3) && !is_wall(data, tmp_x, tmp_y + 3))
-	// 	data->player.y = tmp_y;
 }
 
 void	update_player(t_data *data)
