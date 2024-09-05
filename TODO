@@ -1,10 +1,26 @@
-// [ ] main in bonus 
-// [ ] double check all protections 
+
 // [x] test parsing to avoid any unexpected unhandeled edge case
-// [ ] Makefile and files revision
 // [ ] maybe remove unused files from libft
-// [X] allow window resize
-// [ ] check mlx file to push
+// [x] allow window resize
+// [x] check mlx file to push
 
 // [ ] fix relink
 // [x] leaks
+
+TODAY'S TODOS :
+
+// [ ] refactor mandatory code , logic stays untouchable.
+    // moved is_wall from drawing utils to dda_utils
+    // Error handling in main and mlx init
+// [ ] refactor bonus code , logic stays untouchable.
+
+// [ ] norm, prepare maps and textures for testing . (oumimoun)
+// [ ] Makefile and files revision (oumimoun)
+
+
+// TO revise : 
+    // HOW MLX works and why new MLX choice ( hooks , mlx loop ...)
+    // how dda works 
+    // distortion effect (tldr).
+    // AWSD keys and mouse 
+    // texture and why we scale wallheight

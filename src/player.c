@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:29:01 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 10:25:31 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:36:54 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_get_next_pos(t_data *data)
 	double	tmp_y;
 	double	step;
 	
-
 	step = data->player.walk_direction * MOVE_SPEED;
 	
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
@@ -32,7 +31,6 @@ void	ft_get_next_pos(t_data *data)
 	if (!is_wall_p(data, data->player.x, tmp_y))
 		data->player.y = tmp_y;
 }
-
 
 void	update_player(t_data *data)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:21:20 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 02:23:35 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:39:12 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int ft_parsing(char *map_path, t_map **map, t_addr **addr)
 		return (ft_error(5), (ERROR));
 	if (ft_split_map(map, addr) == ERROR)
 		return (ft_error(-1), (ERROR));
-	printf("here\n");
 	if (ft_parsing_suite(map, addr) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
