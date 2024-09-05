@@ -122,6 +122,7 @@ int get_rgba(int r, int g, int b, int a);
 int is_up(double angle);
 int is_right(double angle);
 int is_wall(t_data *data, double x, double y);
+int is_wall_p(t_data *data, double p_x, double p_y);
 int get_textures(t_data *data);
 int add_addr(t_addr **list, t_addr *new);
 

@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:29:01 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/04 17:58:01 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:14:17 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,22 @@ void	ft_get_next_pos(t_data *data)
 	double	tmp_x;
 	double	tmp_y;
 	double	step;
+	
 
-	if (data->player.animation_area < 5)
-	{
-		data->player.x += cos(data->player.rotation_angle) * (-0.2);
-		data->player.y += sin(data->player.rotation_angle) * (-0.2);
-	}
 	step = data->player.walk_direction * MOVE_SPEED;
+	
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
+
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-	if (!is_wall(data, tmp_x - 3, tmp_y - 3) &&
-		!is_wall(data, tmp_x + 3, tmp_y + 3) &&
-		!is_wall(data, tmp_x - 3, tmp_y + 3) &&
-		!is_wall(data, tmp_x + 3, tmp_y - 3))
-	{
+	
+	if (!is_wall_p(data, tmp_x, data->player.y))
 		data->player.x = tmp_x;
+	if (!is_wall_p(data, data->player.x, tmp_y))
 		data->player.y = tmp_y;
-	}
 }
+
 
 void	update_player(t_data *data)
 {
@@ -44,14 +40,14 @@ void	update_player(t_data *data)
 	double	rot_speed;
 
 	factor = 1000.0 / (1.0 + data->player.close_to_wall);
-	rot_speed = (((2 * M_PI) / 160) / (factor));
-	if (rot_speed > ((2 * M_PI) / 160))
-		data->player.rotation_angle += data->player.turn_direction * rot_speed;
-	else
-	{
+	// rot_speed = (((2 * M_PI) / 160) / (factor));
+	// if (rot_speed > ((2 * M_PI) / 160))
+	// 	data->player.rotation_angle += data->player.turn_direction * rot_speed;
+	// else
+	// {
 		rot_speed = ((2 * M_PI) / 100);
 		data->player.rotation_angle += data->player.turn_direction * rot_speed;
-	}
+	// }
 	ft_get_next_pos(data);
 	clear_screen(data->img, get_rgba(0, 0, 0, 255));
 	cast_rays(data);
@@ -67,10 +63,8 @@ void	ft_reset(t_data *data)
 void	key_event_handler(void *arg)
 {
 	t_data	*data;
-	int		backward;
 
 	data = arg;
-	backward = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
