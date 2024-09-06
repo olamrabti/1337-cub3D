@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:04:28 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/06 11:09:05 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:47:41 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	cast_rays(t_data *data);
 void	render_tex_col(t_data *data, t_ray *ray, int x);
 void	update_player(t_data *data);
 void	ft_animation(t_data *data, int x, int y);
-void	ft_error(int i);
 void	delete_textures(t_data *data);
+int		ft_error(int i);
 int		get_rgba(int r, int g, int b, int a);
 int		is_up(double angle);
 int		is_right(double angle);

@@ -3,35 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   start_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:21:20 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 10:39:12 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:12:48 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void ft_error(int i)
+int ft_error(int i)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (i == 1)
-		ft_putstr_fd("Wrong path\n", 2);
+		return ft_putstr_fd("Wrong path\n", 2) , exit(ERROR), 1;
 	if (i == 2)
-		ft_putstr_fd("Wrong map parameters\n", 2);
+		return ft_putstr_fd("Map should end with .cub\n", 2) , exit(ERROR), 1;
 	if (i == 3)
-		ft_putstr_fd("Missing variables\n", 2);
-	if (i == 4)
-		ft_putstr_fd("Duplicated variables\n", 2);
-	if (i == 5)
-		ft_putstr_fd("Wrong color parametres\n", 2);
-	if (i == 6)
-		ft_putstr_fd("Map contains tabs\n", 2);
-	if (i == 7)
-		ft_putstr_fd("Wrong player direction\n", 2);
-	if (i == 8)
-		ft_putstr_fd("Map is not valid\n", 2);
-	exit(ERROR);
+		return ft_putstr_fd("Name of variables isn't valide\n", 2), exit(ERROR), 1;
+	
+	
+		
+
+	// if (i == )
+	// 	return ft_putstr_fd("Wrong map parameters\n", 2) , exit(ERROR), 1;
+	// if (i == )
+	// 	return ft_putstr_fd("Missing variables\n", 2) , exit(ERROR), 1;
+	// if (i == )
+	// 	return ft_putstr_fd("Duplicated variables\n", 2) , exit(ERROR), 1;
+	// if (i == )
+	// 	return ft_putstr_fd("Wrong color parametres\n", 2) , exit(ERROR), 1;
+	// if (i == )
+	// 	return ft_putstr_fd("Map contains tabs\n", 2) , exit(ERROR), 1;
+	// if (i == )
+	// 	return ft_putstr_fd("Wrong player direction\n", 2) , exit(ERROR), 1;
+	// if (i == 8)
+	// 	return ft_putstr_fd("Map is not valid\n", 2) , exit(ERROR), 1;
+	return 0;
+	
 }
 
 int ft_parsing_suite(t_map **map , t_addr **addr)
