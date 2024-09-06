@@ -6,26 +6,46 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:29:01 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 10:36:54 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:33:55 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	is_wall_p(t_data *data, double p_x, double p_y)
+{
+	double	x;
+	double	y;
+	int		radius;
+
+	radius = 4;
+	x = p_x - radius;
+	while (x <= p_x + radius)
+	{
+		y = p_y - radius;
+		while (y <= p_y + radius)
+		{
+			if (pow(x - p_x, 2) + pow(y - p_y, 2) <= pow(radius, 2))
+				if (is_wall(data, x, y))
+					return (1);
+			y++;
+		}
+		x++;
+	}
+	return (0);
+}
 
 void	ft_get_next_pos(t_data *data)
 {
 	double	tmp_x;
 	double	tmp_y;
 	double	step;
-	
+
 	step = data->player.walk_direction * MOVE_SPEED;
-	
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
-
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-	
 	if (!is_wall_p(data, tmp_x, data->player.y))
 		data->player.x = tmp_x;
 	if (!is_wall_p(data, data->player.x, tmp_y))

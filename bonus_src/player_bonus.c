@@ -6,26 +6,23 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:12:50 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 10:20:37 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:45:03 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void ft_get_next_pos(t_data *data)
+void	ft_get_next_pos(t_data *data)
 {
-	double tmp_x;
-	double tmp_y;
-	double step;
+	double	tmp_x;
+	double	tmp_y;
+	double	step;
 
 	step = data->player.walk_direction * MOVE_SPEED;
-
 	tmp_x = data->player.x + cos(data->player.rotation_angle) * step;
 	tmp_y = data->player.y + sin(data->player.rotation_angle) * step;
-
 	tmp_x += cos(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
 	tmp_y += sin(data->player.rotation_angle + M_PI_2) * data->player.side_walk;
-
 	if (!is_wall_p(data, tmp_x, data->player.y))
 		data->player.x = tmp_x;
 	if (!is_wall_p(data, data->player.x, tmp_y))
@@ -34,8 +31,8 @@ void ft_get_next_pos(t_data *data)
 
 void	update_player(t_data *data)
 {
-	double factor;
-	double rot_speed;
+	double	factor;
+	double	rot_speed;
 
 	factor = 1000.0 / (1.0 + data->player.close_to_wall);
 	rot_speed = (((2 * M_PI) / 160) / (factor));

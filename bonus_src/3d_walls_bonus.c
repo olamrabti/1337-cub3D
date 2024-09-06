@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_walls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:50:18 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/03 03:37:10 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:36:09 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	get_textures(t_data *data)
 	return (1);
 }
 
-void delete_textures(t_data *data)
+void	delete_textures(t_data *data)
 {
 	if (!data->tx)
-		return;
+		return ;
 	if (data->tx[0])
 		mlx_delete_texture(data->tx[0]);
 	if (data->tx[1])

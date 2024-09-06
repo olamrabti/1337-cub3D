@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:53:22 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/08/31 13:48:05 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:37:13 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	is_duplicate(t_addr *list, t_addr *node)
 	curr = list;
 	while (curr && curr != node)
 	{
-		// if (curr->address == node->address)
 		if (!ft_strcmp(curr->address, node->address))
 			return (1);
 		curr = curr->nxt;

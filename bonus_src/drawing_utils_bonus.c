@@ -6,7 +6,7 @@
 /*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:58:43 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 11:06:47 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:46:44 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int is_wall_p(t_data *data, double p_x, double p_y)
+int	is_wall_p(t_data *data, double p_x, double p_y)
 {
-	int radius;
-	double x;
-	double y;
+	double	x;
+	double	y;
+	int		radius;
 
 	radius = 4;
 	x = p_x - radius;
@@ -38,7 +38,7 @@ int is_wall_p(t_data *data, double p_x, double p_y)
 		{
 			if (pow(x - p_x, 2) + pow(y - p_y, 2) <= pow(radius, 2))
 				if (is_wall(data, x, y))
-					return 1;
+					return (1);
 			y++;
 		}
 		x++;

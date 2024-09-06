@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:01:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 13:02:51 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:45:50 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-
 
 void	ft_mouse(double x, double y, void *param)
 {
@@ -51,7 +49,7 @@ int	init_player(t_data *data)
 	else if (data->map->player_direction == 'W')
 		data->player.rotation_angle = M_PI;
 	if (!get_textures(data))
-		return (delete_textures(data) , ERROR);
+		return (delete_textures(data), ERROR);
 	return (SUCCESS);
 }
 
@@ -108,7 +106,7 @@ int	main(int ac, char **av)
 	if (init_player(data) != SUCCESS)
 		return (ft_clean_exit(data, map));
 	if (init_mlx(data) != SUCCESS)
-		return (delete_textures(data) , ft_clean_exit(data, map));
+		return (delete_textures(data), ft_clean_exit(data, map));
 	delete_textures(data);
 	mlx_terminate(data->mlx);
 	return (ft_clean_exit(data, map), SUCCESS);

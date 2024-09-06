@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   address_collector_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:53:12 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 22:25:40 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:36:55 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void *safe_alloc(t_addr **addr, size_t count, size_t size)
+void	*safe_alloc(t_addr **addr, size_t count, size_t size)
 {
-	char *copy;
+	char	*copy;
 
 	if (count != 0 && size > 9223372036854775807ULL / count)
 		return (NULL);
@@ -26,9 +26,9 @@ void *safe_alloc(t_addr **addr, size_t count, size_t size)
 	return (copy);
 }
 
-t_addr *new_addr(void *value)
+t_addr	*new_addr(void *value)
 {
-	t_addr *node;
+	t_addr	*node;
 
 	node = malloc(sizeof(t_addr));
 	if (!node)
@@ -38,9 +38,9 @@ t_addr *new_addr(void *value)
 	return (node);
 }
 
-int add_addr(t_addr **list, t_addr *new)
+int	add_addr(t_addr **list, t_addr *new)
 {
-	t_addr *temp;
+	t_addr	*temp;
 
 	if (!list || !new)
 		return (1);

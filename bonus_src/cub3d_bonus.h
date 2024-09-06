@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/06 10:54:34 by olamrabt          #+#    #+#             */
+/*   Updated: 2024/09/06 10:54:35 by olamrabt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
-
 
 # include "../MLX42.h"
 # include <unistd.h>
@@ -75,7 +86,7 @@ typedef struct ray
 	double	angle;
 	double	distance;
 	int		direction;
-	double wall_height;
+	double	wall_height;
 }	t_ray;
 
 typedef struct dda_step
@@ -120,79 +131,72 @@ typedef struct s_data
 
 }	t_data;
 
-int		add_addr(t_addr **list, t_addr *new);
+char	**ft_split(char const *s, char c, t_addr **addr);
+double	get_distance(t_data *data, double x, double y);
+double	normalize_angle(double angle);
 void	*safe_alloc(t_addr **addr, size_t count, size_t size);
 t_addr	*new_addr(void *value);
 void	ft_addrclear(t_addr **lst, void (*del)(void *));
-int get_rgba(int r, int g, int b, int a);
-void protected_ppx(mlx_image_t *img, int x, int y, int color);
-void clear_screen(mlx_image_t *img, int color);
-void draw_map(t_data *data);
-double normalize_angle(double angle);
-int is_up(double angle);
-int is_right(double angle);
-double get_distance(t_data *data, double x, double y);
-int is_wall(t_data *data, double x, double y);
-int is_wall_p(t_data *data, double p_x, double p_y);
-void key_event_handler(void *arg);
-void cast_rays(t_data *data);
-int get_textures(t_data *data);
-void render_tex_col(t_data *data, t_ray *ray, int x);
-void update_player(t_data *data);
-void    ft_error(int i);
+void	protected_ppx(mlx_image_t *img, int x, int y, int color);
+void	clear_screen(mlx_image_t *img, int color);
+void	draw_map(t_data *data);
+int		add_addr(t_addr **list, t_addr *new);
+int		is_up(double angle);
+int		is_right(double angle);
+int		is_wall(t_data *data, double x, double y);
+int		is_wall_p(t_data *data, double p_x, double p_y);
+int		get_rgba(int r, int g, int b, int a);
+void	key_event_handler(void *arg);
+void	cast_rays(t_data *data);
+void	render_tex_col(t_data *data, t_ray *ray, int x);
+void	update_player(t_data *data);
+void	ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
-char *get_next_line(int fd, t_addr **addr);
-int ft_parsing(char *map_path, t_map **map, t_addr **addr);
-int ft_strcmp(const char *s1, const char *s2);
-int	ft_parsing_map(char *map_path, t_map **map, t_addr **addr);
-int	ft_save_vars(char *map_path, t_map **map, t_addr **addr);
-int	ft_check_vars(t_map **map, t_addr **addr);
-int	ft_save_player_pos(t_map **map);
+char	*get_next_line(int fd, t_addr **addr);
 char	*ft_bring_map(int fd, t_addr **addr);
-char	**ft_split(char const *s, char c, t_addr **addr);
-int	ft_has_tabs(t_map **map);
-int	ft_split_map(t_map **map, t_addr **addr);
 char	*gc_substr(char *s, unsigned int start, size_t len, t_addr **addr);
 char	*gc_strdup(const char *s, t_addr **addr);
 char	*gc_strjoin(char *s1, char *s2, t_addr **addr);
-int	ft_check_players(t_map **map);
-int	ft_fill_map_dimension(t_map **map);
-int ft_double_check_vars(t_map **map);
-int ft_fill_map_with_sp(t_map **map, t_addr **addr);
-void ft_animation(t_data *data, int x, int y);
-int	ft_stores_f_c(t_map **map, t_addr **addr);
-int ft_valide_wall_direction(char *line);
-int ft_parse_map_path(char *map_path);
-int ft_check_zero_surroundings(char **map, int i, int j);
-int ft_valide_map(t_map **map);
-int	ft_read_map_lines(int fd, char **single_line_vars, t_addr **addr);
-int ft_only_ones(char *str);
-int	ft_start_with_one(t_map **map);
-int	ft_parse_map_variables(char *map_path, t_map **map, t_addr **addr);
-
+int		get_textures(t_data *data);
+int		ft_parsing(char *map_path, t_map **map, t_addr **addr);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_parsing_map(char *map_path, t_map **map, t_addr **addr);
+int		ft_save_vars(char *map_path, t_map **map, t_addr **addr);
+int		ft_check_vars(t_map **map, t_addr **addr);
+int		ft_save_player_pos(t_map **map);
+int		ft_split_map(t_map **map, t_addr **addr);
+int		ft_has_tabs(t_map **map);
+int		ft_check_players(t_map **map);
+int		ft_fill_map_dimension(t_map **map);
+int		ft_double_check_vars(t_map **map);
+int		ft_fill_map_with_sp(t_map **map, t_addr **addr);
+int		ft_stores_f_c(t_map **map, t_addr **addr);
+int		ft_valide_wall_direction(char *line);
+int		ft_parse_map_path(char *map_path);
+int		ft_check_zero_surroundings(char **map, int i, int j);
+int		ft_valide_map(t_map **map);
+int		ft_read_map_lines(int fd, char **single_line_vars, t_addr **addr);
+int		ft_only_ones(char *str);
+int		ft_start_with_one(t_map **map);
+int		ft_parse_map_variables(char *map_path, t_map **map, t_addr **addr);
+void	ft_animation(t_data *data, int x, int y);
 void	clear_minimap(mlx_image_t *img, int color);
 void	protected_mppx(mlx_image_t *img, int x, int y, int color);
-
+int		ft_strncmp(char *s1, char *s2, unsigned int n);
+int		ft_strlen(const char *str);
+int		ft_isdigit(int c);
+int		ft_atoi(char *str);
 void	mini_map(t_data *data);
 void	draw_view(t_data *data);
 void	draw_circle(mlx_image_t *img);
-
-void delete_textures(t_data *data);
-
-
+void	delete_textures(t_data *data);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_bzero(void *s, size_t n);
-int	ft_strncmp(char *s1, char *s2, unsigned int n);
-int	ft_strlen(const char *str);
-int	ft_isdigit(int c);
-int	ft_atoi(char *str);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 size_t	ft_strlcpy(char *dest, char *src, size_t size);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	*ft_strchr(const char *str, int c);
 void	*ft_memset(void *ptr, int value, size_t num);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t len);
-
-char	*ft_strchr(const char *str, int c);
-
 
 #endif

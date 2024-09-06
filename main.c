@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 13:05:13 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:02:09 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,12 @@ int	ft_clean_exit(t_data *data, t_map *map)
 	return (ERROR);
 }
 
-void f()
-{
-	system("leaks cub3D");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	*data;
 	t_map	*map;
 	t_addr	*addr;
 
-	atexit(f);
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), ERROR);
 	data = malloc(sizeof(t_data));
@@ -86,8 +80,8 @@ int	main(int ac, char **av)
 	if (init_player(data) != SUCCESS)
 		return (ft_clean_exit(data, map));
 	if (init_mlx(data) != SUCCESS)
-		return (delete_textures(data) , ft_clean_exit(data, map));
+		return (delete_textures(data), ft_clean_exit(data, map));
 	delete_textures(data);
 	mlx_terminate(data->mlx);
-	return (ft_clean_exit(data, map) ,SUCCESS);
+	return (ft_clean_exit(data, map), SUCCESS);
 }
