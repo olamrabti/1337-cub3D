@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:54:34 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/06 10:54:35 by olamrabt         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:57:31 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void	key_event_handler(void *arg);
 void	cast_rays(t_data *data);
 void	render_tex_col(t_data *data, t_ray *ray, int x);
 void	update_player(t_data *data);
-void	ft_error(int i);
 char	*gc_itoa(int n, t_addr **addr);
 char	*get_next_line(int fd, t_addr **addr);
 char	*ft_bring_map(int fd, t_addr **addr);
@@ -158,6 +157,7 @@ char	*gc_substr(char *s, unsigned int start, size_t len, t_addr **addr);
 char	*gc_strdup(const char *s, t_addr **addr);
 char	*gc_strjoin(char *s1, char *s2, t_addr **addr);
 int		get_textures(t_data *data);
+int		ft_error(int i);
 int		ft_parsing(char *map_path, t_map **map, t_addr **addr);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_parsing_map(char *map_path, t_map **map, t_addr **addr);

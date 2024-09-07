@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:16:54 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 01:05:59 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:41:09 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_duplicated_vars(char *var, char *line)
 		next_pos = ft_strnstr(first_pos + var_len, var, \
 			ft_strlen(line) - (first_pos + var_len - line));
 		if (next_pos)
-			return (ERROR);
+			return (ft_error(12), (ERROR));
 	}
 	return (SUCCESS);
 }
@@ -33,7 +33,7 @@ int	ft_duplicated_vars(char *var, char *line)
 int	ft_missing_vars(char *var, char *line)
 {
 	if (ft_strnstr(line, var, ft_strlen(line)) == NULL)
-		return (ERROR);
+		return (ft_error(14), (ERROR));
 	return (SUCCESS);
 }
 

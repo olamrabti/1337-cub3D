@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:27:09 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 23:38:31 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:53:43 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int	ft_check_players(t_map **map)
 		}
 		i++;
 	}
-	if (count != 1)
-		return (ERROR);
+	if (count == 0)
+		return (ft_error(9), (ERROR));
+	if (count > 1)
+		return (ft_error(10), (ERROR));
 	return (SUCCESS);
 }
 

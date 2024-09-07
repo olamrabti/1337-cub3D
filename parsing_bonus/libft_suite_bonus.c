@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_suite.c                                      :+:      :+:    :+:   */
+/*   libft_suite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:09:29 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 12:10:07 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:53:23 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 size_t	ft_strlcpy(char *dest, char *src, size_t size)
 {

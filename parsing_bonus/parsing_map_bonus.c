@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:49:11 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/02 00:16:30 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:53:39 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int	ft_parsing_map(char *map_path, t_map **map, t_addr **addr)
 		line = get_next_line(fd, addr);
 	}
 	if (ft_check_random_chars(single_line_map) == ERROR)
-		return (ERROR);
+		return (ft_error(4), (ERROR));
 	if (ft_check_newlines(single_line_map) == ERROR)
-		return (ERROR);
+		return (ft_error(5), (ERROR));
 	(*map)->single_line_map = single_line_map;
 	close(fd);
 	return (SUCCESS);

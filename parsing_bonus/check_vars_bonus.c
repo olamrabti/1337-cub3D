@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:39:49 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/01 23:37:49 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:52:44 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int	ft_parse_color(char *str, t_addr **addr)
 		while (split[i])
 		{
 			if (ft_atoi(split[i]) > 255 || ft_atoi(split[i]) < 0)
-				return (ERROR);
+				return (ft_error(13), (ERROR));
 			i++;
 		}
 		if (i < 3)
-			return (ERROR);
+			return (ft_error(6), (ERROR));
 	}
 	else
-		return (ERROR);
+		return (ft_error(6), (ERROR));
 	return (SUCCESS);
 }
 

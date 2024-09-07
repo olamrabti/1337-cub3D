@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   libft_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:08:16 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/05 12:00:49 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:53:27 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -33,6 +33,7 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
+
 int	ft_strlen(const char *str)
 {
 	int	i;

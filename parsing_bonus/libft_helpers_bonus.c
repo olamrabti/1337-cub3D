@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_helpers.c                                    :+:      :+:    :+:   */
+/*   libft_helpers_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:01:28 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/05 12:10:18 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/07 10:53:19 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../bonus_src/cub3d_bonus.h"
 
 static int	check_overflow(int sign)
 {
