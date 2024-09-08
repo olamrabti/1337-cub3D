@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:39:49 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/07 10:52:44 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:59:46 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	ft_parse_color(char *str, t_addr **addr)
 		i = 0;
 		while (split[i])
 		{
+			if (ft_all_spaces(split[i]) == 1 || ft_strcmp(split[i], "") == 0)
+				return (ft_error(6), (ERROR));
 			if (ft_atoi(split[i]) > 255 || ft_atoi(split[i]) < 0)
 				return (ft_error(13), (ERROR));
 			i++;

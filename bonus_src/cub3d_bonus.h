@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:54:34 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/07 10:57:31 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:29:14 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void	clear_minimap(mlx_image_t *img, int color);
 void	protected_mppx(mlx_image_t *img, int x, int y, int color);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
 int		ft_strlen(const char *str);
+int		ft_all_spaces(char *str);
 int		ft_isdigit(int c);
 int		ft_atoi(char *str);
 void	mini_map(t_data *data);

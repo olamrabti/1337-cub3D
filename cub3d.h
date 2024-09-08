@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:04:28 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/06 17:47:41 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:23:44 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int		ft_strncmp(char *s1, char *s2, unsigned int n);
 int		ft_strlen(const char *str);
 int		ft_isdigit(int c);
 int		ft_atoi(char *str);
+int		ft_all_spaces(char *str);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strchr(const char *str, int c);
 size_t	ft_strlcpy(char *dest, char *src, size_t size);

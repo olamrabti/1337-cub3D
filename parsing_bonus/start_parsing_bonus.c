@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:21:20 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/07 10:53:54 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:16:02 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_error(int i)
 	if (i == 5)
 		return (ft_putstr_fd("Map contains newline\n", 2), exit(ERROR), 1);
 	if (i == 6)
-		return (ft_putstr_fd("Not a valide RGB\n", 2), exit(ERROR), 1);
+		return (ft_putstr_fd("Not a valid RGB\n", 2), exit(ERROR), 1);
 	if (i == 7)
 		return (ft_putstr_fd("Empty map\n", 2), exit(ERROR), 1);
 	if (i == 8)
