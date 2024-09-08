@@ -6,9 +6,11 @@ SO ./textures/wood_wall.png
 WE ./textures/metal_wall.png
 EA ./textures/green_wall.png
 
-        F      	8,   , 48
 
-C    	135, 206, 235
+ F     53, 69,      76
+
+
+C    135,  206, 235
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olamrabt <olamrabt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 04:16:46 by oumimoun          #+#    #+#             */
-/*   Updated: 2024/09/08 11:16:52 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:41:53 by olamrabt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	init_player(t_data *data)
 {
 	data->player.x = (data->map->player_x * TILE_SIZE) + (TILE_SIZE / 2);
 	data->player.y = (data->map->player_y * TILE_SIZE) + (TILE_SIZE / 2);
-	data->player.turn_direction = 1;
+	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
 	data->player.side_walk = 0;
 	data->player.close_to_wall = 0;
@@ -43,6 +43,7 @@ int	init_mlx(t_data *data)
 		return (ft_putstr_fd("Error\n Img Initialization Failed\n", 2), ERROR);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 		return (ft_putstr_fd("Error\n Img to Window Failed\n", 2), ERROR);
+	update_player(data);
 	if (!mlx_loop_hook(data->mlx, &key_event_handler, data))
 		return (ft_putstr_fd("Error\n MLX Hooks\n", 2), ERROR);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
