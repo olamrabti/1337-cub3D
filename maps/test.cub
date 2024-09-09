@@ -17,15 +17,15 @@ WE             textures/claywall3.png
 
             EA textures/claywall2.png
 
-F   0, 0, 0
+F   100   , 10, 200
 
-C   0, 0, 01
-
-
+C   15, 33   , 01
 
 
 
-111
-1N1
-111
+
+
+111111
+10N01
+11111
 

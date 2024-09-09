@@ -2,9 +2,9 @@ NAME = cub3D
 
 NAME_BONUS = cub3D_bonus
 
-HEADERS = cub3d.h Libft/libft.h MLX42.h
+HEADERS = cub3d.h MLX42.h
 
-HEADERS_BONUS = /bonus_src/cub3d_bonus.h Libft/libft.h MLX42.h
+HEADERS_BONUS = /bonus_src/cub3d_bonus.h MLX42.h
 
 CC = cc -Wall -Werror -Wextra -Ofast
 
