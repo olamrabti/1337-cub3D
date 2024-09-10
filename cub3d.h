@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:04:28 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/08 10:23:44 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:58:11 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# include "MLX42.h"
+# include "./MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>

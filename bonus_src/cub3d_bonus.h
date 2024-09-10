@@ -6,7 +6,7 @@
 /*   By: oumimoun <oumimoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:54:34 by olamrabt          #+#    #+#             */
-/*   Updated: 2024/09/08 10:29:14 by oumimoun         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:58:03 by oumimoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# include "../MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -35,7 +35,7 @@
 # define WEST 2
 # define EAST 3
 # define MOVE_SPEED 2.0
-# define FOV_ANGL 1.0472 
+# define FOV_ANGL 1.0472
 
 typedef struct s_map
 {

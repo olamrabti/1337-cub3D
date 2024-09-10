@@ -1,14 +1,11 @@
 NAME = cub3D
-
 NAME_BONUS = cub3D_bonus
-
-HEADERS = cub3d.h MLX42.h
-
-HEADERS_BONUS = /bonus_src/cub3d_bonus.h MLX42.h
-
-CC = cc -Wall -Werror -Wextra -Ofast
-
-MLX = libmlx42.a -Iinclude  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
+HEADERS = cub3d.h
+HEADERS_BONUS = bonus_src/cub3d_bonus.h
+CC = cc 
+FLAGS = -Wall -Werror -Wextra -Ofast
+MLX = MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
+BUILD = MLX42/build
 
 SRC = main.c\
 		get_next_line/get_next_line.c\
@@ -65,32 +62,36 @@ SRC_BONUS = bonus_src/main_bonus.c\
 		parsing_bonus/libft_helpers_bonus.c\
 		parsing_bonus/libft_suite_bonus.c\
 
+OBJS = $(SRC:.c=.o)
+OBJS_BONUS = $(SRC_BONUS:.c=.o)
 
-all : $(NAME) 
+all : $(BUILD) $(NAME)
 
-OBJS = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o)
+bonus: $(BUILD) $(NAME_BONUS)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(MLX) -o $(NAME)
 
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD):
+	@if [ ! -d MLX42/build ]; then \
+		(cd MLX42 && cmake -B build);\
+	fi
+	@make -C MLX42/build
 
 %_bonus.o: %_bonus.c $(HEADERS_BONUS) 
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
-OBJS_BONUS = $(SRC_BONUS:.c=.o) $(LIBFT_SRC:.c=.o)
-
-bonus: $(NAME_BONUS)
+%.o: %.c $(HEADERS)
+	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME_BONUS): $(OBJS_BONUS)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(MLX) -o $(NAME_BONUS)
+	$(CC) $(FLAGS) $(OBJS_BONUS) $(MLX) -o $(NAME_BONUS)
 
 clean :
 	@rm -f $(OBJS) $(OBJS_BONUS)
 
-
 fclean : clean
 	@rm -f $(NAME) $(NAME_BONUS)
+	@rm -rf MLX42/build
 
 re : fclean all
