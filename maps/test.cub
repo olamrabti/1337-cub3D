@@ -18,6 +18,8 @@ WE             textures/claywall3.png
             EA textures/claywall2.png
 
 F   100   , 10, 200
+ F     169, 161,          140
+
 
 C   15, 33   , 01
 
